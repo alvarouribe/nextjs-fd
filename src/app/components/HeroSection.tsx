@@ -4,6 +4,8 @@ import { useState } from 'react'
 import { Dialog, DialogPanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
+import { usePathname } from "next/navigation";
+import clsx from 'clsx'
 
 const navigation = [
   { name: 'Home', href: '/' },
@@ -11,6 +13,7 @@ const navigation = [
 ]
 
 export default function HeroSection() {
+  const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
@@ -41,7 +44,13 @@ export default function HeroSection() {
           </div>
           <div className="hidden lg:flex lg:gap-x-12">
             {navigation.map((item) => (
-              <a key={item.name} href={item.href} className="text-sm/6 font-semibold text-white">
+              <a
+                key={item.name}
+                href={item.href}
+                className={clsx(
+                  "text-sm/6 font-semibold text-white",
+                  { 'underline text-purple-600': pathname === item.href, }
+                )}>
                 {item.name}
               </a>
             ))}
