@@ -73,6 +73,9 @@ const navigation = {
 }
 
 export default function FooterSection() {
+  const fullYear = new Date().getFullYear();
+  const company = 'Flyingdolly.co.nz';
+
   return (
     <footer className="bg-gray-900">
       <div className="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8">
@@ -91,7 +94,7 @@ export default function FooterSection() {
             </a>
           ))}
         </div>
-        <p className="mt-10 text-center text-sm/6 text-gray-400">&copy; 2024 Your Company, Inc. All rights reserved.</p>
+        <p className="mt-10 text-center text-sm/6 text-gray-400">&copy; {fullYear} {company} limited. All rights reserved.</p>
       </div>
     </footer>
   )
