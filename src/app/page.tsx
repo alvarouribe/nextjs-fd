@@ -3,9 +3,9 @@ import FooterSection from "./components/FooterSection";
 
 export default function Home() {
   return (
-    <div>
+    <>
       <HeroSection />
       <FooterSection />
-    </div>
+    </>
   );
 }
