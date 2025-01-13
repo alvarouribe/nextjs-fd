@@ -48,7 +48,7 @@ export default function HeroSection() {
                 href={item.href}
                 className={clsx(
                   "text-sm/6 font-semibold text-white",
-                  { 'underline text-purple-600': pathname === item.href, }
+                  { 'text-purple-600': pathname === item.href, }
                 )}>
                 {item.name}
               </a>
