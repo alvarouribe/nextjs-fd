@@ -3,12 +3,11 @@
 import { useState } from 'react'
 import { Dialog, DialogPanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import Image from 'next/image'
 
 const navigation = [
-  { name: 'Product', href: '#' },
-  { name: 'Features', href: '#' },
-  { name: 'Marketplace', href: '#' },
-  { name: 'Company', href: '#' },
+  { name: 'Home', href: '/' },
+  { name: 'About', href: '/about' },
 ]
 
 export default function HeroSection() {
@@ -21,10 +20,12 @@ export default function HeroSection() {
           <div className="flex lg:flex-1">
             <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
-              <img
+              <Image
                 alt="FlyingDolly Logo"
                 src="/fd-logo.svg"
-                className="h-12 w-auto"
+                // className="h-12 w-auto"
+                width={120}
+                height={40}
               />
             </a>
           </div>
