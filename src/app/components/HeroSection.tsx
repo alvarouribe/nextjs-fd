@@ -16,6 +16,7 @@ export default function HeroSection() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const companyName = 'FlyingDolly.co.nz'
+
   return (
     <div className="bg-gray-900">
       <header className="absolute inset-x-0 top-0 z-50">
@@ -28,6 +29,7 @@ export default function HeroSection() {
                 src="/fd-logo.svg"
                 width={120}
                 height={40}
+                className="w-auto h-16"
               />
             </a>
           </div>
@@ -71,6 +73,7 @@ export default function HeroSection() {
                   src="/fd-logo.svg"
                   width={120}
                   height={40}
+                  className="w-auto h-16"
                 />
               </a>
               <button
