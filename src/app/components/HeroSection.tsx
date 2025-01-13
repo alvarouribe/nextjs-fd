@@ -15,18 +15,17 @@ const navigation = [
 export default function HeroSection() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-
+  const companyName = 'FlyingDolly.co.nz'
   return (
     <div className="bg-gray-900">
       <header className="absolute inset-x-0 top-0 z-50">
         <nav aria-label="Global" className="flex items-center justify-between p-6 lg:px-8">
           <div className="flex lg:flex-1">
             <a href="#" className="-m-1.5 p-1.5">
-              <span className="sr-only">Your Company</span>
+              <span className="sr-only">{companyName}</span>
               <Image
                 alt="FlyingDolly Logo"
                 src="/fd-logo.svg"
-                // className="h-12 w-auto"
                 width={120}
                 height={40}
               />
@@ -66,11 +65,12 @@ export default function HeroSection() {
           <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-white/10">
             <div className="flex items-center justify-between">
               <a href="#" className="-m-1.5 p-1.5">
-                <span className="sr-only">Your Company</span>
-                <img
-                  alt=""
-                  src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=500"
-                  className="h-8 w-auto"
+                <span className="sr-only">{companyName}</span>
+                <Image
+                  alt="FlyingDolly Logo"
+                  src="/fd-logo.svg"
+                  width={120}
+                  height={40}
                 />
               </a>
               <button
@@ -112,7 +112,7 @@ export default function HeroSection() {
       <div className="relative isolate overflow-hidden pt-14">
         <img
           alt=""
-          src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2830&q=80&blend=111827&sat=-100&exp=15&blend-mode=multiply"
+          src="https://images.unsplash.com/photo-1637250067262-758c5b8fb18c?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2830&q=80&blend=111827&sat=-100&exp=15&blend-mode=multiply"
           className="absolute inset-0 -z-10 size-full object-cover"
         />
         <div
@@ -129,22 +129,12 @@ export default function HeroSection() {
         </div>
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-            <div className="hidden sm:mb-8 sm:flex sm:justify-center">
-              <div className="relative rounded-full px-3 py-1 text-sm/6 text-gray-400 ring-1 ring-white/10 hover:ring-white/20">
-                Announcing our next round of funding.{' '}
-                <a href="#" className="font-semibold text-white">
-                  <span aria-hidden="true" className="absolute inset-0" />
-                  Read more <span aria-hidden="true">&rarr;</span>
-                </a>
-              </div>
-            </div>
             <div className="text-center">
               <h1 className="text-balance text-5xl font-semibold tracking-tight text-white sm:text-7xl">
-                Data to enrich your online business
+                Make us your techonology partners
               </h1>
               <p className="mt-8 text-pretty text-lg font-medium text-gray-400 sm:text-xl/8">
-                Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet
-                fugiat veniam occaecat.
+                We create visually stunning websites, photographs, and videos that turn your business into an online success!
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
                 <a
