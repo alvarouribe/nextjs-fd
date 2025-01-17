@@ -5,6 +5,8 @@ import { Dialog, DialogPanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
 import { usePathname } from "next/navigation";
+import useFlashMessages from '../hooks/useFlashMessages'
+
 import clsx from 'clsx'
 
 const navigation = [
@@ -16,6 +18,21 @@ export default function HeroSection() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const companyName = 'FlyingDolly.co.nz'
+  const { addFlashMessage } = useFlashMessages()
+
+  const infoFlashMessage = () => {
+    addFlashMessage({ type: 'info-close', message: 'This is an info message' })
+  }
+
+  const successFlashMessage = () => {
+    addFlashMessage({ type: 'success', message: 'This is a success message' })
+  }
+
+  const errorFlashMessage = () => {
+    addFlashMessage({ type: 'error', message: 'This is an error message' })
+  }
+
+  console.log('useFlashMessages', useFlashMessages)
 
   return (
     <div className="bg-gray-900">
@@ -140,12 +157,27 @@ export default function HeroSection() {
                 We create visually stunning websites, photographs, and videos that turn your business into an online success!
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
-                <a
-                  href="#"
+                <button
+                  type="button"
+                  onClick={successFlashMessage}
+                  className="rounded-md bg-green-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
+                >
+                  Success message
+                </button>
+                <button
+                  type="button"
+                  onClick={errorFlashMessage}
+                  className="rounded-md bg-red-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
+                >
+                  Error Message
+                </button>
+                <button
+                  type="button"
+                  onClick={infoFlashMessage}
                   className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
                 >
-                  Get started
-                </a>
+                  Custom info message
+                </button>
                 <a href="#" className="text-sm/6 font-semibold text-white">
                   Learn more <span aria-hidden="true">→</span>
                 </a>
