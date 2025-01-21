@@ -1,12 +1,8 @@
 'use client'
 
 import { usePathname } from "next/navigation";
+import { NavigationLinks } from '../utils/navigation-links'
 import clsx from 'clsx';
-
-const navigation = [
-  { name: 'Home', href: '/' },
-  { name: 'About', href: '/about' },
-]
 
 
 export default function AboutPage() {
@@ -17,7 +13,7 @@ export default function AboutPage() {
       <h1 className="text-2xl font-bold m-10">About</h1>
 
       <div className="hidden lg:flex lg:gap-x-12">
-        {navigation.map((item) => (
+        {NavigationLinks.map((item) => (
           <a
             key={item.name}
             href={item.href}

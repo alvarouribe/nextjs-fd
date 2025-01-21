@@ -6,13 +6,9 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
 import { usePathname } from "next/navigation";
 import useFlashMessages from '../hooks/useFlashMessages'
+import { NavigationLinks } from '../utils/navigation-links'
 
 import clsx from 'clsx'
-
-const navigation = [
-  { name: 'Home', href: '/' },
-  { name: 'About', href: '/about' },
-]
 
 export default function HeroSection() {
   const pathname = usePathname();
@@ -61,7 +57,7 @@ export default function HeroSection() {
             </button>
           </div>
           <div className="hidden lg:flex lg:gap-x-12">
-            {navigation.map((item) => (
+            {NavigationLinks.map((item) => (
               <a
                 key={item.name}
                 href={item.href}
@@ -105,7 +101,7 @@ export default function HeroSection() {
             <div className="mt-6 flow-root">
               <div className="-my-6 divide-y divide-gray-500/25">
                 <div className="space-y-2 py-6">
-                  {navigation.map((item) => (
+                  {NavigationLinks.map((item) => (
                     <a
                       key={item.name}
                       href={item.href}
