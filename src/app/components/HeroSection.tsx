@@ -28,8 +28,6 @@ export default function HeroSection() {
     addFlashMessage({ type: 'error', message: 'This is an error message' })
   }
 
-  console.log('useFlashMessages', useFlashMessages)
-
   return (
     <div className="bg-gray-900">
       <header className="absolute inset-x-0 top-0 z-50">
@@ -39,7 +37,7 @@ export default function HeroSection() {
               <span className="sr-only">{AppConstants['companyName']}</span>
               <Image
                 alt="FlyingDolly Logo"
-                src="/fd-logo.svg"
+                src="/fd-logo-glow.svg"
                 width={120}
                 height={40}
                 className="w-auto h-16"
@@ -83,7 +81,7 @@ export default function HeroSection() {
                 <span className="sr-only">{AppConstants['companyName']}</span>
                 <Image
                   alt="FlyingDolly Logo"
-                  src="/fd-logo.svg"
+                  src="/fd-logo-glow.svg"
                   width={120}
                   height={40}
                   className="w-auto h-16"

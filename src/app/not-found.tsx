@@ -7,7 +7,7 @@ export default function NotFound() {
       <span className="sr-only">{AppConstants['companyName']}</span>
       <Image
         alt="FlyingDolly Logo"
-        src="/fd-logo.svg"
+        src="/fd-logo-glow.svg"
         width={120}
         height={40}
         className="w-auto h-20"
