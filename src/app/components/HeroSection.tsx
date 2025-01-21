@@ -7,13 +7,13 @@ import Image from 'next/image'
 import { usePathname } from "next/navigation";
 import useFlashMessages from '../hooks/useFlashMessages'
 import { NavigationLinks } from '../utils/navigation-links'
+import { AppConstants } from '../utils/app-constants'
 
 import clsx from 'clsx'
 
 export default function HeroSection() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const companyName = 'FlyingDolly.co.nz'
   const { addFlashMessage } = useFlashMessages()
 
   const infoFlashMessage = () => {
@@ -36,7 +36,7 @@ export default function HeroSection() {
         <nav aria-label="Global" className="flex items-center justify-between p-6 lg:px-8">
           <div className="flex lg:flex-1">
             <a href="#" className="-m-1.5 p-1.5">
-              <span className="sr-only">{companyName}</span>
+              <span className="sr-only">{AppConstants['companyName']}</span>
               <Image
                 alt="FlyingDolly Logo"
                 src="/fd-logo.svg"
@@ -80,7 +80,7 @@ export default function HeroSection() {
           <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-white/10">
             <div className="flex items-center justify-between">
               <a href="#" className="-m-1.5 p-1.5">
-                <span className="sr-only">{companyName}</span>
+                <span className="sr-only">{AppConstants['companyName']}</span>
                 <Image
                   alt="FlyingDolly Logo"
                   src="/fd-logo.svg"
