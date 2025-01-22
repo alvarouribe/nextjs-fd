@@ -124,10 +124,12 @@ export default function HeroSection() {
       </header>
 
       <div className="relative isolate overflow-hidden pt-14">
-        <img
+        <Image
           alt=""
-          src="https://images.unsplash.com/photo-1637250067262-758c5b8fb18c?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2830&q=80&blend=111827&sat=-100&exp=15&blend-mode=multiply"
+          src="/images/studio-blend-med.jpg"
           className="absolute inset-0 -z-10 size-full object-cover"
+          width={1280}
+          height={840}
         />
         <div
           aria-hidden="true"
