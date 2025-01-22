@@ -10,7 +10,7 @@ export async function connectToDB() {
       return client;
     }
   } catch (error) {
-    console.error('Error connecting to the database');
+    console.error('Error connecting to the database', error);
   }
   // finally {
   //   await client.end();
