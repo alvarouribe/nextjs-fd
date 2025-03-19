@@ -5,7 +5,6 @@ import { Dialog, DialogPanel } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
 import { usePathname } from "next/navigation";
-import useFlashMessages from '../hooks/useFlashMessages'
 import { NavigationLinks } from '../utils/navigation-links'
 import { AppConstants } from '../utils/app-constants'
 
@@ -14,19 +13,6 @@ import clsx from 'clsx'
 export default function HeroSection() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const { addFlashMessage } = useFlashMessages()
-
-  const infoFlashMessage = () => {
-    addFlashMessage({ type: 'info-close', message: 'This is an info message' })
-  }
-
-  const successFlashMessage = () => {
-    addFlashMessage({ type: 'success', message: 'This is a success message' })
-  }
-
-  const errorFlashMessage = () => {
-    addFlashMessage({ type: 'error', message: 'This is an error message' })
-  }
 
   return (
     <div className="bg-gray-900">
@@ -126,7 +112,9 @@ export default function HeroSection() {
       <div className="relative isolate overflow-hidden pt-14">
         <Image
           alt=""
+          // src="/images/working.jpg"
           src="/images/studio-blend-med.jpg"
+
           className="absolute inset-0 -z-10 size-full object-cover"
           width={1280}
           height={840}
@@ -147,37 +135,11 @@ export default function HeroSection() {
           <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
             <div className="text-center">
               <h1 className="text-balance text-5xl font-semibold tracking-tight text-white sm:text-7xl">
-                Make us your techonology partners
+                Make us your technology partners
               </h1>
-              <p className="mt-8 text-pretty text-lg font-medium text-gray-400 sm:text-xl/8">
+              <p className="mt-8 text-pretty text-lg font-medium text-green-500 sm:text-xl/8">
                 We create visually stunning websites, photographs, and videos that turn your business into an online success!
               </p>
-              <div className="mt-10 flex items-center justify-center gap-x-6">
-                <button
-                  type="button"
-                  onClick={successFlashMessage}
-                  className="rounded-md bg-green-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
-                >
-                  Success message
-                </button>
-                <button
-                  type="button"
-                  onClick={errorFlashMessage}
-                  className="rounded-md bg-red-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
-                >
-                  Error Message
-                </button>
-                <button
-                  type="button"
-                  onClick={infoFlashMessage}
-                  className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
-                >
-                  Custom info message
-                </button>
-                <a href="#" className="text-sm/6 font-semibold text-white">
-                  Learn more <span aria-hidden="true">→</span>
-                </a>
-              </div>
             </div>
           </div>
         </div>

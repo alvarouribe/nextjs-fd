@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import { NavigationLinks } from '../utils/navigation-links'
 import clsx from 'clsx';
-
+import AsyncSelectInput from "../components/AsyncSelectInput";
 
 export default function AboutPage() {
   const pathname = usePathname();
@@ -11,6 +11,8 @@ export default function AboutPage() {
   return (
     <>
       <h1 className="text-2xl font-bold m-10">About</h1>
+
+      <AsyncSelectInput />
 
       <div className="hidden lg:flex lg:gap-x-12">
         {NavigationLinks.map((item) => (
