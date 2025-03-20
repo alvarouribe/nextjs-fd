@@ -51,7 +51,7 @@ export default function useFlashMessages() {
 
       case "info-close":
         toast(
-          (t) => (
+          (t: { id: string }) => (
             <span className="flex items-center justify-center text-lg">
               Custom close button
               <button type="button" onClick={() => toast.dismiss(t.id)}>
@@ -61,7 +61,7 @@ export default function useFlashMessages() {
           ),
           {
             icon: "🧨",
-          },
+          } as const
         );
         break;
 
