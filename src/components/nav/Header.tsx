@@ -25,6 +25,7 @@ export default function Header() {
               width={120}
               height={40}
               className="w-auto h-16"
+              data-test="logo"
             />
           </Link>
         </div>
