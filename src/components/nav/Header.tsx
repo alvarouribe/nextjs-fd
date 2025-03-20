@@ -7,18 +7,17 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { AppConstants } from '@/app/utils/app-constants'
 import { NavigationLinks } from '@/app/utils/navigation-links'
 import clsx from 'clsx'
+import Link from 'next/link';
 
 export default function Header() {
   const pathname = usePathname();
-  console.log('pathname', pathname);
-
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
     <header className="absolute inset-x-0 top-0 z-50">
       <nav aria-label="Global" className="flex items-center justify-between p-6 lg:px-8">
         <div className="flex lg:flex-1">
-          <a href="#" className="-m-1.5 p-1.5">
+          <Link href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">{AppConstants['companyName']}</span>
             <Image
               alt="FlyingDolly Logo"
@@ -27,7 +26,7 @@ export default function Header() {
               height={40}
               className="w-auto h-16"
             />
-          </a>
+          </Link>
         </div>
         <div className="flex lg:hidden">
           <button
@@ -41,21 +40,21 @@ export default function Header() {
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
           {NavigationLinks.map((item) => (
-            <a
+            <Link
               key={item.name}
               href={item.href}
               className={clsx(
                 "text-sm/6 font-semibold text-white",
-                { 'text-purple-600': pathname === item.href, }
+                { '!text-green-300': pathname === item.href, }
               )}>
               {item.name}
-            </a>
+            </Link>
           ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="#" className="text-sm/6 font-semibold text-white">
+          {/* <a href="#" className="text-sm/6 font-semibold text-white">
             Log in <span aria-hidden="true">&rarr;</span>
-          </a>
+          </a> */}
         </div>
       </nav>
       <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
@@ -85,22 +84,24 @@ export default function Header() {
               <div className="-my-6 divide-y divide-gray-500/25">
                 <div className="space-y-2 py-6">
                   {NavigationLinks.map((item) => (
-                    <a
+                    <Link
                       key={item.name}
                       href={item.href}
-                      className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-gray-800"
-                    >
+                      className={clsx(
+                        "-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-gray-800",
+                        { '!text-green-300': pathname === item.href, }
+                      )}>
                       {item.name}
-                    </a>
+                    </Link>
                   ))}
                 </div>
                 <div className="py-6">
-                  <a
+                  {/* <a
                     href="#"
                     className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-gray-800"
                   >
                     Log in
-                  </a>
+                  </a> */}
                 </div>
               </div>
             </div>
