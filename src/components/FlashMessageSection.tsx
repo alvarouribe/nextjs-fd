@@ -1,4 +1,4 @@
-import useFlashMessages from '../hooks/useFlashMessages'
+import useFlashMessages from '../app/hooks/useFlashMessages'
 
 export default function FlashMessageSection() {
   const { addFlashMessage } = useFlashMessages()
