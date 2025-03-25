@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
+import Header from "@/components/nav/Header";
+import FooterSection from "@/components/FooterSection";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,7 +17,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Flyingdolly.co.nz",
-  description: "Flyingdolly Agency based in Mt Maunganui, New Zealand",
+  description: "Flyingdolly Web Agency based in Mt Maunganui, New Zealand",
 };
 
 export default function RootLayout({
@@ -28,7 +30,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Header />
         {children}
+        <FooterSection />
         <Toaster position="bottom-right" />
       </body>
     </html>
