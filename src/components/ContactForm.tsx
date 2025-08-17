@@ -25,7 +25,7 @@ export default function ContactForm() {
       } else {
         alert('Failed to send email: ' + result.error);
       }
-    } catch (err) {
+    } catch {
       alert('Error sending email.');
     }
   };
