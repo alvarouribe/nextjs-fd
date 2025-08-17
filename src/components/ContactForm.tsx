@@ -9,9 +9,25 @@ export default function ContactForm() {
     message: '',
   });
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleClick = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     e.preventDefault();
-    console.log('Form submitted with', formData);
+    try {
+      const res = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      const result = await res.json();
+      if (result.success) {
+        alert('Email sent successfully!');
+      } else {
+        alert('Failed to send email: ' + result.error);
+      }
+    } catch (err) {
+      alert('Error sending email.');
+    }
   };
 
   return (
