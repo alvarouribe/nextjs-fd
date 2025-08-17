@@ -1,5 +1,6 @@
-import Image from 'next/image'
-import Header from './nav/Header'
+import Image from 'next/image';
+import Header from './nav/Header';
+import { ArrowDownCircleIcon } from '@heroicons/react/24/outline';
 
 export default function HeroSection() {
   return (
@@ -10,8 +11,9 @@ export default function HeroSection() {
         <Image
           alt=""
           // src="/images/working.jpg"
-          src="/images/studio-blend-med.jpg"
-          className="absolute inset-0 -z-10 size-full object-cover"
+          // src="/images/studio-blend-med.jpg"
+          src="/images/earth-from-above-low.jpg"
+          className="absolute inset-0 -z-10 size-full object-cover opacity-30"
           width={1280}
           height={840}
         />
@@ -20,12 +22,18 @@ export default function HeroSection() {
           <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
             <div className="text-center">
               <h1 className="text-balance text-5xl font-semibold tracking-tight text-white sm:text-7xl">
-                Make us your technology partners
+                Make us your{' '}
+                <span className="underline text-green-400">Technology</span>{' '}
+                partners
               </h1>
-              <p className="mt-8 text-pretty text-lg font-medium text-green-500 sm:text-xl/8">
-                We create visually stunning websites, photographs, and videos that turn your business into an online success!
+              <p className="mt-8 text-pretty text-lg font-medium text-green-200 sm:text-xl/8">
+                We create visually stunning websites with powerful analytics,
+                giving you the insights you need to grow your business online.
               </p>
             </div>
+          </div>
+          <div className="mb-12 flex items-center justify-center opacity-25">
+            <ArrowDownCircleIcon className="size-8 text-white" />
           </div>
         </div>
         <div
@@ -42,5 +50,5 @@ export default function HeroSection() {
         </div>
       </div>
     </div>
-  )
+  );
 }

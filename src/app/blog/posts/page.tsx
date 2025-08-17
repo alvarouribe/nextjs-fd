@@ -1,4 +1,4 @@
-import { connectToDB } from "@/app/lib/data";
+import { connectToDB } from '@/app/lib/data';
 
 export default async function BlogPosts() {
   const client = await connectToDB();
@@ -6,7 +6,7 @@ export default async function BlogPosts() {
 
   return (
     <>
-      { client && <p>Connected to the database</p> }
+      {client && <p>Connected to the database</p>}
       <h1>Blog</h1>
     </>
   );

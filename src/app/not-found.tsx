@@ -1,5 +1,5 @@
-import Image from 'next/image'
-import { AppConstants } from './utils/app-constants'
+import Image from 'next/image';
+import { AppConstants } from './utils/app-constants';
 
 export default function NotFound() {
   return (

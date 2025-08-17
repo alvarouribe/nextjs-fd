@@ -1,23 +1,23 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import { Toaster } from "react-hot-toast";
-import Header from "@/components/nav/Header";
-import FooterSection from "@/components/FooterSection";
+import type { Metadata } from 'next';
+import { Geist, Geist_Mono } from 'next/font/google';
+import './globals.css';
+import { Toaster } from 'react-hot-toast';
+import Header from '@/components/nav/Header';
+import FooterSection from '@/components/FooterSection';
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+  variable: '--font-geist-sans',
+  subsets: ['latin'],
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: '--font-geist-mono',
+  subsets: ['latin'],
 });
 
 export const metadata: Metadata = {
-  title: "Flyingdolly.co.nz",
-  description: "Flyingdolly Web Agency based in Mt Maunganui, New Zealand",
+  title: 'Flyingdolly.co.nz',
+  description: 'Flyingdolly Web Agency based in Mt Maunganui, New Zealand',
 };
 
 export default function RootLayout({

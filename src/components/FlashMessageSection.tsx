@@ -1,21 +1,24 @@
-import useFlashMessages from '../hooks/useFlashMessages'
+import useFlashMessages from '../hooks/useFlashMessages';
 
 export default function FlashMessageSection() {
-  const { addFlashMessage } = useFlashMessages()
-    const infoFlashMessage = () => {
-      addFlashMessage({ type: 'info-close', message: 'This is an info message' })
-    }
+  const { addFlashMessage } = useFlashMessages();
+  const infoFlashMessage = () => {
+    addFlashMessage({ type: 'info-close', message: 'This is an info message' });
+  };
 
-    const successFlashMessage = () => {
-      addFlashMessage({ type: 'success', message: 'This is a success message' })
-    }
+  const successFlashMessage = () => {
+    addFlashMessage({ type: 'success', message: 'This is a success message' });
+  };
 
-    const errorFlashMessage = () => {
-      addFlashMessage({ type: 'error', message: 'This is an error message' })
-    }
+  const errorFlashMessage = () => {
+    addFlashMessage({ type: 'error', message: 'This is an error message' });
+  };
 
   return (
-    <section data-test="flash-msg-section" className="mt-10 flex items-center justify-center gap-x-6">
+    <section
+      data-test="flash-msg-section"
+      className="mt-10 flex items-center justify-center gap-x-6"
+    >
       <button
         type="button"
         onClick={successFlashMessage}
@@ -41,5 +44,5 @@ export default function FlashMessageSection() {
         Learn more <span aria-hidden="true">→</span>
       </a>
     </section>
-  )
+  );
 }

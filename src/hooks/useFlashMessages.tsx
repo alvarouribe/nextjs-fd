@@ -1,14 +1,14 @@
-import toast from "react-hot-toast";
-import { ReactSVG } from "react-svg";
+import toast from 'react-hot-toast';
+import { ReactSVG } from 'react-svg';
 
 type MessageType = {
-  type?: "info" | "info-close" | "success" | "error";
+  type?: 'info' | 'info-close' | 'success' | 'error';
   message: string;
 };
 
 export default function useFlashMessages() {
   /* This hook relies that the Toaster component is set in the layout.tsx */
-  const addFlashMessage = ({ type = "info", message }: MessageType) => {
+  const addFlashMessage = ({ type = 'info', message }: MessageType) => {
     // toast(message, {
     //   duration: 4000,
     //   position: "bottom-right",
@@ -37,19 +37,19 @@ export default function useFlashMessages() {
     // });
 
     switch (type) {
-      case "info":
-        toast.success("info", { icon: "👏" });
+      case 'info':
+        toast.success('info', { icon: '👏' });
         break;
 
-      case "success":
+      case 'success':
         toast.success(message);
         break;
 
-        case "error":
+      case 'error':
         toast.error(message);
         break;
 
-      case "info-close":
+      case 'info-close':
         toast(
           (t: { id: string }) => (
             <span className="flex items-center justify-center text-lg">
@@ -60,13 +60,13 @@ export default function useFlashMessages() {
             </span>
           ),
           {
-            icon: "🧨",
+            icon: '🧨',
           } as const
         );
         break;
 
       default:
-        toast.success("default");
+        toast.success('default');
         break;
     }
     // // Promise example -------------
