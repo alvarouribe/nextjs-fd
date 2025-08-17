@@ -23,8 +23,8 @@ export default function HeroSection() {
             <div className="text-center">
               <h1 className="text-balance text-5xl font-semibold tracking-tight text-white sm:text-7xl">
                 Make us your{' '}
-                <span className="underline text-green-400">Technology</span>{' '}
-                partners
+                <span className="underline text-green-400">technology</span>{' '}
+                partner
               </h1>
               <p className="mt-8 text-pretty text-lg font-medium text-green-200 sm:text-xl/8">
                 We create visually stunning websites with powerful analytics,

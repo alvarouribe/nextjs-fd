@@ -6,6 +6,7 @@ import {
   BoltIcon,
 } from '@heroicons/react/24/outline';
 import HeroSection from '../components/HeroSection';
+import ContactForm from '@/components/ContactForm';
 
 const features = [
   {
@@ -78,26 +79,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-gray-50 py-24 sm:py-32 dark:bg-gray-800">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-base/7 font-semibold text-green-600 dark:text-green-400">
-              Get started today
-            </h2>
-            <p className="mt-2 text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl lg:text-balance dark:text-white">
-              Ready to elevate your{' '}
-              <span className="underline text-green-400">online presence</span>?
-            </p>
-            <p className="mt-6 text-lg/8 text-gray-700 dark:text-gray-300">
-              Contact us now to schedule a consultation and let’s build
-              something amazing together.
-            </p>
-          </div>
-        </div>
-      </section>
-
       <section>
-        <div className="overflow-hidden bg-white py-32 dark:bg-gray-900">
+        <div className="overflow-hidden bg-white py-32 dark:bg-gray-800">
           <div className="mx-auto max-w-7xl px-6 lg:flex lg:px-8">
             <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-12 gap-y-16 lg:mx-0 lg:min-w-full lg:max-w-none lg:flex-none lg:gap-y-8">
               <div className="lg:col-end-1 lg:w-full lg:max-w-lg lg:pb-8">
@@ -128,32 +111,33 @@ export default function Home() {
                     width={600}
                     height={400}
                   />
-                  {/* <img
-                alt=""
-                src="https://images.unsplash.com/photo-1670272502246-768d249768ca?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1152&q=80"
-                className="aspect-[7/5] w-[37rem] max-w-none rounded-2xl bg-gray-50 object-cover max-sm:w-[30rem] dark:bg-gray-800"
-              /> */}
                 </div>
                 <div className="contents lg:col-span-2 lg:col-end-2 lg:ml-auto lg:flex lg:w-[37rem] lg:items-start lg:justify-end lg:gap-x-8">
                   <div className="order-first flex w-64 flex-none justify-end self-end max-sm:w-40 lg:w-auto">
-                    <img
-                      alt=""
-                      src="https://images.unsplash.com/photo-1605656816944-971cd5c1407f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=768&h=604&q=80"
-                      className="aspect-[4/3] w-[24rem] max-w-none flex-none rounded-2xl bg-gray-50 object-cover dark:bg-gray-800"
+                    <Image
+                      alt="Relax beach meeting"
+                      src="/images/beach-red.jpg"
+                      className="aspect-[4/3] w-[24rem] max-w-none rounded-2xl bg-gray-50 object-cover dark:bg-gray-800"
+                      width={600}
+                      height={450}
                     />
                   </div>
                   <div className="flex w-96 flex-auto justify-end lg:w-auto lg:flex-none">
-                    <img
-                      alt=""
-                      src="https://images.unsplash.com/photo-1568992687947-868a62a9f521?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1152&h=842&q=80"
+                    <Image
+                      alt="relax office meeting"
+                      src="/images/meetup.jpg"
                       className="aspect-[7/5] w-[37rem] max-w-none flex-none rounded-2xl bg-gray-50 object-cover max-sm:w-[30rem] dark:bg-gray-800"
+                      width={600}
+                      height={400}
                     />
                   </div>
                   <div className="hidden sm:block sm:w-0 sm:flex-auto lg:w-auto lg:flex-none">
-                    <img
-                      alt=""
-                      src="https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=768&h=604&q=80"
+                    <Image
+                      alt="volleyball game"
+                      src="/images/volleyball.jpg"
                       className="aspect-[4/3] w-[24rem] max-w-none rounded-2xl bg-gray-50 object-cover dark:bg-gray-800"
+                      width={600}
+                      height={450}
                     />
                   </div>
                 </div>
@@ -162,6 +146,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* <ContactForm /> */}
     </main>
   );
 }
