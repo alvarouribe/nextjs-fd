@@ -1,12 +1,9 @@
 import Image from 'next/image';
-import Header from './nav/Header';
 import { ArrowDownCircleIcon } from '@heroicons/react/24/outline';
 
 export default function HeroSection() {
   return (
     <div className="bg-gray-900">
-      <Header />
-
       <div className="relative isolate overflow-hidden pt-14">
         <Image
           alt="earth from above"

@@ -5,7 +5,6 @@ export async function POST(request: Request) {
   const formData = await request.json();
   const password = process.env.password;
   const fromEmail = process.env.fromEmail;
-  console.log('formData', formData);
 
   // Configure the transporter
   const transporter = nodemailer.createTransport({
