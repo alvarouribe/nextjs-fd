@@ -20,7 +20,6 @@ export default function ContactForm() {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
-    setIsSending(true);
     // Check if email and message are filled
     if (!formData.email.trim()) {
       alert('Please fill in both Email and Message fields before submitting.');
@@ -45,6 +44,8 @@ export default function ContactForm() {
       }
       return;
     }
+    setIsSending(true);
+
     try {
       const res = await fetch('/api/send-email', {
         method: 'POST',
@@ -178,7 +179,7 @@ export default function ContactForm() {
                   htmlFor="email"
                   className="block text-sm/6 font-semibold text-gray-900 dark:text-white"
                 >
-                  Email
+                  Email <span className="text-orange-500">*</span>
                 </label>
                 <div className="mt-2.5">
                   <input
@@ -202,7 +203,7 @@ export default function ContactForm() {
                   htmlFor="message"
                   className="block text-sm/6 font-semibold text-gray-900 dark:text-white"
                 >
-                  Message
+                  Message <span className="text-orange-500">*</span>
                 </label>
                 <div className="mt-2.5">
                   <textarea
@@ -231,7 +232,7 @@ export default function ContactForm() {
               ) : (
                 <button
                   type="submit"
-                  className="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-500 dark:hover:bg-indigo-400 dark:focus-visible:outline-indigo-500"
+                  className="block w-full rounded-md bg-green-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 dark:bg-green-500 dark:hover:bg-green-400 dark:focus-visible:outline-green-500"
                   onClick={handleClick}
                   disabled={isSending}
                 >

@@ -9,7 +9,7 @@ export default function HeroSection() {
 
       <div className="relative isolate overflow-hidden pt-14">
         <Image
-          alt=""
+          alt="earth from above"
           // src="/images/working.jpg"
           // src="/images/studio-blend-med.jpg"
           src="/images/earth-from-above-low.jpg"

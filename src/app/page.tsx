@@ -41,7 +41,10 @@ export default function Home() {
     <main data-test="home-page">
       <HeroSection />
 
-      <section className="bg-white py-24 sm:py-32 dark:bg-gray-900">
+      <section
+        id="features-section"
+        className="bg-white py-24 sm:py-32 dark:bg-gray-900"
+      >
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:text-center">
             <h2 className="text-base/7 font-semibold text-green-600 dark:text-green-400">
@@ -141,7 +144,7 @@ export default function Home() {
         </div>
       </section>
 
-      <div id="contact-form">
+      <div id="contact-form-section">
         <ContactForm />
       </div>
     </main>
