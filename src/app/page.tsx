@@ -7,6 +7,7 @@ import {
 } from '@heroicons/react/24/outline';
 import HeroSection from '../components/HeroSection';
 import ContactForm from '@/components/ContactForm';
+import ContactUsButton from '@/components/ContactUsButton';
 
 const features = [
   {
@@ -92,14 +93,7 @@ export default function Home() {
                   something amazing together.
                 </p>
 
-                <div className="mt-10 flex">
-                  <a
-                    href="#"
-                    className="rounded-md bg-green-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 dark:bg-green-500 dark:hover:bg-green-400 dark:focus-visible:outline-green-500"
-                  >
-                    contact us!
-                  </a>
-                </div>
+                <ContactUsButton />
               </div>
 
               <div className="flex flex-wrap items-start justify-end gap-6 sm:gap-8 lg:contents">
@@ -147,7 +141,9 @@ export default function Home() {
         </div>
       </section>
 
-      <ContactForm />
+      <div id="contact-form">
+        <ContactForm />
+      </div>
     </main>
   );
 }
