@@ -7,7 +7,6 @@ import {
 } from '@heroicons/react/24/outline';
 import HeroSection from '../components/HeroSection';
 import ContactForm from '@/components/ContactForm';
-import ContactDialog from '@/components/ContactDialog';
 
 const features = [
   {
