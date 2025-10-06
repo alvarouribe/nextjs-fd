@@ -5,6 +5,7 @@ import './globals.css';
 import { Toaster } from 'react-hot-toast';
 import Header from '@/components/nav/Header';
 import FooterSection from '@/components/FooterSection';
+import NewRelicInit from '@/components/NewRelicInit';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -31,6 +32,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <NewRelicInit />
         <Header />
         {children}
         <GoogleAnalytics gaId="G-SBMJ2GKDC1" />
