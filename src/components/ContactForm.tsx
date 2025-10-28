@@ -81,7 +81,9 @@ export default function ContactForm() {
         </p>
         <div className="mt-16 flex flex-col gap-16 sm:gap-y-20 lg:flex-row">
           <form className="lg:flex-auto">
-            <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+            <div
+              className={`grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2 ${isFormSent ? 'pointer-events-none opacity-50' : ''}`}
+            >
               <Input
                 id="first-name"
                 label="First name"
@@ -89,6 +91,7 @@ export default function ContactForm() {
                 type="text"
                 autoComplete="given-name"
                 value={formData.firstName}
+                disabled={isFormSent}
                 onChange={e =>
                   setFormData({ ...formData, firstName: e.target.value })
                 }
@@ -101,6 +104,7 @@ export default function ContactForm() {
                 type="text"
                 autoComplete="family-name"
                 value={formData.lastName}
+                disabled={isFormSent}
                 onChange={e =>
                   setFormData({ ...formData, lastName: e.target.value })
                 }
@@ -116,6 +120,7 @@ export default function ContactForm() {
                 placeholder="Email address"
                 autoComplete="email"
                 ref={emailInputRef}
+                disabled={isFormSent}
                 onChange={e =>
                   setFormData({ ...formData, email: e.target.value })
                 }
@@ -127,6 +132,7 @@ export default function ContactForm() {
                 name="phone"
                 type="tel"
                 value={formData.phone}
+                disabled={isFormSent}
                 onChange={e =>
                   setFormData({ ...formData, phone: e.target.value })
                 }
@@ -142,6 +148,7 @@ export default function ContactForm() {
                   placeholder="Tell us about your project"
                   ref={messageInputRef}
                   isRequired
+                  disabled={isFormSent}
                   onChange={e =>
                     setFormData({ ...formData, message: e.target.value })
                   }

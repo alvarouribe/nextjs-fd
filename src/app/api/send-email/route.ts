@@ -5,10 +5,13 @@ export async function POST(request: Request) {
   const formData = await request.json();
   const password = process.env.password;
   const fromEmail = process.env.fromEmail;
+  const toEmail = process.env.toEmail;
 
   // Configure the transporter
   const transporter = nodemailer.createTransport({
-    service: 'gmail', // or use another SMTP provider
+    host: 'smtp.zoho.com.au',
+    secure: true,
+    port: 465,
     auth: {
       user: fromEmail,
       pass: password,
@@ -17,7 +20,7 @@ export async function POST(request: Request) {
 
   const mailOptions = {
     from: fromEmail,
-    to: 'iam@alvarouribe.cl',
+    to: toEmail,
     subject: 'New Contact Form Submission',
     text: `TEXT ${formData.message} + ' | Sent from: ' + ${formData.email}`,
     html: `
