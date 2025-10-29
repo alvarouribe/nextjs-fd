@@ -5,10 +5,14 @@ import SVGBackground from './SvgBackground';
 import Input from './Input';
 import TextArea from './TextArea';
 import useFlashMessages from '@/hooks/useFlashMessages';
+import {
+  setEmailLimitCookie,
+  checkEmailLimitCookie,
+} from '@/app/utils/cookies-functions';
 
 export default function ContactForm() {
   const { addFlashMessage } = useFlashMessages();
-  const [isFormSent, setIsFormSent] = useState(false);
+  const [isFormSent, setIsFormSent] = useState(checkEmailLimitCookie());
   const [isSending, setIsSending] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
@@ -73,6 +77,7 @@ export default function ContactForm() {
           message: 'Your message has been sent successfully!',
         });
         setIsFormSent(true);
+        setEmailLimitCookie(60); // Set cookie for 60 minutes
       } else {
         addFlashMessage({
           type: 'error',
