@@ -4,8 +4,10 @@ import { useState, useRef } from 'react';
 import SVGBackground from './SvgBackground';
 import Input from './Input';
 import TextArea from './TextArea';
+import useFlashMessages from '@/hooks/useFlashMessages';
 
 export default function ContactForm() {
+  const { addFlashMessage } = useFlashMessages();
   const [isFormSent, setIsFormSent] = useState(false);
   const [isSending, setIsSending] = useState(false);
   const [formData, setFormData] = useState({
@@ -25,14 +27,20 @@ export default function ContactForm() {
     e.preventDefault();
     // Check if email and message are filled
     if (!formData.email.trim()) {
-      alert('Please fill in both Email and Message fields before submitting.');
+      addFlashMessage({
+        type: 'error',
+        message: 'Please fill in your Email so we can contact you.',
+      });
       if (emailInputRef.current) {
         emailInputRef.current.focus();
       }
       return;
     }
     if (!formData.message.trim()) {
-      alert('Please fill in both Email and Message fields before submitting.');
+      addFlashMessage({
+        type: 'error',
+        message: 'Please fill the Message field so we can assist you better.',
+      });
       if (messageInputRef.current) {
         messageInputRef.current.focus();
       }
@@ -41,7 +49,10 @@ export default function ContactForm() {
     // Email format validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email.trim())) {
-      alert('Please enter a valid email address.');
+      addFlashMessage({
+        type: 'error',
+        message: 'Please enter a valid email address.',
+      });
       if (emailInputRef.current) {
         emailInputRef.current.focus();
       }
@@ -57,13 +68,26 @@ export default function ContactForm() {
       });
       const result = await res.json();
       if (result.success) {
-        alert('Email sent successfully!');
+        addFlashMessage({
+          type: 'success',
+          message: 'Your message has been sent successfully!',
+        });
         setIsFormSent(true);
       } else {
-        alert('Failed to send email: ' + result.error);
+        addFlashMessage({
+          type: 'error',
+          message:
+            'There was an error sending your message. Please try again later.',
+        });
+        console.error(result.error);
       }
-    } catch {
-      alert('Error sending email.');
+    } catch (error) {
+      addFlashMessage({
+        type: 'error',
+        message:
+          'There was an error sending your message. Please try again later.',
+      });
+      console.error(error);
     } finally {
       setIsSending(false);
     }
