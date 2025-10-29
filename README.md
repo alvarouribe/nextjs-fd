@@ -2,21 +2,37 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, run the development server:
+### Install deps and start dev
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Build and serve
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm build
+pnpm start
+```
+
+### How to run tests
+
+```bash
+pnpm test
+# or
+pnpm jest
+```
+
+### Environment variables
+
+Create a .env.local (not committed) with production secrets used by the contact/email route:
+
+- toEmail=EMAIL
+- fromEmail=EMAIL
+- password=ZOHO PASS
+
+### Fonts
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
