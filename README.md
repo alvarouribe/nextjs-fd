@@ -32,6 +32,12 @@ Create a .env.local (not committed) with production secrets used by the contact/
 - fromEmail=EMAIL
 - password=ZOHO PASS
 
+### Vulnerability check
+
+```bash
+pnpm audit
+```
+
 ### Fonts
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
