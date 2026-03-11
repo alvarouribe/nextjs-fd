@@ -101,7 +101,7 @@ export default function Home() {
             <div className="flex flex-wrap items-start justify-end gap-6 sm:gap-8 lg:contents">
               <div className="w-0 flex-auto lg:ml-auto lg:w-auto lg:flex-none lg:self-end">
                 <Image
-                  alt="Mount mauao"
+                  alt="Mount Maunganui - Mauao"
                   src="/images/mount-maunganui-toby-hall.jpg"
                   className="aspect-[7/5] w-[37rem] max-w-none rounded-2xl bg-gray-50 object-cover max-sm:w-[30rem] dark:bg-gray-800"
                   width={600}
