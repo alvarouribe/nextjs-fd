@@ -21,7 +21,7 @@ export default function Header() {
               src="/fd-logo-glow.svg"
               width={120}
               height={40}
-              className="w-auto h-16"
+              className="w-auto h-16 hover:scale-110 transition-transform duration-300"
               data-test="logo"
             />
           </Link>
