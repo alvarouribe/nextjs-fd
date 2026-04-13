@@ -17,8 +17,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Flyingdolly.co.nz',
-  description: 'Flyingdolly Web Agency based in Mt Maunganui, New Zealand',
+  title: 'Web Development Agency Mt Maunganui | Custom Websites NZ | FlyingDolly',
+  description:
+    'Custom website design & development in Mt Maunganui, NZ. FlyingDolly builds fast, responsive websites that drive results. Book your free consultation today.',
 };
 
 export default function RootLayout({
