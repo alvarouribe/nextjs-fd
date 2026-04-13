@@ -60,12 +60,12 @@ export default function Footer() {
             <a
               key={item.name}
               href={item.href}
-              className="text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-white"
+              className="text-gray-600 hover:text-rose-700 dark:text-gray-200 dark:hover:text-rose-600 hover:scale-105 transition-transform duration-300"
               target="_blank"
               rel="noopener noreferrer"
             >
               <span className="sr-only">{item.name}</span>
-              <item.icon aria-hidden="true" className="size-6" />
+              <item.icon aria-hidden="true" className="size-8" />
             </a>
           ))}
         </div>

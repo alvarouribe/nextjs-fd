@@ -18,7 +18,7 @@ export default function ContactForm() {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    phone: '',
+    // phone: '',
     email: '',
     message: '',
   });
@@ -155,7 +155,7 @@ export default function ContactForm() {
                   setFormData({ ...formData, email: e.target.value })
                 }
               />
-
+              {/* 
               <Input
                 id="phone"
                 label="Phone"
@@ -166,7 +166,7 @@ export default function ContactForm() {
                 onChange={e =>
                   setFormData({ ...formData, phone: e.target.value })
                 }
-              />
+              /> */}
 
               <div className="sm:col-span-2">
                 <TextArea

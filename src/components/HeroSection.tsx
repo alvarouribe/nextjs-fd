@@ -17,9 +17,13 @@ export default function HeroSection() {
 
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="m-x-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-            <div className="">
+            <div>
               <h1 className=" text-balance text-5xl font-semibold tracking-tight text-white sm:text-7xl">
-                Websites that help you grow your business online.
+                Websites that help you{' '}
+                <mark className="bg-green-600/20 text-green-300">
+                  grow your business
+                </mark>{' '}
+                online.
               </h1>
               <h2 className="mt-8 text-pretty text-2xl text-green-300 font-medium  sm:text-xl/8">
                 Powerful analytics, more leads, save time with automation, and
@@ -29,7 +33,7 @@ export default function HeroSection() {
           </div>
 
           <div className="mb-12 flex items-center justify-center opacity-25">
-            <ArrowDownCircleIcon className="size-8 text-white" />
+            <ArrowDownCircleIcon className="size-8 text-white hover:scale-110 transition-transform duration-300" />
           </div>
         </div>
         <div

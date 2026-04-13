@@ -51,7 +51,11 @@ export default function Home() {
               Deploy faster
             </h2>
             <p className="mt-2 text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl lg:text-balance dark:text-white">
-              Everything you need to show off your work
+              Everything{' '}
+              <mark className="bg-green-600/20 text-green-300">
+                your business needs
+              </mark>{' '}
+              to show off your work
             </p>
             <p className="mt-6 text-lg/8 text-gray-700 dark:text-gray-300">
               After a quick consultation, we will create a custom website that
