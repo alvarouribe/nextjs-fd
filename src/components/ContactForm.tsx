@@ -5,6 +5,7 @@ import SVGBackground from './SvgBackground';
 import Input from './Input';
 import TextArea from './TextArea';
 import useFlashMessages from '@/hooks/useFlashMessages';
+import ContactSubmitButton from './ContactSubmitButton';
 import {
   setEmailLimitCookie,
   checkEmailLimitCookie,
@@ -193,14 +194,12 @@ export default function ContactForm() {
                   <p>We will get back to you soon.</p>
                 </div>
               ) : (
-                <button
-                  type="submit"
-                  className="block w-1/2 rounded-md bg-green-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 dark:bg-green-500 dark:hover:bg-green-400 dark:focus-visible:outline-green-500"
+                <ContactSubmitButton
+                  isLoading={isSending}
                   onClick={handleClick}
-                  disabled={isSending}
                 >
-                  {isSending ? '...' : `Let\'s talk`}
-                </button>
+                  {`Let's talk`}
+                </ContactSubmitButton>
               )}
             </div>
           </form>

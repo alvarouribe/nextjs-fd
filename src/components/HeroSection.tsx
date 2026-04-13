@@ -16,19 +16,18 @@ export default function HeroSection() {
         />
 
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-            <div className="text-center">
-              <h1 className="text-balance text-5xl font-semibold tracking-tight text-white sm:text-7xl">
-                Make us your{' '}
-                <span className="underline text-green-400">technology</span>{' '}
-                partner
+          <div className="m-x-auto max-w-2xl py-32 sm:py-48 lg:py-56">
+            <div className="">
+              <h1 className=" text-balance text-5xl font-semibold tracking-tight text-white sm:text-7xl">
+                Websites that help you grow your business online.
               </h1>
-              <p className="mt-8 text-pretty text-lg font-medium text-green-200 sm:text-xl/8">
-                We create visually stunning websites with powerful analytics,
-                giving you the insights you need to grow your business online.
-              </p>
+              <h2 className="mt-8 text-pretty text-2xl text-green-300 font-medium  sm:text-xl/8">
+                Powerful analytics, more leads, save time with automation, and
+                stand out with high-quality visuals.
+              </h2>
             </div>
           </div>
+
           <div className="mb-12 flex items-center justify-center opacity-25">
             <ArrowDownCircleIcon className="size-8 text-white" />
           </div>
