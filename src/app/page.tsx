@@ -90,7 +90,7 @@ export default function Home() {
               <h2 className="text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl dark:text-white">
                 Ready to elevate your online presence?
               </h2>
-              <p className="mt-6 text-xl/8 text-gray-700 dark:text-gray-300">
+              <p className="mt-6 text-xl/8 text-gray-700 dark:text-gray-300 mb-10">
                 Contact us now to schedule a consultation and let’s build
                 something amazing together.
               </p>
