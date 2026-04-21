@@ -20,20 +20,18 @@ export default function HeroSection() {
           <div className="m-x-auto max-w-2xl py-32 sm:py-48 lg:py-56">
             <div className="mb-8">
               <h1 className=" text-balance text-5xl font-semibold tracking-tight text-white sm:text-7xl">
-                Websites that help you{' '}
+                We build websites that{' '}
                 <mark className="bg-green-600/20 text-green-300">
                   grow your business
                 </mark>{' '}
                 online.
               </h1>
               <h2 className="mt-8 text-pretty text-2xl text-green-300 font-medium  sm:text-xl/8">
-                Powerful analytics, more leads, save time with automation, and
-                stand out with high-quality visuals.
+                Custom design with SEO optimized content built to convert. We
+                handle the tech so you can focus on the vision.
               </h2>
             </div>
-            <div className="sm:hidden">
-              <ContactUsButton />
-            </div>
+            <ContactUsButton />
           </div>
 
           <div className="mb-12 flex items-center justify-center opacity-25">

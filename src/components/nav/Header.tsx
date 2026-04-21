@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { AppConstants } from '@/app/utils/app-constants';
 import Link from 'next/link';
-import ContactUsButton from '@/components/ContactUsButton';
+// import ContactUsButton from '@/components/ContactUsButton';
 
 export default function Header() {
   return (
@@ -42,11 +42,11 @@ export default function Header() {
         </div> */}
 
         {/* Contact Us button - right */}
-        <div className="flex lg:flex-1 justify-end">
+        {/* <div className="flex lg:flex-1 justify-end">
           <div className="ml-auto hidden sm:inline">
             <ContactUsButton />
           </div>
-        </div>
+        </div> */}
       </nav>
     </header>
   );
