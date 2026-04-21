@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { ArrowDownCircleIcon } from '@heroicons/react/24/outline';
+import ContactUsButton from './ContactUsButton';
 
 export default function HeroSection() {
   return (
@@ -17,7 +18,7 @@ export default function HeroSection() {
 
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="m-x-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-            <div>
+            <div className="mb-8">
               <h1 className=" text-balance text-5xl font-semibold tracking-tight text-white sm:text-7xl">
                 Websites that help you{' '}
                 <mark className="bg-green-600/20 text-green-300">
@@ -29,6 +30,9 @@ export default function HeroSection() {
                 Powerful analytics, more leads, save time with automation, and
                 stand out with high-quality visuals.
               </h2>
+            </div>
+            <div className="sm:hidden">
+              <ContactUsButton />
             </div>
           </div>
 

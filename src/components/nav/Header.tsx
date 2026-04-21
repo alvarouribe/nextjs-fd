@@ -1,5 +1,3 @@
-'use client';
-
 import Image from 'next/image';
 import { AppConstants } from '@/app/utils/app-constants';
 import Link from 'next/link';
@@ -10,7 +8,7 @@ export default function Header() {
     <header className="absolute inset-x-0 top-0 z-50">
       <nav
         aria-label="Global"
-        className="flex items-center justify-between p-6 lg:px-8"
+        className="flex items-center justify-center sm:justify-between p-6 lg:px-8"
       >
         {/* Logo - left */}
         <div className="flex lg:flex-1">
@@ -45,7 +43,7 @@ export default function Header() {
 
         {/* Contact Us button - right */}
         <div className="flex lg:flex-1 justify-end">
-          <div className="ml-auto">
+          <div className="ml-auto hidden sm:inline">
             <ContactUsButton />
           </div>
         </div>
