@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
-import Link from 'next/link';
 import { requiredEnv } from '@/app/utils/cloudinary';
 import { getPhotographyImages } from '@/app/utils/photography';
+import PhotographyGallery from '@/components/PhotographyGallery';
 
 export const metadata: Metadata = {
   title: 'Photography | FlyingDolly',
@@ -11,22 +10,6 @@ export const metadata: Metadata = {
 };
 
 export const dynamic = 'force-dynamic';
-
-const buildCloudinaryImageUrl = (
-  cloudName: string,
-  publicId: string,
-  format: string,
-  width: number
-): string =>
-  `https://res.cloudinary.com/${cloudName}/image/upload/c_scale,w_${width}/${publicId}.${format}`;
-
-const humanizePublicId = (publicId: string): string =>
-  publicId
-    .split('/')
-    .pop()
-    ?.replace(/[-_]/g, ' ')
-    .replace(/\b\w/g, character => character.toUpperCase()) ??
-  'Photography image';
 
 export default async function PhotographyPage() {
   const cloudName = requiredEnv('NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME');
@@ -55,36 +38,7 @@ export default async function PhotographyPage() {
             </p>
           </div>
         ) : (
-          <div className="columns-1 gap-4 sm:columns-2 xl:columns-3">
-            {images.map(image => (
-              <Link
-                key={image.id}
-                href={buildCloudinaryImageUrl(
-                  cloudName,
-                  image.publicId,
-                  image.format,
-                  2560
-                )}
-                target="_blank"
-                rel="noreferrer"
-                className="group relative mb-4 block overflow-hidden rounded-lg border border-white/10 bg-gray-900/50 transition hover:border-white/30"
-              >
-                <Image
-                  src={buildCloudinaryImageUrl(
-                    cloudName,
-                    image.publicId,
-                    image.format,
-                    960
-                  )}
-                  width={image.width}
-                  height={image.height}
-                  alt={humanizePublicId(image.publicId)}
-                  className="h-auto w-full transform object-cover transition duration-200 group-hover:scale-[1.01]"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                />
-              </Link>
-            ))}
-          </div>
+          <PhotographyGallery images={images} cloudName={cloudName} />
         )}
       </section>
     </main>
