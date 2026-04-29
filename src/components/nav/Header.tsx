@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { AppConstants } from '@/app/utils/app-constants';
 import Link from 'next/link';
+import { NavigationLinks } from '@/app/utils/navigation-links';
 // import ContactUsButton from '@/components/ContactUsButton';
 
 export default function Header() {
@@ -25,21 +26,17 @@ export default function Header() {
           </Link>
         </div>
 
-        {/* Centered nav links */}
-        {/* <div className="hidden sm:flex sm:items-center sm:space-x-8 justify-center flex-1">
-          <Link
-            href="/services"
-            className="font-semibold leading-6 text-white hover:text-green-600 transition-colors"
-          >
-            SERVICES
-          </Link>
-          <Link
-            href="/about"
-            className="font-semibold leading-6 text-white hover:text-green-600 transition-colors"
-          >
-            ABOUT
-          </Link>
-        </div> */}
+        <div className="hidden flex-1 justify-center sm:flex sm:items-center sm:space-x-8">
+          {NavigationLinks.map(link => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="font-semibold leading-6 text-white transition-colors hover:text-green-400"
+            >
+              {link.name.toUpperCase()}
+            </Link>
+          ))}
+        </div>
 
         {/* Contact Us button - right */}
         {/* <div className="flex lg:flex-1 justify-end">

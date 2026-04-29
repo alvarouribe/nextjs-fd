@@ -32,6 +32,13 @@ Create a .env.local (not committed) with production secrets used by the contact/
 - fromEmail=EMAIL
 - password=ZOHO PASS
 
+For the `/photography` gallery route, also provide:
+
+- NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=YOUR_CLOUD_NAME
+- CLOUDINARY_API_KEY=YOUR_API_KEY
+- CLOUDINARY_API_SECRET=YOUR_API_SECRET
+- CLOUDINARY_FOLDER=YOUR_FOLDER_NAME
+
 ### Vulnerability check
 
 ```bash
