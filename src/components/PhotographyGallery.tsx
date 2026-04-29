@@ -25,23 +25,127 @@ const humanizePublicId = (publicId: string): string =>
     ?.replace(/[-_]/g, ' ')
     .replace(/\b\w/g, c => c.toUpperCase()) ?? 'Photography image';
 
+function PhotographyLoader() {
+  return (
+    <svg
+      viewBox="0 0 240 240"
+      role="status"
+      aria-label="Loading image"
+      className="h-16 w-16 text-white"
+    >
+      <style>{`
+        .pl1123__ring { animation: ringA 2s linear infinite; }
+        .pl1123__ring--a { stroke: currentColor; }
+        .pl1123__ring--b { animation-name: ringB; stroke: currentColor; }
+        .pl1123__ring--c { animation-name: ringC; stroke: currentColor; }
+        .pl1123__ring--d { animation-name: ringD; stroke: currentColor; }
+        @keyframes ringA {
+          from,4%{stroke-dasharray:0 660;stroke-width:20;stroke-dashoffset:-330}
+          12%{stroke-dasharray:60 600;stroke-width:30;stroke-dashoffset:-335}
+          32%{stroke-dasharray:60 600;stroke-width:30;stroke-dashoffset:-595}
+          40%,54%{stroke-dasharray:0 660;stroke-width:20;stroke-dashoffset:-660}
+          62%{stroke-dasharray:60 600;stroke-width:30;stroke-dashoffset:-665}
+          82%{stroke-dasharray:60 600;stroke-width:30;stroke-dashoffset:-925}
+          90%,to{stroke-dasharray:0 660;stroke-width:20;stroke-dashoffset:-990}
+        }
+        @keyframes ringB {
+          from,12%{stroke-dasharray:0 220;stroke-width:20;stroke-dashoffset:-110}
+          20%{stroke-dasharray:20 200;stroke-width:30;stroke-dashoffset:-115}
+          40%{stroke-dasharray:20 200;stroke-width:30;stroke-dashoffset:-195}
+          48%,62%{stroke-dasharray:0 220;stroke-width:20;stroke-dashoffset:-220}
+          70%{stroke-dasharray:20 200;stroke-width:30;stroke-dashoffset:-225}
+          90%{stroke-dasharray:20 200;stroke-width:30;stroke-dashoffset:-305}
+          98%,to{stroke-dasharray:0 220;stroke-width:20;stroke-dashoffset:-330}
+        }
+        @keyframes ringC {
+          from{stroke-dasharray:0 440;stroke-width:20;stroke-dashoffset:0}
+          8%{stroke-dasharray:40 400;stroke-width:30;stroke-dashoffset:-5}
+          28%{stroke-dasharray:40 400;stroke-width:30;stroke-dashoffset:-175}
+          36%,58%{stroke-dasharray:0 440;stroke-width:20;stroke-dashoffset:-220}
+          66%{stroke-dasharray:40 400;stroke-width:30;stroke-dashoffset:-225}
+          86%{stroke-dasharray:40 400;stroke-width:30;stroke-dashoffset:-395}
+          94%,to{stroke-dasharray:0 440;stroke-width:20;stroke-dashoffset:-440}
+        }
+        @keyframes ringD {
+          from,8%{stroke-dasharray:0 440;stroke-width:20;stroke-dashoffset:0}
+          16%{stroke-dasharray:40 400;stroke-width:30;stroke-dashoffset:-5}
+          36%{stroke-dasharray:40 400;stroke-width:30;stroke-dashoffset:-175}
+          44%,50%{stroke-dasharray:0 440;stroke-width:20;stroke-dashoffset:-220}
+          58%{stroke-dasharray:40 400;stroke-width:30;stroke-dashoffset:-225}
+          78%{stroke-dasharray:40 400;stroke-width:30;stroke-dashoffset:-395}
+          86%,to{stroke-dasharray:0 440;stroke-width:20;stroke-dashoffset:-440}
+        }
+      `}</style>
+      <circle
+        className="pl1123__ring pl1123__ring--a"
+        cx="120"
+        cy="120"
+        r="105"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="20"
+        strokeDasharray="0 660"
+        strokeDashoffset="-330"
+        strokeLinecap="round"
+      />
+      <circle
+        className="pl1123__ring pl1123__ring--b"
+        cx="120"
+        cy="120"
+        r="35"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="20"
+        strokeDasharray="0 220"
+        strokeDashoffset="-110"
+        strokeLinecap="round"
+      />
+      <circle
+        className="pl1123__ring pl1123__ring--c"
+        cx="85"
+        cy="120"
+        r="70"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="20"
+        strokeDasharray="0 440"
+        strokeLinecap="round"
+      />
+      <circle
+        className="pl1123__ring pl1123__ring--d"
+        cx="155"
+        cy="120"
+        r="70"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="20"
+        strokeDasharray="0 440"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
 export default function PhotographyGallery({ images, cloudName }: Props) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const selected = selectedIndex !== null ? images[selectedIndex] : null;
   const hasPrev = selectedIndex !== null && selectedIndex > 0;
   const hasNext = selectedIndex !== null && selectedIndex < images.length - 1;
 
-  const closeModal = useCallback(() => setSelectedIndex(null), []);
-  const goNext = useCallback(
-    () =>
-      setSelectedIndex(i => (i !== null && i < images.length - 1 ? i + 1 : i)),
-    [images.length]
-  );
-  const goPrev = useCallback(
-    () => setSelectedIndex(i => (i !== null && i > 0 ? i - 1 : i)),
-    []
-  );
+  const closeModal = useCallback(() => {
+    setSelectedIndex(null);
+    setIsLoading(false);
+  }, []);
+  const goNext = useCallback(() => {
+    setIsLoading(true);
+    setSelectedIndex(i => (i !== null && i < images.length - 1 ? i + 1 : i));
+  }, [images.length]);
+  const goPrev = useCallback(() => {
+    setIsLoading(true);
+    setSelectedIndex(i => (i !== null && i > 0 ? i - 1 : i));
+  }, []);
 
   useEffect(() => {
     if (selected === null) return;
@@ -61,7 +165,10 @@ export default function PhotographyGallery({ images, cloudName }: Props) {
           <button
             key={image.id}
             type="button"
-            onClick={() => setSelectedIndex(image.id)}
+            onClick={() => {
+              setIsLoading(true);
+              setSelectedIndex(image.id);
+            }}
             className="group relative mb-4 block w-full cursor-zoom-in overflow-hidden rounded-lg border border-white/10 bg-gray-900/50 transition hover:border-white/30"
           >
             <Image
@@ -170,6 +277,11 @@ export default function PhotographyGallery({ images, cloudName }: Props) {
             className="relative max-h-[90vh] max-w-[90vw]"
             onClick={e => e.stopPropagation()}
           >
+            {isLoading && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <PhotographyLoader />
+              </div>
+            )}
             <Image
               src={buildUrl(
                 cloudName,
@@ -180,8 +292,11 @@ export default function PhotographyGallery({ images, cloudName }: Props) {
               width={selected.width}
               height={selected.height}
               alt={humanizePublicId(selected.publicId)}
-              className="max-h-[90vh] w-auto rounded-lg object-contain shadow-2xl"
+              className={`max-h-[90vh] w-auto rounded-lg object-contain shadow-2xl transition-opacity duration-300 ${
+                isLoading ? 'opacity-0' : 'opacity-100'
+              }`}
               priority
+              onLoad={() => setIsLoading(false)}
             />
           </div>
         </div>

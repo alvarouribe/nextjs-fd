@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 import PhotographyGallery from '../../src/components/PhotographyGallery';
 
@@ -126,6 +126,33 @@ describe('PhotographyGallery', () => {
       fireEvent.keyDown(document, { key: 'ArrowLeft' });
       const dialog = screen.getByRole('dialog');
       expect(dialog.querySelector('img')?.src).toContain('sample-one');
+    });
+  });
+
+  describe('loading indicator', () => {
+    it('shows a loading spinner immediately after opening the modal', () => {
+      render(<PhotographyGallery images={mockImages} cloudName={cloudName} />);
+      fireEvent.click(screen.getAllByRole('img')[0].closest('button')!);
+      expect(screen.getByRole('status')).toBeInTheDocument();
+    });
+
+    it('hides the spinner once the modal image has loaded', async () => {
+      render(<PhotographyGallery images={mockImages} cloudName={cloudName} />);
+      fireEvent.click(screen.getAllByRole('img')[0].closest('button')!);
+      const dialog = screen.getByRole('dialog');
+      const modalImg = dialog.querySelector('img')!;
+      fireEvent.load(modalImg);
+      await waitFor(() => expect(screen.queryByRole('status')).not.toBeInTheDocument());
+    });
+
+    it('shows the spinner again when navigating to the next image', async () => {
+      render(<PhotographyGallery images={mockImages} cloudName={cloudName} />);
+      fireEvent.click(screen.getAllByRole('img')[0].closest('button')!);
+      const dialog = screen.getByRole('dialog');
+      fireEvent.load(dialog.querySelector('img')!);
+      await waitFor(() => expect(screen.queryByRole('status')).not.toBeInTheDocument());
+      fireEvent.click(screen.getByRole('button', { name: /next/i }));
+      expect(screen.getByRole('status')).toBeInTheDocument();
     });
   });
 });
