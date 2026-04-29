@@ -51,13 +51,17 @@ export default function Header() {
             </svg>
           </button>
 
-          <div className={`${isMenuOpen ? '' : 'hidden'} w-full md:block md:w-auto`} id="navbar-default">
-            <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-default rounded-base bg-neutral-secondary-soft md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-neutral-primary">
+          <div
+            className={`${isMenuOpen ? '' : 'hidden'} w-full md:block md:w-auto`}
+            id="navbar-default"
+          >
+            <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-default rounded-base bg-neutral-700 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-transparent">
               {NavigationLinks.map(link => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
                     className="font-semibold leading-6 text-white transition-colors hover:text-green-400"
+                    onClick={() => setIsMenuOpen(false)}
                   >
                     {link.name}
                   </Link>
