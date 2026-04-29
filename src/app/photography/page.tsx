@@ -40,7 +40,7 @@ export default async function PhotographyPage() {
             Photography
           </h1>
           <p className="mt-4 text-base text-gray-300 sm:text-lg">
-            A Cloudinary-powered gallery showcasing selected visual work.
+            A gallery showcasing selected photography work.
           </p>
         </div>
 
