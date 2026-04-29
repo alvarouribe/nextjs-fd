@@ -224,7 +224,7 @@ export default function PhotographyGallery({ images, cloudName }: Props) {
                 e.stopPropagation();
                 goPrev();
               }}
-              className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white transition hover:bg-white/25"
+              className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white transition hover:bg-white/25 z-30"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -253,7 +253,7 @@ export default function PhotographyGallery({ images, cloudName }: Props) {
                 e.stopPropagation();
                 goNext();
               }}
-              className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white transition hover:bg-white/25"
+              className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white transition hover:bg-white/25 z-30"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
