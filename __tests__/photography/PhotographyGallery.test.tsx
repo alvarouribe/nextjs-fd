@@ -70,4 +70,62 @@ describe('PhotographyGallery', () => {
     fireEvent.click(modalImg);
     expect(screen.getByRole('dialog')).toBeInTheDocument();
   });
+
+  describe('navigation arrows', () => {
+    it('shows the next button when not on the last image', () => {
+      render(<PhotographyGallery images={mockImages} cloudName={cloudName} />);
+      fireEvent.click(screen.getAllByRole('img')[0].closest('button')!);
+      expect(screen.getByRole('button', { name: /next/i })).toBeInTheDocument();
+    });
+
+    it('shows the previous button when not on the first image', () => {
+      render(<PhotographyGallery images={mockImages} cloudName={cloudName} />);
+      fireEvent.click(screen.getAllByRole('img')[1].closest('button')!);
+      expect(screen.getByRole('button', { name: /previous/i })).toBeInTheDocument();
+    });
+
+    it('hides the previous button on the first image', () => {
+      render(<PhotographyGallery images={mockImages} cloudName={cloudName} />);
+      fireEvent.click(screen.getAllByRole('img')[0].closest('button')!);
+      expect(screen.queryByRole('button', { name: /previous/i })).not.toBeInTheDocument();
+    });
+
+    it('hides the next button on the last image', () => {
+      render(<PhotographyGallery images={mockImages} cloudName={cloudName} />);
+      fireEvent.click(screen.getAllByRole('img')[1].closest('button')!);
+      expect(screen.queryByRole('button', { name: /next/i })).not.toBeInTheDocument();
+    });
+
+    it('navigates to the next image when the next button is clicked', () => {
+      render(<PhotographyGallery images={mockImages} cloudName={cloudName} />);
+      fireEvent.click(screen.getAllByRole('img')[0].closest('button')!);
+      fireEvent.click(screen.getByRole('button', { name: /next/i }));
+      const dialog = screen.getByRole('dialog');
+      expect(dialog.querySelector('img')?.src).toContain('sample-two');
+    });
+
+    it('navigates to the previous image when the previous button is clicked', () => {
+      render(<PhotographyGallery images={mockImages} cloudName={cloudName} />);
+      fireEvent.click(screen.getAllByRole('img')[1].closest('button')!);
+      fireEvent.click(screen.getByRole('button', { name: /previous/i }));
+      const dialog = screen.getByRole('dialog');
+      expect(dialog.querySelector('img')?.src).toContain('sample-one');
+    });
+
+    it('navigates to the next image with ArrowRight key', () => {
+      render(<PhotographyGallery images={mockImages} cloudName={cloudName} />);
+      fireEvent.click(screen.getAllByRole('img')[0].closest('button')!);
+      fireEvent.keyDown(document, { key: 'ArrowRight' });
+      const dialog = screen.getByRole('dialog');
+      expect(dialog.querySelector('img')?.src).toContain('sample-two');
+    });
+
+    it('navigates to the previous image with ArrowLeft key', () => {
+      render(<PhotographyGallery images={mockImages} cloudName={cloudName} />);
+      fireEvent.click(screen.getAllByRole('img')[1].closest('button')!);
+      fireEvent.keyDown(document, { key: 'ArrowLeft' });
+      const dialog = screen.getByRole('dialog');
+      expect(dialog.querySelector('img')?.src).toContain('sample-one');
+    });
+  });
 });

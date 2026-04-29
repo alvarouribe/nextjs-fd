@@ -26,18 +26,33 @@ const humanizePublicId = (publicId: string): string =>
     .replace(/\b\w/g, c => c.toUpperCase()) ?? 'Photography image';
 
 export default function PhotographyGallery({ images, cloudName }: Props) {
-  const [selected, setSelected] = useState<PhotographyImage | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
-  const closeModal = useCallback(() => setSelected(null), []);
+  const selected = selectedIndex !== null ? images[selectedIndex] : null;
+  const hasPrev = selectedIndex !== null && selectedIndex > 0;
+  const hasNext = selectedIndex !== null && selectedIndex < images.length - 1;
+
+  const closeModal = useCallback(() => setSelectedIndex(null), []);
+  const goNext = useCallback(
+    () =>
+      setSelectedIndex(i => (i !== null && i < images.length - 1 ? i + 1 : i)),
+    [images.length]
+  );
+  const goPrev = useCallback(
+    () => setSelectedIndex(i => (i !== null && i > 0 ? i - 1 : i)),
+    []
+  );
 
   useEffect(() => {
-    if (!selected) return;
+    if (selected === null) return;
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') closeModal();
+      else if (e.key === 'ArrowRight') goNext();
+      else if (e.key === 'ArrowLeft') goPrev();
     };
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [selected, closeModal]);
+  }, [selected, closeModal, goNext, goPrev]);
 
   return (
     <>
@@ -46,7 +61,7 @@ export default function PhotographyGallery({ images, cloudName }: Props) {
           <button
             key={image.id}
             type="button"
-            onClick={() => setSelected(image)}
+            onClick={() => setSelectedIndex(image.id)}
             className="group relative mb-4 block w-full cursor-zoom-in overflow-hidden rounded-lg border border-white/10 bg-gray-900/50 transition hover:border-white/30"
           >
             <Image
@@ -69,6 +84,7 @@ export default function PhotographyGallery({ images, cloudName }: Props) {
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
           onClick={closeModal}
         >
+          {/* Close button */}
           <button
             type="button"
             aria-label="Close"
@@ -91,6 +107,64 @@ export default function PhotographyGallery({ images, cloudName }: Props) {
               />
             </svg>
           </button>
+
+          {/* Previous arrow */}
+          {hasPrev && (
+            <button
+              type="button"
+              aria-label="Previous"
+              onClick={e => {
+                e.stopPropagation();
+                goPrev();
+              }}
+              className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white transition hover:bg-white/25"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                className="h-6 w-6"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+            </button>
+          )}
+
+          {/* Next arrow */}
+          {hasNext && (
+            <button
+              type="button"
+              aria-label="Next"
+              onClick={e => {
+                e.stopPropagation();
+                goNext();
+              }}
+              className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white transition hover:bg-white/25"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                className="h-6 w-6"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </button>
+          )}
 
           <div
             className="relative max-h-[90vh] max-w-[90vw]"
