@@ -273,16 +273,19 @@ export default function PhotographyGallery({ images, cloudName }: Props) {
             </button>
           )}
 
+          {/* Spinner — full-modal overlay so it's always visible during load */}
+          {isLoading && (
+            <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+              <PhotographyLoader />
+            </div>
+          )}
+
           <div
             className="relative max-h-[90vh] max-w-[90vw]"
             onClick={e => e.stopPropagation()}
           >
-            {isLoading && (
-              <div className="absolute inset-0 flex items-center justify-center">
-                <PhotographyLoader />
-              </div>
-            )}
             <Image
+              key={selectedIndex}
               src={buildUrl(
                 cloudName,
                 selected.publicId,
