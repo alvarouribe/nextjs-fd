@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { requiredEnv } from '@/app/utils/cloudinary';
-import { getPhotographyImages } from '@/app/utils/photography';
+import { getCloudinaryPhotosByFolder } from '@/app/utils/photography';
 import PhotographyGallery from '@/components/PhotographyGallery';
 
 export const metadata: Metadata = {
@@ -13,7 +13,7 @@ export const dynamic = 'force-dynamic';
 
 export default async function PhotographyPage() {
   const cloudName = requiredEnv('NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME');
-  const images = await getPhotographyImages();
+  const images = await getCloudinaryPhotosByFolder();
 
   return (
     <main className="min-h-screen bg-gray-950 px-6 pb-20 pt-32 text-white lg:px-8">

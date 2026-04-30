@@ -21,12 +21,14 @@ type CloudinarySearchResult = {
   resources: CloudinaryResource[];
 };
 
-const fetchPhotographyImagesUncached = async (): Promise<PhotographyImage[]> => {
-  const folder = requiredEnv('CLOUDINARY_FOLDER');
+const fetchPhotographyImagesUncached = async (
+  folder?: string
+): Promise<PhotographyImage[]> => {
+  const cloudinaryFolder = folder || requiredEnv('CLOUDINARY_FOLDER');
   const cloudinary = getCloudinary();
 
   const result = (await cloudinary.search
-    .expression(`folder:${folder}/*`)
+    .expression(`folder:${cloudinaryFolder}/*`)
     .sort_by('public_id', 'desc')
     .max_results(400)
     .execute()) as CloudinarySearchResult;
@@ -46,5 +48,6 @@ const getCachedPhotographyImages = unstable_cache(
   { revalidate: 3600 }
 );
 
-export const getPhotographyImages = async (): Promise<PhotographyImage[]> =>
-  getCachedPhotographyImages();
+export const getCloudinaryPhotosByFolder = async (
+  folder?: string
+): Promise<PhotographyImage[]> => getCachedPhotographyImages(folder);
