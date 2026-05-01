@@ -28,7 +28,6 @@ export async function POST(request: Request) {
         <p>Client <strong> ${formData?.firstName} ${formData?.lastName} </strong> wants to contact you</p>
         <ul>
           <li>Email: ${formData.email} </li>
-          <li>Phone: ${formData.phone} </li>
           <li>Message: ${formData.message}</li>
         </ul>
       </div>
