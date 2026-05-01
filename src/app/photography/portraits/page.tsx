@@ -23,7 +23,7 @@ export default async function PhotographyPage() {
             Portraits
           </h1>
           <p className="mt-4 text-base text-gray-300 sm:text-lg">
-            A gallery showcasing portraits photography work.
+            A gallery showcasing portrait photography work.
           </p>
         </div>
 
