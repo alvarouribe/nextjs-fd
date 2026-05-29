@@ -46,6 +46,7 @@ describe('Header', () => {
 
       fireEvent.mouseEnter(photographyButton.parentElement!);
       expect(await screen.findByText('Portraits')).toBeInTheDocument();
+      expect(screen.getByText('Go Freek 2026 Tauranga')).toBeInTheDocument();
 
       fireEvent.mouseLeave(photographyButton.parentElement!);
       act(() => {

@@ -2,6 +2,7 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 
 import PhotographyPage from '../../src/app/photography/page';
+import GoFreek2026TaurangaPage from '../../src/app/photography/go-freek-2026-tauranga/page';
 import PortraitsPage from '../../src/app/photography/portraits/page';
 
 const requiredEnv = jest.fn();
@@ -75,5 +76,16 @@ describe('Photography server pages', () => {
     render(await PortraitsPage());
 
     expect(screen.getByText('gallery:demo-cloud:2')).toBeInTheDocument();
+  });
+
+  it('requests the go freek album and renders empty state when no images exist', async () => {
+    getCloudinaryPhotosByFolder.mockResolvedValue([]);
+
+    render(await GoFreek2026TaurangaPage());
+
+    expect(getCloudinaryPhotosByFolder).toHaveBeenCalledWith(
+      '2026-04-26-go-freek'
+    );
+    expect(screen.getByText('No photos available yet.')).toBeInTheDocument();
   });
 });

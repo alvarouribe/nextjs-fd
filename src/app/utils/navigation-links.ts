@@ -22,6 +22,11 @@ export const NavigationLinks: NavLink[] = [
         href: '/photography/portraits',
         description: 'Professional portrait sessions',
       },
+      {
+        name: 'Go Freek 2026 Tauranga',
+        href: '/photography/go-freek-2026-tauranga',
+        description: 'Event highlights from Go Freek 2026',
+      },
     ],
   },
   // { name: 'About', href: '/about' },
