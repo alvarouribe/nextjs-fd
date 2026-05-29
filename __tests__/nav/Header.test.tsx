@@ -3,7 +3,17 @@ import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 
 import Header from '../../src/components/nav/Header';
 
+const trackSelectContent = jest.fn();
+
+jest.mock('../../src/app/utils/analytics', () => ({
+  trackSelectContent: (...args: unknown[]) => trackSelectContent(...args),
+}));
+
 describe('Header', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('hides the nav menu by default on mobile', () => {
     render(<Header />);
     const menu = screen.getByRole('list');
@@ -69,5 +79,10 @@ describe('Header', () => {
 
     fireEvent.click(screen.getByRole('link', { name: 'Home' }));
     expect(button).toHaveAttribute('aria-expanded', 'false');
+    expect(trackSelectContent).toHaveBeenCalledWith({
+      source: 'header_nav',
+      destination: '/',
+      label: 'Home',
+    });
   });
 });

@@ -4,6 +4,7 @@ import { useRef, useState } from 'react';
 import Image from 'next/image';
 import { AppConstants } from '@/app/utils/app-constants';
 import Link from 'next/link';
+import { trackSelectContent } from '@/app/utils/analytics';
 import { NavigationLinks, type NavLink } from '@/app/utils/navigation-links';
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
@@ -64,7 +65,14 @@ function NavFlyout({
                 <Link
                   href={item.href}
                   className="block font-semibold text-white"
-                  onClick={onItemClick}
+                  onClick={() => {
+                    trackSelectContent({
+                      source: 'header_nav',
+                      destination: item.href,
+                      label: item.name,
+                    });
+                    onItemClick();
+                  }}
                 >
                   {item.name}
                   <span className="absolute inset-0" />
@@ -141,7 +149,14 @@ export default function Header() {
                     <Link
                       href={link.href}
                       className="font-semibold leading-6 text-white transition-colors hover:text-green-400"
-                      onClick={() => setIsMenuOpen(false)}
+                      onClick={() => {
+                        trackSelectContent({
+                          source: 'header_nav',
+                          destination: link.href,
+                          label: link.name,
+                        });
+                        setIsMenuOpen(false);
+                      }}
                     >
                       {link.name}
                     </Link>
