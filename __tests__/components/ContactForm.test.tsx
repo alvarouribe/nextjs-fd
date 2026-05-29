@@ -6,6 +6,7 @@ import ContactForm from '../../src/components/ContactForm';
 const addFlashMessage = jest.fn();
 const checkEmailLimitCookie = jest.fn();
 const setEmailLimitCookie = jest.fn();
+const trackGenerateLead = jest.fn();
 
 jest.mock('../../src/hooks/useFlashMessages', () => ({
   __esModule: true,
@@ -15,6 +16,10 @@ jest.mock('../../src/hooks/useFlashMessages', () => ({
 jest.mock('../../src/app/utils/cookies-functions', () => ({
   setEmailLimitCookie: (...args: unknown[]) => setEmailLimitCookie(...args),
   checkEmailLimitCookie: (...args: unknown[]) => checkEmailLimitCookie(...args),
+}));
+
+jest.mock('../../src/app/utils/analytics', () => ({
+  trackGenerateLead: (...args: unknown[]) => trackGenerateLead(...args),
 }));
 
 describe('ContactForm', () => {
@@ -97,6 +102,14 @@ describe('ContactForm', () => {
         message: 'Your message has been sent successfully!',
       })
     );
+    expect(trackGenerateLead).toHaveBeenNthCalledWith(1, {
+      source: 'contact_form',
+      result: 'attempt',
+    });
+    expect(trackGenerateLead).toHaveBeenNthCalledWith(2, {
+      source: 'contact_form',
+      result: 'success',
+    });
 
     expect(fetchMock).toHaveBeenCalledWith('/api/send-email', {
       method: 'POST',
@@ -134,6 +147,14 @@ describe('ContactForm', () => {
           'There was an error sending your message. Please try again later.',
       })
     );
+    expect(trackGenerateLead).toHaveBeenNthCalledWith(1, {
+      source: 'contact_form',
+      result: 'attempt',
+    });
+    expect(trackGenerateLead).toHaveBeenNthCalledWith(2, {
+      source: 'contact_form',
+      result: 'error',
+    });
     expect(setEmailLimitCookie).not.toHaveBeenCalled();
   });
 
@@ -157,6 +178,14 @@ describe('ContactForm', () => {
           'There was an error sending your message. Please try again later.',
       })
     );
+    expect(trackGenerateLead).toHaveBeenNthCalledWith(1, {
+      source: 'contact_form',
+      result: 'attempt',
+    });
+    expect(trackGenerateLead).toHaveBeenNthCalledWith(2, {
+      source: 'contact_form',
+      result: 'error',
+    });
     expect(setEmailLimitCookie).not.toHaveBeenCalled();
   });
 

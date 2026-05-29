@@ -3,7 +3,17 @@ import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 
 import Header from '../../src/components/nav/Header';
 
+const trackSelectContent = jest.fn();
+
+jest.mock('../../src/app/utils/analytics', () => ({
+  trackSelectContent: (...args: unknown[]) => trackSelectContent(...args),
+}));
+
 describe('Header', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('hides the nav menu by default on mobile', () => {
     render(<Header />);
     const menu = screen.getByRole('list');
@@ -61,6 +71,23 @@ describe('Header', () => {
     }
   });
 
+  it('tracks analytics for a photography flyout sub-link click', async () => {
+    render(<Header />);
+
+    const photographyButton = screen.getByRole('button', {
+      name: /photography/i,
+    });
+
+    fireEvent.mouseEnter(photographyButton.parentElement!);
+    fireEvent.click(await screen.findByRole('link', { name: 'Portraits' }));
+
+    expect(trackSelectContent).toHaveBeenCalledWith({
+      source: 'header_nav',
+      destination: '/photography/portraits',
+      label: 'Portraits',
+    });
+  });
+
   it('closes the mobile menu after a menu link is clicked', () => {
     render(<Header />);
     const button = screen.getByRole('button', { name: /open main menu/i });
@@ -69,5 +96,10 @@ describe('Header', () => {
 
     fireEvent.click(screen.getByRole('link', { name: 'Home' }));
     expect(button).toHaveAttribute('aria-expanded', 'false');
+    expect(trackSelectContent).toHaveBeenCalledWith({
+      source: 'header_nav',
+      destination: '/',
+      label: 'Home',
+    });
   });
 });

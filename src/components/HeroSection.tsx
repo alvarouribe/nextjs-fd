@@ -31,7 +31,7 @@ export default function HeroSection() {
                 handle the tech so you can focus on the vision.
               </h2>
             </div>
-            <ContactUsButton />
+            <ContactUsButton location="hero" />
           </div>
 
           <div className="mb-12 flex items-center justify-center opacity-25">

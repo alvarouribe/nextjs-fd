@@ -99,7 +99,7 @@ export default function Home() {
                 something amazing together.
               </p>
 
-              <ContactUsButton />
+              <ContactUsButton location="mid_page" />
             </div>
 
             <div className="flex flex-wrap items-start justify-end gap-6 sm:gap-8 lg:contents">

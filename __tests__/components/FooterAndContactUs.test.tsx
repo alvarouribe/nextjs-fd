@@ -4,6 +4,12 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import ContactUsButton from '../../src/components/ContactUsButton';
 import FooterSection from '../../src/components/FooterSection';
 
+const trackGenerateLead = jest.fn();
+
+jest.mock('../../src/app/utils/analytics', () => ({
+  trackGenerateLead: (...args: unknown[]) => trackGenerateLead(...args),
+}));
+
 describe('FooterSection', () => {
   it('renders social links that open safely in a new tab', () => {
     render(<FooterSection />);
@@ -29,6 +35,10 @@ describe('FooterSection', () => {
 });
 
 describe('ContactUsButton', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('scrolls to the contact section when clicked', () => {
     const scrollIntoView = jest.fn();
     const section = document.createElement('section');
@@ -40,6 +50,10 @@ describe('ContactUsButton', () => {
     fireEvent.click(screen.getByRole('button', { name: /book a free call/i }));
 
     expect(scrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth' });
+    expect(trackGenerateLead).toHaveBeenCalledWith({
+      source: 'cta_button',
+      location: 'unknown',
+    });
     section.remove();
   });
 
