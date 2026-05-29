@@ -45,6 +45,26 @@ For the `/photography` gallery route, also provide:
 pnpm audit
 ```
 
+## GA4 tracking (Phase 1)
+
+GA4 is loaded globally in `src/app/layout.tsx`.
+
+Phase 1 adds custom journey events via `src/app/utils/analytics.ts`:
+
+| Event | Trigger | Parameters |
+| --- | --- | --- |
+| `generate_lead` | "Book a free call" CTA click | `source=cta_button`, `location=hero\|mid_page\|unknown` |
+| `select_content` | Header / Photography flyout link click | `source=header_nav`, `destination`, `label` |
+| `generate_lead` | Contact form valid submit started | `source=contact_form`, `result=attempt` |
+| `generate_lead` | Contact form API success | `source=contact_form`, `result=success` |
+| `generate_lead` | Contact form API/network error | `source=contact_form`, `result=error` |
+
+### What you can analyze now
+
+- CTA intent clicks by placement (`location`)
+- Navigation path choices from the header (`destination`, `label`)
+- Lead funnel outcomes: form attempt -> success/error
+
 ### Fonts
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
