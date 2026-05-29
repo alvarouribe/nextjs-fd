@@ -71,6 +71,23 @@ describe('Header', () => {
     }
   });
 
+  it('tracks analytics for a photography flyout sub-link click', async () => {
+    render(<Header />);
+
+    const photographyButton = screen.getByRole('button', {
+      name: /photography/i,
+    });
+
+    fireEvent.mouseEnter(photographyButton.parentElement!);
+    fireEvent.click(await screen.findByRole('link', { name: 'Portraits' }));
+
+    expect(trackSelectContent).toHaveBeenCalledWith({
+      source: 'header_nav',
+      destination: '/photography/portraits',
+      label: 'Portraits',
+    });
+  });
+
   it('closes the mobile menu after a menu link is clicked', () => {
     render(<Header />);
     const button = screen.getByRole('button', { name: /open main menu/i });
