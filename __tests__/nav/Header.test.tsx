@@ -28,6 +28,16 @@ describe('Header', () => {
     expect(menu.closest('#navbar-default')).not.toHaveClass('hidden');
   });
 
+  it('shows the nav menu as a full-screen centered overlay on mobile', () => {
+    render(<Header />);
+    const button = screen.getByRole('button', { name: /open main menu/i });
+    fireEvent.click(button);
+
+    const menuContainer = screen.getByRole('list').closest('#navbar-default');
+    expect(menuContainer).toHaveClass('fixed', 'inset-0', 'items-center', 'justify-center');
+    expect(screen.getByRole('list')).toHaveClass('items-center', 'text-center');
+  });
+
   it('hides the nav menu again when the button is clicked a second time', () => {
     render(<Header />);
     const button = screen.getByRole('button', { name: /open main menu/i });

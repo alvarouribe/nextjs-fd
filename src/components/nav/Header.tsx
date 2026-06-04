@@ -134,10 +134,14 @@ export default function Header() {
           </button>
 
           <div
-            className={`${isMenuOpen ? '' : 'hidden'} w-full md:block md:w-auto`}
+            className={`${
+              isMenuOpen
+                ? 'fixed inset-0 z-30 flex items-center justify-center bg-[#0a0a0a] bg-opacity-95'
+                : 'hidden'
+            } w-full md:static md:block md:w-auto md:bg-transparent md:bg-opacity-100`}
             id="navbar-default"
           >
-            <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-default rounded-base bg-neutral-700 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-transparent">
+            <ul className="font-medium flex flex-col items-center p-4 text-center md:p-0 mt-4 border border-default rounded-base bg-neutral-700 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-transparent md:text-left">
               {NavigationLinks.map(link => (
                 <li key={link.href}>
                   {link.subLinks ? (
