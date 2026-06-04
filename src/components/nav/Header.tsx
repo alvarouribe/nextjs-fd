@@ -136,7 +136,7 @@ export default function Header() {
           <div
             className={`${
               isMenuOpen
-                ? 'fixed inset-0 z-30 flex items-center justify-center bg-[#0a0a0a] bg-opacity-95'
+                ? 'fixed inset-0 z-30 flex items-center justify-center bg-neutral-700 bg-opacity-95'
                 : 'hidden'
             } w-full md:static md:block md:w-auto md:bg-transparent md:bg-opacity-100`}
             id="navbar-default"
