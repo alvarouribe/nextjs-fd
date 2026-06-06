@@ -97,9 +97,13 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
-    document.body.style.overflow = isMenuOpen ? 'hidden' : '';
+    if (isMenuOpen) {
+      document.body.classList.add('overflow-hidden');
+    } else {
+      document.body.classList.remove('overflow-hidden');
+    }
     return () => {
-      document.body.style.overflow = '';
+      document.body.classList.remove('overflow-hidden');
     };
   }, [isMenuOpen]);
 
@@ -165,11 +169,13 @@ export default function Header() {
             id="navbar-default"
           >
             <ul className="flex flex-col items-center gap-8 text-center md:flex-row md:gap-0 md:space-x-8 rtl:space-x-reverse md:text-left">
-              {NavigationLinks.map((link, index) => (
+              {NavigationLinks.map((link, index) => {
+                const linkStyle: MobileMenuLinkStyle = { '--link-index': index };
+                return (
                 <li
                   key={link.href}
                   className="mobile-menu-link text-2xl md:text-base"
-                  style={{ '--link-index': index } satisfies MobileMenuLinkStyle}
+                  style={linkStyle}
                 >
                   {link.subLinks ? (
                     <NavFlyout
@@ -193,7 +199,8 @@ export default function Header() {
                     </Link>
                   )}
                 </li>
-              ))}
+                );
+              })}
             </ul>
           </div>
         </div>
