@@ -108,13 +108,12 @@ export default function Header() {
   }, [isMenuOpen]);
 
   useEffect(() => {
+    if (!isMenuOpen) return;
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setIsMenuOpen(false);
     };
-    if (isMenuOpen) {
-      document.addEventListener('keydown', handleKeyDown);
-      return () => document.removeEventListener('keydown', handleKeyDown);
-    }
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
   }, [isMenuOpen]);
 
   return (
@@ -170,12 +169,12 @@ export default function Header() {
           >
             <ul className="flex flex-col items-center gap-8 text-center md:flex-row md:gap-0 md:space-x-8 rtl:space-x-reverse md:text-left">
               {NavigationLinks.map((link, index) => {
-                const linkStyle: MobileMenuLinkStyle = { '--link-index': index };
+                const animationStyle: MobileMenuLinkStyle = { '--link-index': index };
                 return (
                 <li
                   key={link.href}
                   className="mobile-menu-link text-2xl md:text-base"
-                  style={linkStyle}
+                  style={animationStyle}
                 >
                   {link.subLinks ? (
                     <NavFlyout
