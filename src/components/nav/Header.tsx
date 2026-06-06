@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { AppConstants } from '@/app/utils/app-constants';
 import Link from 'next/link';
@@ -92,11 +92,28 @@ function NavFlyout({
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMenuOpen]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsMenuOpen(false);
+    };
+    if (isMenuOpen) {
+      document.addEventListener('keydown', handleKeyDown);
+      return () => document.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [isMenuOpen]);
+
   return (
     <header>
       <nav className="bg-[#0a0a0a] bg-opacity-75 fixed w-full z-20 top-0 start-0 bord-er-b border-default">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <Link href="/" className="-m-1.5 p-1.5">
+          <Link href="/" className="relative z-50 -m-1.5 p-1.5">
             <span className="sr-only">{AppConstants['companyName']}</span>
             <Image
               alt="FlyingDolly Logo"
@@ -109,41 +126,47 @@ export default function Header() {
           </Link>
           <button
             type="button"
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-body rounded-base md:hidden hover:bg-neutral-secondary-soft hover:text-heading focus:outline-none focus:ring-2 focus:ring-neutral-tertiary"
+            className="relative z-50 inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-white rounded-base md:hidden focus:outline-none focus:ring-2 focus:ring-neutral-tertiary"
             aria-controls="navbar-default"
             aria-expanded={isMenuOpen ? 'true' : 'false'}
             onClick={() => setIsMenuOpen(prev => !prev)}
           >
             <span className="sr-only">Open main menu</span>
-            <svg
-              className="w-6 h-6"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeWidth="2"
-                d="M5 7h14M5 12h14M5 17h14"
+            <span aria-hidden="true" className="flex flex-col gap-[5px]">
+              <span
+                className={`block h-0.5 w-6 bg-current rounded transition-all duration-300 origin-center ${
+                  isMenuOpen ? 'rotate-45 translate-y-[7px]' : ''
+                }`}
               />
-            </svg>
+              <span
+                data-test="burger-line-middle"
+                className={`block h-0.5 w-6 bg-current rounded transition-all duration-300 ${
+                  isMenuOpen ? 'opacity-0' : ''
+                }`}
+              />
+              <span
+                className={`block h-0.5 w-6 bg-current rounded transition-all duration-300 origin-center ${
+                  isMenuOpen ? '-rotate-45 -translate-y-[7px]' : ''
+                }`}
+              />
+            </span>
           </button>
 
           <div
             className={`${
               isMenuOpen
-                ? 'fixed inset-0 z-30 flex items-center justify-center bg-neutral-700 bg-opacity-95'
+                ? 'mobile-menu-overlay fixed inset-0 z-30 flex flex-col items-center justify-center bg-[#0a0a0a]'
                 : 'hidden'
-            } w-full md:static md:block md:w-auto md:bg-transparent md:bg-opacity-100`}
+            } w-full md:static md:block md:w-auto md:bg-transparent`}
             id="navbar-default"
           >
-            <ul className="font-medium flex flex-col items-center p-4 text-center md:p-0 mt-4 border border-default rounded-base bg-neutral-700 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-transparent md:text-left">
-              {NavigationLinks.map(link => (
-                <li key={link.href}>
+            <ul className="flex flex-col items-center gap-8 text-center md:flex-row md:gap-0 md:space-x-8 rtl:space-x-reverse md:text-left">
+              {NavigationLinks.map((link, index) => (
+                <li
+                  key={link.href}
+                  className="mobile-menu-link text-2xl md:text-base"
+                  style={{ '--link-index': index } as React.CSSProperties}
+                >
                   {link.subLinks ? (
                     <NavFlyout
                       link={link as NavLinkWithSubs}
@@ -152,7 +175,7 @@ export default function Header() {
                   ) : (
                     <Link
                       href={link.href}
-                      className="font-semibold leading-6 text-white transition-colors hover:text-green-400"
+                      className="mobile-nav-link font-semibold text-white transition-colors hover:text-green-400 md:leading-6"
                       onClick={() => {
                         trackSelectContent({
                           source: 'header_nav',

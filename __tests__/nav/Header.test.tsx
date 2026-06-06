@@ -98,6 +98,19 @@ describe('Header', () => {
     });
   });
 
+  it('animates the hamburger to an X: hides the middle line when menu is open', () => {
+    render(<Header />);
+    const button = screen.getByRole('button', { name: /open main menu/i });
+
+    expect(screen.getByTestId('burger-line-middle')).not.toHaveClass('opacity-0');
+
+    fireEvent.click(button);
+    expect(screen.getByTestId('burger-line-middle')).toHaveClass('opacity-0');
+
+    fireEvent.click(button);
+    expect(screen.getByTestId('burger-line-middle')).not.toHaveClass('opacity-0');
+  });
+
   it('closes the mobile menu after a menu link is clicked', () => {
     render(<Header />);
     const button = screen.getByRole('button', { name: /open main menu/i });
