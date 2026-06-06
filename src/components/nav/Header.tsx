@@ -12,6 +12,10 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid';
 
 type NavLinkWithSubs = NavLink & { subLinks: NonNullable<NavLink['subLinks']> };
 
+interface MobileMenuLinkStyle extends React.CSSProperties {
+  '--link-index': number;
+}
+
 function NavFlyout({
   link,
   onItemClick,
@@ -111,7 +115,7 @@ export default function Header() {
 
   return (
     <header>
-      <nav className="bg-[#0a0a0a] bg-opacity-75 fixed w-full z-20 top-0 start-0 bord-er-b border-default">
+      <nav className="bg-[#0a0a0a] bg-opacity-75 fixed w-full z-20 top-0 start-0 border-b border-default">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <Link href="/" className="relative z-50 -m-1.5 p-1.5">
             <span className="sr-only">{AppConstants['companyName']}</span>
@@ -165,7 +169,7 @@ export default function Header() {
                 <li
                   key={link.href}
                   className="mobile-menu-link text-2xl md:text-base"
-                  style={{ '--link-index': index } as React.CSSProperties}
+                  style={{ '--link-index': index } satisfies MobileMenuLinkStyle}
                 >
                   {link.subLinks ? (
                     <NavFlyout
