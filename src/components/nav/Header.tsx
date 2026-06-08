@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { AppConstants } from '@/app/utils/app-constants';
 import Link from 'next/link';
@@ -11,6 +11,10 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid';
 // import ContactUsButton from '@/components/ContactUsButton';
 
 type NavLinkWithSubs = NavLink & { subLinks: NonNullable<NavLink['subLinks']> };
+
+interface MobileMenuLinkStyle extends React.CSSProperties {
+  '--link-index': number;
+}
 
 function NavFlyout({
   link,
@@ -92,11 +96,42 @@ function NavFlyout({
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.classList.add('overflow-hidden');
+    } else {
+      document.body.classList.remove('overflow-hidden');
+    }
+    return () => {
+      document.body.classList.remove('overflow-hidden');
+    };
+  }, [isMenuOpen]);
+
+  useEffect(() => {
+    if (!isMenuOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsMenuOpen(false);
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isMenuOpen]);
+
   return (
     <header>
-      <nav className="bg-[#0a0a0a] bg-opacity-75 fixed w-full z-20 top-0 start-0 bord-er-b border-default">
+      <nav className="bg-[#0a0a0a] bg-opacity-75 fixed w-full z-20 top-0 start-0 border-b border-default">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <Link href="/" className="-m-1.5 p-1.5">
+          <Link href="/" className="relative z-50 -m-1.5 p-1.5">
             <span className="sr-only">{AppConstants['companyName']}</span>
             <Image
               alt="FlyingDolly Logo"
@@ -109,60 +144,111 @@ export default function Header() {
           </Link>
           <button
             type="button"
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-body rounded-base md:hidden hover:bg-neutral-secondary-soft hover:text-heading focus:outline-none focus:ring-2 focus:ring-neutral-tertiary"
+            className="relative z-50 inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-white rounded-base md:hidden focus:outline-none focus:ring-2 focus:ring-neutral-tertiary"
             aria-controls="navbar-default"
             aria-expanded={isMenuOpen ? 'true' : 'false'}
             onClick={() => setIsMenuOpen(prev => !prev)}
           >
             <span className="sr-only">Open main menu</span>
-            <svg
-              className="w-6 h-6"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeWidth="2"
-                d="M5 7h14M5 12h14M5 17h14"
+            <span aria-hidden="true" className="flex flex-col gap-[5px]">
+              <span
+                className={`block h-0.5 w-6 bg-current rounded transition-all duration-300 origin-center ${
+                  isMenuOpen ? 'rotate-45 translate-y-[7px]' : ''
+                }`}
               />
-            </svg>
+              <span
+                data-test="burger-line-middle"
+                className={`block h-0.5 w-6 bg-current rounded transition-all duration-300 ${
+                  isMenuOpen ? 'opacity-0' : ''
+                }`}
+              />
+              <span
+                className={`block h-0.5 w-6 bg-current rounded transition-all duration-300 origin-center ${
+                  isMenuOpen ? '-rotate-45 -translate-y-[7px]' : ''
+                }`}
+              />
+            </span>
           </button>
 
           <div
-            className={`${isMenuOpen ? '' : 'hidden'} w-full md:block md:w-auto`}
+            className={`${
+              isMenuOpen
+                ? 'mobile-menu-overlay fixed inset-0 z-30 flex flex-col items-center justify-center bg-[#0a0a0a]'
+                : 'hidden'
+            } w-full md:static md:block md:w-auto md:bg-transparent`}
             id="navbar-default"
           >
-            <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-default rounded-base bg-neutral-700 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-transparent">
-              {NavigationLinks.map(link => (
-                <li key={link.href}>
-                  {link.subLinks ? (
-                    <NavFlyout
-                      link={link as NavLinkWithSubs}
-                      onItemClick={() => setIsMenuOpen(false)}
-                    />
-                  ) : (
-                    <Link
-                      href={link.href}
-                      className="font-semibold leading-6 text-white transition-colors hover:text-green-400"
-                      onClick={() => {
-                        trackSelectContent({
-                          source: 'header_nav',
-                          destination: link.href,
-                          label: link.name,
-                        });
-                        setIsMenuOpen(false);
-                      }}
-                    >
-                      {link.name}
-                    </Link>
-                  )}
-                </li>
-              ))}
+            <ul
+              className={`flex flex-col gap-8 md:flex-row md:gap-0 md:space-x-8 rtl:space-x-reverse md:text-left ${
+                isMenuOpen
+                  ? 'w-full max-w-sm items-start px-8 text-left'
+                  : 'items-center text-center'
+              }`}
+            >
+              {NavigationLinks.map((link, index) => {
+                const animationStyle: MobileMenuLinkStyle = {
+                  '--link-index': index,
+                };
+                return (
+                  <li
+                    key={link.href}
+                    className={`mobile-menu-link ${
+                      isMenuOpen ? 'w-full text-3xl' : 'text-2xl'
+                    } md:w-auto md:text-base`}
+                    style={animationStyle}
+                  >
+                    {link.subLinks ? (
+                      isMenuOpen ? (
+                        <div>
+                          <p className="font-semibold text-white">
+                            {link.name}
+                          </p>
+                          <ul className="mt-3 space-y-3 pl-6 text-xl">
+                            {link.subLinks.map(item => (
+                              <li key={item.href}>
+                                <Link
+                                  href={item.href}
+                                  className="mobile-nav-link font-semibold text-white transition-colors hover:text-green-400"
+                                  onClick={() => {
+                                    trackSelectContent({
+                                      source: 'header_nav',
+                                      destination: item.href,
+                                      label: item.name,
+                                    });
+                                    setIsMenuOpen(false);
+                                  }}
+                                >
+                                  {item.name}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ) : (
+                        <NavFlyout
+                          link={link as NavLinkWithSubs}
+                          onItemClick={() => setIsMenuOpen(false)}
+                        />
+                      )
+                    ) : (
+                      <Link
+                        href={link.href}
+                        className="mobile-nav-link font-semibold text-white transition-colors hover:text-green-400 md:leading-6"
+                        onClick={() => {
+                          trackSelectContent({
+                            source: 'header_nav',
+                            destination: link.href,
+                            label: link.name,
+                          });
+                          setIsMenuOpen(false);
+                        }}
+                      >
+                        {link.name}
+                      </Link>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>
