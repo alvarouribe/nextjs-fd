@@ -144,4 +144,39 @@ describe('Header', () => {
       label: 'Home',
     });
   });
+
+  it('forces the mobile menu closed when resizing to desktop', () => {
+    const originalInnerWidth = window.innerWidth;
+
+    Object.defineProperty(window, 'innerWidth', {
+      configurable: true,
+      writable: true,
+      value: 375,
+    });
+
+    render(<Header />);
+    const button = screen.getByRole('button', { name: /open main menu/i });
+
+    fireEvent.click(button);
+    expect(button).toHaveAttribute('aria-expanded', 'true');
+
+    Object.defineProperty(window, 'innerWidth', {
+      configurable: true,
+      writable: true,
+      value: 1024,
+    });
+
+    act(() => {
+      window.dispatchEvent(new Event('resize'));
+    });
+
+    expect(button).toHaveAttribute('aria-expanded', 'false');
+    expect(getMenuList().closest('#navbar-default')).toHaveClass('hidden');
+
+    Object.defineProperty(window, 'innerWidth', {
+      configurable: true,
+      writable: true,
+      value: originalInnerWidth,
+    });
+  });
 });
