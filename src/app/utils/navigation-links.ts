@@ -16,7 +16,11 @@ export const NavigationLinks: NavLink[] = [
     name: 'Photography',
     href: '/photography',
     subLinks: [
-      { name: 'All Photography', href: '/photography' },
+      {
+        name: 'Favorites',
+        href: '/photography',
+        description: 'Photos that we loved',
+      },
       {
         name: 'Portraits',
         href: '/photography/portraits',

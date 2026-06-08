@@ -167,37 +167,75 @@ export default function Header() {
             } w-full md:static md:block md:w-auto md:bg-transparent`}
             id="navbar-default"
           >
-            <ul className="flex flex-col items-center gap-8 text-center md:flex-row md:gap-0 md:space-x-8 rtl:space-x-reverse md:text-left">
+            <ul
+              className={`flex flex-col gap-8 md:flex-row md:gap-0 md:space-x-8 rtl:space-x-reverse md:text-left ${
+                isMenuOpen
+                  ? 'w-full max-w-sm items-start px-8 text-left'
+                  : 'items-center text-center'
+              }`}
+            >
               {NavigationLinks.map((link, index) => {
-                const animationStyle: MobileMenuLinkStyle = { '--link-index': index };
+                const animationStyle: MobileMenuLinkStyle = {
+                  '--link-index': index,
+                };
                 return (
-                <li
-                  key={link.href}
-                  className="mobile-menu-link text-2xl md:text-base"
-                  style={animationStyle}
-                >
-                  {link.subLinks ? (
-                    <NavFlyout
-                      link={link as NavLinkWithSubs}
-                      onItemClick={() => setIsMenuOpen(false)}
-                    />
-                  ) : (
-                    <Link
-                      href={link.href}
-                      className="mobile-nav-link font-semibold text-white transition-colors hover:text-green-400 md:leading-6"
-                      onClick={() => {
-                        trackSelectContent({
-                          source: 'header_nav',
-                          destination: link.href,
-                          label: link.name,
-                        });
-                        setIsMenuOpen(false);
-                      }}
-                    >
-                      {link.name}
-                    </Link>
-                  )}
-                </li>
+                  <li
+                    key={link.href}
+                    className={`mobile-menu-link ${
+                      isMenuOpen ? 'w-full text-3xl' : 'text-2xl'
+                    } md:w-auto md:text-base`}
+                    style={animationStyle}
+                  >
+                    {link.subLinks ? (
+                      isMenuOpen ? (
+                        <div>
+                          <p className="font-semibold text-white">
+                            {link.name}
+                          </p>
+                          <ul className="mt-3 space-y-3 pl-6 text-xl">
+                            {link.subLinks.map(item => (
+                              <li key={item.href}>
+                                <Link
+                                  href={item.href}
+                                  className="mobile-nav-link font-semibold text-white transition-colors hover:text-green-400"
+                                  onClick={() => {
+                                    trackSelectContent({
+                                      source: 'header_nav',
+                                      destination: item.href,
+                                      label: item.name,
+                                    });
+                                    setIsMenuOpen(false);
+                                  }}
+                                >
+                                  {item.name}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ) : (
+                        <NavFlyout
+                          link={link as NavLinkWithSubs}
+                          onItemClick={() => setIsMenuOpen(false)}
+                        />
+                      )
+                    ) : (
+                      <Link
+                        href={link.href}
+                        className="mobile-nav-link font-semibold text-white transition-colors hover:text-green-400 md:leading-6"
+                        onClick={() => {
+                          trackSelectContent({
+                            source: 'header_nav',
+                            destination: link.href,
+                            label: link.name,
+                          });
+                          setIsMenuOpen(false);
+                        }}
+                      >
+                        {link.name}
+                      </Link>
+                    )}
+                  </li>
                 );
               })}
             </ul>
