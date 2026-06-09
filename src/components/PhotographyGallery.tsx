@@ -176,7 +176,7 @@ export default function PhotographyGallery({ images, cloudName }: Props) {
               width={image.width}
               height={image.height}
               alt={humanizePublicId(image.publicId)}
-              className="h-auto w-full transform object-cover transition duration-200 group-hover:scale-[1.01]"
+              className="h-auto w-full transform object-cover transition duration-200 group-hover:scale-[1.30]"
               sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
             />
           </button>
@@ -280,6 +280,14 @@ export default function PhotographyGallery({ images, cloudName }: Props) {
             </div>
           )}
 
+          <style>{`
+            @keyframes breathe {
+              0%, 100% { transform: scale(1); }
+              50% { transform: scale(1.2); }
+            }
+            .img-breathe { animation: breathe 20s ease-in-out infinite; }
+          `}</style>
+
           <div
             className="relative max-h-[90vh] max-w-[90vw]"
             onClick={e => e.stopPropagation()}
@@ -296,7 +304,7 @@ export default function PhotographyGallery({ images, cloudName }: Props) {
               height={selected.height}
               alt={humanizePublicId(selected.publicId)}
               className={`max-h-[90vh] w-auto rounded-lg object-contain shadow-2xl transition-opacity duration-300 ${
-                isLoading ? 'opacity-0' : 'opacity-100'
+                isLoading ? 'opacity-0' : 'opacity-100 img-breathe'
               }`}
               priority
               onLoad={() => setIsLoading(false)}
