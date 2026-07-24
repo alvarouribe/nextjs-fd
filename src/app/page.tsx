@@ -9,6 +9,33 @@ import HeroSection from '../components/HeroSection';
 import ContactForm from '@/components/ContactForm';
 import ContactUsButton from '@/components/ContactUsButton';
 
+const processSteps = [
+  {
+    step: '01',
+    name: 'Discover',
+    description:
+      'We start with a free call to understand your business, your goals, and what success looks like for you.',
+  },
+  {
+    step: '02',
+    name: 'Build',
+    description:
+      'We design and develop your website, automation, or content — keeping you in the loop at every stage.',
+  },
+  {
+    step: '03',
+    name: 'Launch',
+    description:
+      'We go live fast, handle the technical details, and make sure everything works flawlessly across devices.',
+  },
+  {
+    step: '04',
+    name: 'Grow',
+    description:
+      'Beyond launch we optimise, support, and scale — so your site keeps performing as your business grows.',
+  },
+];
+
 const features = [
   {
     name: 'Custom Design',
@@ -142,6 +169,44 @@ export default function Home() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="process-section"
+        className="bg-gray-50 py-24 sm:py-32 dark:bg-gray-900"
+      >
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl lg:text-center">
+            <h2 className="text-base/7 font-semibold text-green-600 dark:text-green-400">
+              How we work
+            </h2>
+            <p className="mt-2 text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl dark:text-white">
+              A simple process, from idea to launch
+            </p>
+            <p className="mt-6 text-lg/8 text-gray-700 dark:text-gray-300">
+              No jargon and no surprises — just a clear path to a website that
+              works for your business.
+            </p>
+          </div>
+          <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 sm:mt-20 sm:grid-cols-2 lg:max-w-none lg:grid-cols-4">
+            {processSteps.map(item => (
+              <div
+                key={item.step}
+                className="rounded-2xl bg-white p-8 shadow-sm ring-1 ring-gray-200 transition-transform duration-300 hover:-translate-y-1 hover:shadow-md dark:bg-gray-800 dark:ring-gray-700"
+              >
+                <span className="text-3xl font-semibold text-green-600 dark:text-green-400">
+                  {item.step}
+                </span>
+                <h3 className="mt-4 text-lg font-semibold text-gray-900 dark:text-white">
+                  {item.name}
+                </h3>
+                <p className="mt-2 text-base/7 text-gray-600 dark:text-gray-400">
+                  {item.description}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

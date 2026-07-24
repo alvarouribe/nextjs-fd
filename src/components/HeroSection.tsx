@@ -14,6 +14,8 @@ export default function HeroSection() {
           className="absolute inset-0 -z-10 size-full object-cover opacity-30"
           width={1280}
           height={840}
+          priority
+          sizes="100vw"
         />
 
         <div className="mx-auto max-w-7xl px-6 lg:px-8">

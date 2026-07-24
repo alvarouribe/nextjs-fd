@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
+import { CheckIcon } from '@heroicons/react/24/outline';
 import SVGBackground from './SvgBackground';
 import Input from './Input';
 import TextArea from './TextArea';
@@ -114,6 +115,29 @@ export default function ContactForm() {
         <p className="mt-2 text-lg/8 text-gray-600 dark:text-gray-400">
           We help companies and individuals build their online presence.
         </p>
+        <ul className="mt-6 flex flex-col gap-2 text-sm text-gray-600 sm:flex-row sm:flex-wrap sm:gap-x-6 dark:text-gray-400">
+          <li className="flex items-center gap-2">
+            <CheckIcon
+              aria-hidden="true"
+              className="size-5 flex-none text-green-600 dark:text-green-400"
+            />
+            We reply within 24 hours
+          </li>
+          <li className="flex items-center gap-2">
+            <CheckIcon
+              aria-hidden="true"
+              className="size-5 flex-none text-green-600 dark:text-green-400"
+            />
+            Free, no-obligation consultation
+          </li>
+          <li className="flex items-center gap-2">
+            <CheckIcon
+              aria-hidden="true"
+              className="size-5 flex-none text-green-600 dark:text-green-400"
+            />
+            Your details stay private
+          </li>
+        </ul>
         <div className="mt-16 flex flex-col gap-16 sm:gap-y-20 lg:flex-row">
           <form className="lg:flex-auto">
             <div
@@ -199,12 +223,17 @@ export default function ContactForm() {
                   <p>We will get back to you soon.</p>
                 </div>
               ) : (
-                <ContactSubmitButton
-                  isLoading={isSending}
-                  onClick={handleClick}
-                >
-                  {`Let's talk`}
-                </ContactSubmitButton>
+                <div className="flex flex-col items-center gap-3">
+                  <ContactSubmitButton
+                    isLoading={isSending}
+                    onClick={handleClick}
+                  >
+                    {`Let's talk`}
+                  </ContactSubmitButton>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    We&apos;ll get back to you within one business day.
+                  </p>
+                </div>
               )}
             </div>
           </form>

@@ -11,7 +11,6 @@ export interface NavLink {
 }
 
 export const NavigationLinks: NavLink[] = [
-  { name: 'Home', href: '/' },
   {
     name: 'Photography',
     href: '/photography',
@@ -33,5 +32,5 @@ export const NavigationLinks: NavLink[] = [
       },
     ],
   },
-  // { name: 'About', href: '/about' },
+  { name: 'About', href: '/about' },
 ];
