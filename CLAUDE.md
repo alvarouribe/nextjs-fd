@@ -36,8 +36,9 @@ Required in `.env.local` (not committed):
 
 - `toEmail`, `fromEmail`, `password` — used by `/api/send-email` (Zoho SMTP via nodemailer)
 - `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`, `CLOUDINARY_FOLDER` — used by the photography routes
+- `ADMIN_EMAIL`, `ADMIN_PASSWORD`, `ADMIN_SESSION_SECRET` — used by the `/admin` area. `ADMIN_SESSION_SECRET` signs the session cookie; rotating it (or `ADMIN_EMAIL`) invalidates every existing session.
 
-`src/app/utils/cloudinary.ts` exports `requiredEnv(name)`, which throws if a variable is missing — use this pattern rather than silently defaulting when adding new server-side env reads.
+`src/app/utils/required-env.ts` exports `requiredEnv(name)`, which throws if a variable is missing — use this pattern rather than silently defaulting when adding new server-side env reads. (`cloudinary.ts` re-exports it for existing callers.)
 
 ## Architecture
 
@@ -45,6 +46,7 @@ Required in `.env.local` (not committed):
 - **`src/app/utils/`** holds server- and client-side utilities: `cloudinary.ts` (lazy-configured Cloudinary client, server-only), `photography.ts` (fetches/caches Cloudinary photos via `unstable_cache`, 1hr revalidate), `analytics.ts` (thin wrapper around `window.gtag` for GA4 events — `trackSelectContent`, `trackGenerateLead`), `cookies-functions.ts` (client-side cookie helpers, SSR-safe), `navigation-links.ts` (single source of truth for header nav, including nested `subLinks` for flyout/mobile menus), `app-constants.ts` (shared string constants like company name).
 - **Photography galleries** are server-rendered: each page under `src/app/photography/**` calls `getCloudinaryPhotosByFolder` (server-only, cached) and passes the resulting `PhotographyImage[]` into the client component `PhotographyGallery`.
 - **Contact form flow**: `ContactForm` (client component) validates input client-side, POSTs JSON to `src/app/api/send-email/route.ts` (a Next.js Route Handler using nodemailer), then uses `useFlashMessages` (react-hot-toast wrapper) for success/error feedback and `cookies-functions.ts` to rate-limit repeat submissions (1hr cookie). GA lead-tracking events (`trackGenerateLead`) are fired at attempt/success/error.
+- **Admin area** (`/admin`): single-user, credential-based. `src/app/api/admin/login/route.ts` checks `ADMIN_EMAIL`/`ADMIN_PASSWORD` (constant-time compare in `admin-auth.ts`) and sets an httpOnly, HMAC-signed session cookie (`fd_admin_session`, 8hr). Every protected server component calls `getAdminSession()` from `admin-session.ts` and `redirect('/admin/login')` when it returns `null` — guard each page, don't rely on `src/app/admin/layout.tsx`. `login-throttle.ts` is a best-effort in-memory brake (5 failures / 15 min per IP), not shared across serverless instances. Admin routes are `noindex` and disallowed in `robots.ts`; they're deliberately absent from `navigation-links.ts`.
 - **Header/nav** (`src/components/nav/Header.tsx`) drives both the desktop hover flyout (`NavFlyout`, via Headless UI `Popover`) and the mobile slide-in menu from the same `NavigationLinks` data structure — when adding a nav item, add it once to `navigation-links.ts` and both menus pick it up.
 - Path alias `@/*` maps to `src/*` (see `tsconfig.json`).
 - Import order is enforced by prettier (`@trivago/prettier-plugin-sort-imports`): react → third-party → `@/components/*` → `@/lib/*` → relative imports.

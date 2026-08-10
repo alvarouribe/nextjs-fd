@@ -1,15 +1,9 @@
 import 'server-only';
 import { v2 as cloudinary } from 'cloudinary';
 
-export const requiredEnv = (name: string): string => {
-  const value = process.env[name];
+import { requiredEnv } from './required-env';
 
-  if (!value) {
-    throw new Error(`Missing required environment variable: ${name}`);
-  }
-
-  return value;
-};
+export { requiredEnv };
 
 let isCloudinaryConfigured = false;
 
