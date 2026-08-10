@@ -1,3 +1,4 @@
+import { ClerkProvider } from '@clerk/nextjs';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
@@ -97,20 +98,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-        <Header />
-        {children}
-        <GoogleAnalytics gaId="G-SBMJ2GKDC1" />
-        <FooterSection />
-        <Toaster position="bottom-right" />
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          />
+          <Header />
+          {children}
+          <GoogleAnalytics gaId="G-SBMJ2GKDC1" />
+          <FooterSection />
+          <Toaster position="bottom-right" />
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
