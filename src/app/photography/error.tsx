@@ -10,7 +10,9 @@ export default function PhotographyErrorPage({
   return (
     <main className="min-h-screen bg-gray-950 px-6 pb-20 pt-32 text-white lg:px-8">
       <section className="mx-auto max-w-3xl rounded-xl border border-rose-700/60 bg-rose-950/30 p-8">
-        <h1 className="text-2xl font-semibold">Unable to load photography gallery</h1>
+        <h1 className="text-2xl font-semibold">
+          Unable to load photography gallery
+        </h1>
         <p className="mt-3 text-sm text-rose-100/90">{error.message}</p>
         <button
           onClick={reset}

@@ -143,8 +143,7 @@ describe('ContactForm', () => {
     await waitFor(() =>
       expect(addFlashMessage).toHaveBeenCalledWith({
         type: 'error',
-        message:
-          'There was an error sending your message. Please try again later.',
+        message: 'There was an error sending your message. Please try again later.',
       })
     );
     expect(trackGenerateLead).toHaveBeenNthCalledWith(1, {
@@ -174,8 +173,7 @@ describe('ContactForm', () => {
     await waitFor(() =>
       expect(addFlashMessage).toHaveBeenCalledWith({
         type: 'error',
-        message:
-          'There was an error sending your message. Please try again later.',
+        message: 'There was an error sending your message. Please try again later.',
       })
     );
     expect(trackGenerateLead).toHaveBeenNthCalledWith(1, {
@@ -195,8 +193,6 @@ describe('ContactForm', () => {
     render(<ContactForm />);
 
     expect(screen.getByText('Thank you for your message!')).toBeInTheDocument();
-    expect(
-      screen.queryByRole('button', { name: /let's talk/i })
-    ).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /let's talk/i })).not.toBeInTheDocument();
   });
 });

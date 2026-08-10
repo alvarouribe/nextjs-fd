@@ -1,8 +1,8 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 
-import PhotographyPage from '../../src/app/photography/page';
 import GoFreek2026TaurangaPage from '../../src/app/photography/go-freek-2026-tauranga/page';
+import PhotographyPage from '../../src/app/photography/page';
 import PortraitsPage from '../../src/app/photography/portraits/page';
 
 const requiredEnv = jest.fn();
@@ -13,19 +13,12 @@ jest.mock('../../src/app/utils/cloudinary', () => ({
 }));
 
 jest.mock('../../src/app/utils/photography', () => ({
-  getCloudinaryPhotosByFolder: (...args: unknown[]) =>
-    getCloudinaryPhotosByFolder(...args),
+  getCloudinaryPhotosByFolder: (...args: unknown[]) => getCloudinaryPhotosByFolder(...args),
 }));
 
 jest.mock('../../src/components/PhotographyGallery', () => ({
   __esModule: true,
-  default: ({
-    images,
-    cloudName,
-  }: {
-    images: Array<{ id: number }>;
-    cloudName: string;
-  }) => (
+  default: ({ images, cloudName }: { images: Array<{ id: number }>; cloudName: string }) => (
     <div data-testid="gallery">
       gallery:{cloudName}:{images.length}
     </div>
@@ -83,9 +76,7 @@ describe('Photography server pages', () => {
 
     render(await GoFreek2026TaurangaPage());
 
-    expect(getCloudinaryPhotosByFolder).toHaveBeenCalledWith(
-      '2026-04-26-go-freek'
-    );
+    expect(getCloudinaryPhotosByFolder).toHaveBeenCalledWith('2026-04-26-go-freek');
     expect(screen.getByText('No photos available yet.')).toBeInTheDocument();
   });
 });

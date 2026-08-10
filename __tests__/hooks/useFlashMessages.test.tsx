@@ -7,14 +7,11 @@ const toastDismiss = jest.fn();
 
 jest.mock('react-hot-toast', () => ({
   __esModule: true,
-  default: Object.assign(
-    (...args: unknown[]) => toastDefault(...args),
-    {
-      success: (...args: unknown[]) => toastSuccess(...args),
-      error: (...args: unknown[]) => toastError(...args),
-      dismiss: (...args: unknown[]) => toastDismiss(...args),
-    }
-  ),
+  default: Object.assign((...args: unknown[]) => toastDefault(...args), {
+    success: (...args: unknown[]) => toastSuccess(...args),
+    error: (...args: unknown[]) => toastError(...args),
+    dismiss: (...args: unknown[]) => toastDismiss(...args),
+  }),
 }));
 
 describe('useFlashMessages', () => {

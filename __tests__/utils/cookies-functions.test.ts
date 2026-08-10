@@ -1,7 +1,4 @@
-import {
-  checkEmailLimitCookie,
-  setEmailLimitCookie,
-} from '../../src/app/utils/cookies-functions';
+import { checkEmailLimitCookie, setEmailLimitCookie } from '../../src/app/utils/cookies-functions';
 
 describe('cookies-functions', () => {
   beforeEach(() => {
