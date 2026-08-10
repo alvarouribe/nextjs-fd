@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-Marketing/portfolio website for FlyingDolly (a web development agency in Mt Maunganui, NZ), built with Next.js App Router. Pages: home (`/`), photography galleries (`/photography`, `/photography/portraits`, `/photography/go-freek-2026-tauranga`), and a contact form that sends email via SMTP.
+Marketing/portfolio website for FlyingDolly (a web development agency in Mt Maunganui, NZ), built with Next.js App Router. Pages: home (`/`), photography galleries (`/photography`, `/photography/portraits`, `/photography/go-freek-2026-tauranga`), a contact form that sends email via SMTP, and a NextAuth-protected admin area (`/admin`).
 
 ## Commands
 
@@ -36,8 +36,10 @@ Required in `.env.local` (not committed):
 
 - `toEmail`, `fromEmail`, `password` — used by `/api/send-email` (Zoho SMTP via nodemailer)
 - `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`, `CLOUDINARY_FOLDER` — used by the photography routes
+- `ADMIN_EMAIL`, `ADMIN_PASSWORD_HASH` — the single admin login accepted by the NextAuth Credentials provider. The hash is `scrypt:<N>:<r>:<p>:<base64 salt>:<base64 key>`; generate it with `pnpm admin:hash` (reads the password from stdin so it stays out of shell history). Never store the password itself — CodeQL's `js/insufficient-password-hash` rule will flag any fast hash or plaintext comparison reintroduced here.
+- `AUTH_SECRET` — NextAuth JWT/cookie signing key (read automatically by NextAuth; generate with `npx auth secret`)
 
-`src/app/utils/cloudinary.ts` exports `requiredEnv(name)`, which throws if a variable is missing — use this pattern rather than silently defaulting when adding new server-side env reads.
+`src/app/utils/required-env.ts` exports `requiredEnv(name)`, which throws if a variable is missing — use this pattern rather than silently defaulting when adding new server-side env reads. (`cloudinary.ts` re-exports it for backwards compatibility.)
 
 ## Architecture
 
@@ -45,6 +47,7 @@ Required in `.env.local` (not committed):
 - **`src/app/utils/`** holds server- and client-side utilities: `cloudinary.ts` (lazy-configured Cloudinary client, server-only), `photography.ts` (fetches/caches Cloudinary photos via `unstable_cache`, 1hr revalidate), `analytics.ts` (thin wrapper around `window.gtag` for GA4 events — `trackSelectContent`, `trackGenerateLead`), `cookies-functions.ts` (client-side cookie helpers, SSR-safe), `navigation-links.ts` (single source of truth for header nav, including nested `subLinks` for flyout/mobile menus), `app-constants.ts` (shared string constants like company name).
 - **Photography galleries** are server-rendered: each page under `src/app/photography/**` calls `getCloudinaryPhotosByFolder` (server-only, cached) and passes the resulting `PhotographyImage[]` into the client component `PhotographyGallery`.
 - **Contact form flow**: `ContactForm` (client component) validates input client-side, POSTs JSON to `src/app/api/send-email/route.ts` (a Next.js Route Handler using nodemailer), then uses `useFlashMessages` (react-hot-toast wrapper) for success/error feedback and `cookies-functions.ts` to rate-limit repeat submissions (1hr cookie). GA lead-tracking events (`trackGenerateLead`) are fired at attempt/success/error.
+- **Admin auth (NextAuth v5 / Auth.js)**: the config is deliberately split. `src/auth.config.ts` holds the Node-free half (pages, JWT session, the `authorized` callback that gates `/admin`) and is the only thing `src/proxy.ts` imports, so the proxy stays lightweight. `src/auth.ts` spreads that config and adds the Credentials provider — it exports `handlers`, `auth`, `signIn`, `signOut`, and is what Server Components and `src/app/api/auth/[...nextauth]/route.ts` import. Credentials are checked by `src/app/utils/admin-credentials.ts`: the password is verified by re-deriving an `scrypt` key and comparing it with `timingSafeEqual`, and the derivation always runs even when the email is already wrong so timing never reveals which half failed. There is no user database. `/admin` is protected twice over — by the proxy matcher and by an `auth()` check in the page itself. No `SessionProvider` is mounted: read the session server-side with `auth()`, not `useSession()`.
 - **Header/nav** (`src/components/nav/Header.tsx`) drives both the desktop hover flyout (`NavFlyout`, via Headless UI `Popover`) and the mobile slide-in menu from the same `NavigationLinks` data structure — when adding a nav item, add it once to `navigation-links.ts` and both menus pick it up.
 - Path alias `@/*` maps to `src/*` (see `tsconfig.json`).
 - Import order is enforced by prettier (`@trivago/prettier-plugin-sort-imports`): react → third-party → `@/components/*` → `@/lib/*` → relative imports.

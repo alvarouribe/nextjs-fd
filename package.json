@@ -10,7 +10,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "admin:hash": "node scripts/hash-admin-password.mjs"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.10",
@@ -19,6 +20,7 @@
     "@types/react-select": "^5.0.1",
     "cloudinary": "^2.10.0",
     "next": "^16.2.4",
+    "next-auth": "5.0.0-beta.32",
     "nodemailer": "^8.0.7",
     "react": "19.2.5",
     "react-dom": "19.2.5",
