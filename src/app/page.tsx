@@ -8,6 +8,7 @@ import {
 import HeroSection from '../components/HeroSection';
 import ContactForm from '@/components/ContactForm';
 import ContactUsButton from '@/components/ContactUsButton';
+import Reveal from '@/components/motion/Reveal';
 
 const processSteps = [
   {
@@ -73,7 +74,7 @@ export default function Home() {
         className="bg-white py-24 sm:py-32 dark:bg-gray-900"
       >
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl lg:text-center">
+          <Reveal className="mx-auto max-w-2xl lg:text-center">
             <h2 className="text-base/7 font-semibold text-green-600 dark:text-green-400">
               Deploy faster
             </h2>
@@ -90,11 +91,11 @@ export default function Home() {
               with you to ensure that your website is not only visually stunning
               but also optimized for the best performance and user experience.
             </p>
-          </div>
+          </Reveal>
           <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
             <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
-              {features.map(feature => (
-                <div key={feature.name} className="relative pl-16">
+              {features.map((feature, index) => (
+                <Reveal key={feature.name} index={index} className="relative pl-16">
                   <dt className="text-base/7 font-semibold text-gray-900 dark:text-white">
                     <div className="absolute left-0 top-0 flex size-10 items-center justify-center rounded-lg bg-green-600 dark:bg-green-600">
                       <feature.icon
@@ -107,7 +108,7 @@ export default function Home() {
                   <dd className="mt-2 text-base/7 text-gray-600 dark:text-gray-400">
                     {feature.description}
                   </dd>
-                </div>
+                </Reveal>
               ))}
             </dl>
           </div>
@@ -117,7 +118,7 @@ export default function Home() {
       <section className="overflow-hidden bg-white py-32 dark:bg-gray-800">
         <div className="mx-auto max-w-7xl px-6 lg:flex lg:px-8">
           <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-12 gap-y-16 lg:mx-0 lg:min-w-full lg:max-w-none lg:flex-none lg:gap-y-8">
-            <div className="lg:col-end-1 lg:w-full lg:max-w-lg lg:pb-8">
+            <Reveal className="lg:col-end-1 lg:w-full lg:max-w-lg lg:pb-8">
               <h2 className="text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl dark:text-white">
                 Ready to elevate your online presence?
               </h2>
@@ -127,10 +128,13 @@ export default function Home() {
               </p>
 
               <ContactUsButton location="mid_page" />
-            </div>
+            </Reveal>
 
             <div className="flex flex-wrap items-start justify-end gap-6 sm:gap-8 lg:contents">
-              <div className="w-0 flex-auto lg:ml-auto lg:w-auto lg:flex-none lg:self-end">
+              <Reveal
+                index={0}
+                className="w-0 flex-auto lg:ml-auto lg:w-auto lg:flex-none lg:self-end"
+              >
                 <Image
                   alt="Mount Maunganui - Mauao"
                   src="/images/mount-maunganui-toby-hall.jpg"
@@ -138,9 +142,12 @@ export default function Home() {
                   width={600}
                   height={400}
                 />
-              </div>
+              </Reveal>
               <div className="contents lg:col-span-2 lg:col-end-2 lg:ml-auto lg:flex lg:w-[37rem] lg:items-start lg:justify-end lg:gap-x-8">
-                <div className="order-first flex w-64 flex-none justify-end self-end max-sm:w-40 lg:w-auto">
+                <Reveal
+                  index={1}
+                  className="order-first flex w-64 flex-none justify-end self-end max-sm:w-40 lg:w-auto"
+                >
                   <Image
                     alt="Relax beach meeting"
                     src="/images/beach-red.jpg"
@@ -148,8 +155,11 @@ export default function Home() {
                     width={600}
                     height={450}
                   />
-                </div>
-                <div className="flex w-96 flex-auto justify-end lg:w-auto lg:flex-none">
+                </Reveal>
+                <Reveal
+                  index={2}
+                  className="flex w-96 flex-auto justify-end lg:w-auto lg:flex-none"
+                >
                   <Image
                     alt="relax office meeting"
                     src="/images/meetup.jpg"
@@ -157,8 +167,11 @@ export default function Home() {
                     width={600}
                     height={400}
                   />
-                </div>
-                <div className="hidden sm:block sm:w-0 sm:flex-auto lg:w-auto lg:flex-none">
+                </Reveal>
+                <Reveal
+                  index={3}
+                  className="hidden sm:block sm:w-0 sm:flex-auto lg:w-auto lg:flex-none"
+                >
                   <Image
                     alt="volleyball game"
                     src="/images/volleyball.jpg"
@@ -166,7 +179,7 @@ export default function Home() {
                     width={600}
                     height={450}
                   />
-                </div>
+                </Reveal>
               </div>
             </div>
           </div>
@@ -178,7 +191,7 @@ export default function Home() {
         className="bg-gray-50 py-24 sm:py-32 dark:bg-gray-900"
       >
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl lg:text-center">
+          <Reveal className="mx-auto max-w-2xl lg:text-center">
             <h2 className="text-base/7 font-semibold text-green-600 dark:text-green-400">
               How we work
             </h2>
@@ -189,34 +202,43 @@ export default function Home() {
               No jargon and no surprises — just a clear path to a website that
               works for your business.
             </p>
-          </div>
-          <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 sm:mt-20 sm:grid-cols-2 lg:max-w-none lg:grid-cols-4">
-            {processSteps.map(item => (
-              <div
-                key={item.step}
-                className="rounded-2xl bg-white p-8 shadow-sm ring-1 ring-gray-200 transition-transform duration-300 hover:-translate-y-1 hover:shadow-md dark:bg-gray-800 dark:ring-gray-700"
-              >
-                <span className="text-3xl font-semibold text-green-600 dark:text-green-400">
-                  {item.step}
-                </span>
-                <h3 className="mt-4 text-lg font-semibold text-gray-900 dark:text-white">
-                  {item.name}
-                </h3>
-                <p className="mt-2 text-base/7 text-gray-600 dark:text-gray-400">
-                  {item.description}
-                </p>
-              </div>
-            ))}
+          </Reveal>
+          <div className="relative mx-auto mt-16 max-w-2xl sm:mt-20 lg:max-w-none">
+            <Reveal
+              aria-hidden="true"
+              className="process-rail absolute inset-x-0 top-11 -z-10 hidden h-px bg-gray-300 lg:block dark:bg-gray-700"
+            />
+            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+              {processSteps.map((item, index) => (
+                <Reveal
+                  key={item.step}
+                  index={index}
+                  step={200}
+                  className="rounded-2xl bg-white p-8 shadow-sm ring-1 ring-gray-200 transition-transform duration-300 hover:-translate-y-1 hover:shadow-md dark:bg-gray-800 dark:ring-gray-700"
+                >
+                  <span className="text-3xl font-semibold text-green-600 dark:text-green-400">
+                    {item.step}
+                  </span>
+                  <h3 className="mt-4 text-lg font-semibold text-gray-900 dark:text-white">
+                    {item.name}
+                  </h3>
+                  <p className="mt-2 text-base/7 text-gray-600 dark:text-gray-400">
+                    {item.description}
+                  </p>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      <section
+      <Reveal
+        as="section"
         className="relative isolate bg-white px-6 py-24 sm:py-32 lg:px-8 dark:bg-gray-900"
         id="contact-form-section"
       >
         <ContactForm />
-      </section>
+      </Reveal>
     </main>
   );
 }

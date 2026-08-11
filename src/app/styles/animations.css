@@ -1,0 +1,368 @@
+/*
+ * Motion system. Every animated element's unscoped rule is its final,
+ * resting visual state — the pre-animation state only exists under
+ * [data-motion='on'], which is set by an inline script in layout.tsx once JS
+ * has run and prefers-reduced-motion is not set. This makes "content is
+ * invisible" impossible when JS fails, a crawler renders the page, or the
+ * user prefers reduced motion.
+ */
+
+:root {
+  --ease-camera: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-snap: cubic-bezier(0.3, 0.7, 0.4, 1);
+  --reveal-step: 90ms;
+}
+
+/* Keyframes -------------------------------------------------------------- */
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--rise-distance, 24px));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes dolly-in {
+  from {
+    transform: scale(1.08);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes rail-draw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes cue-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+@keyframes lightbox-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+/* Reveal-on-scroll system ------------------------------------------------- */
+
+.reveal {
+  /* resting state is the natural, final one — nothing to declare here */
+}
+
+[data-motion='on'] .reveal {
+  opacity: 0;
+}
+
+[data-motion='on'] .reveal.is-visible {
+  animation: rise-in 700ms var(--ease-camera) both;
+  animation-delay: calc(var(--reveal-index, 0) * var(--reveal-step, 90ms));
+}
+
+/* The process rail is a `.reveal` that draws rather than rises. */
+[data-motion='on'] .reveal.process-rail {
+  opacity: 1;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+[data-motion='on'] .reveal.process-rail.is-visible {
+  animation: rail-draw 900ms var(--ease-camera) both;
+}
+
+/* Hero — the signature, plays once on load, no JS required ---------------- */
+
+.hero-bg {
+}
+
+[data-motion='on'] .hero-bg {
+  animation: dolly-in 1600ms var(--ease-camera) both;
+}
+
+.hero-h1 {
+}
+
+[data-motion='on'] .hero-h1 {
+  opacity: 0;
+  --rise-distance: 20px;
+  animation: rise-in 700ms var(--ease-camera) 120ms both;
+}
+
+.hero-h2 {
+}
+
+[data-motion='on'] .hero-h2 {
+  opacity: 0;
+  --rise-distance: 16px;
+  animation: rise-in 700ms var(--ease-camera) 320ms both;
+}
+
+.hero-cta {
+}
+
+[data-motion='on'] .hero-cta {
+  opacity: 0;
+  --rise-distance: 12px;
+  animation: rise-in 600ms var(--ease-camera) 1150ms both;
+}
+
+.hero-cue {
+}
+
+[data-motion='on'] .hero-cue {
+  animation: cue-bob 2400ms var(--ease-camera) 1400ms infinite;
+}
+
+/* Photography gallery ------------------------------------------------------ */
+
+.lightbox-in {
+}
+
+[data-motion='on'] .lightbox-in {
+  opacity: 0;
+  animation: lightbox-in 350ms var(--ease-camera) both;
+}
+
+.img-breathe {
+}
+
+[data-motion='on'] .img-breathe {
+  animation: breathe 20s ease-in-out infinite;
+}
+
+.pl1123__ring {
+  animation: ringA 2s linear infinite;
+}
+.pl1123__ring--a {
+  stroke: currentColor;
+}
+.pl1123__ring--b {
+  animation-name: ringB;
+  stroke: currentColor;
+}
+.pl1123__ring--c {
+  animation-name: ringC;
+  stroke: currentColor;
+}
+.pl1123__ring--d {
+  animation-name: ringD;
+  stroke: currentColor;
+}
+
+@keyframes ringA {
+  from,
+  4% {
+    stroke-dasharray: 0 660;
+    stroke-width: 20;
+    stroke-dashoffset: -330;
+  }
+  12% {
+    stroke-dasharray: 60 600;
+    stroke-width: 30;
+    stroke-dashoffset: -335;
+  }
+  32% {
+    stroke-dasharray: 60 600;
+    stroke-width: 30;
+    stroke-dashoffset: -595;
+  }
+  40%,
+  54% {
+    stroke-dasharray: 0 660;
+    stroke-width: 20;
+    stroke-dashoffset: -660;
+  }
+  62% {
+    stroke-dasharray: 60 600;
+    stroke-width: 30;
+    stroke-dashoffset: -665;
+  }
+  82% {
+    stroke-dasharray: 60 600;
+    stroke-width: 30;
+    stroke-dashoffset: -925;
+  }
+  90%,
+  to {
+    stroke-dasharray: 0 660;
+    stroke-width: 20;
+    stroke-dashoffset: -990;
+  }
+}
+
+@keyframes ringB {
+  from,
+  12% {
+    stroke-dasharray: 0 220;
+    stroke-width: 20;
+    stroke-dashoffset: -110;
+  }
+  20% {
+    stroke-dasharray: 20 200;
+    stroke-width: 30;
+    stroke-dashoffset: -115;
+  }
+  40% {
+    stroke-dasharray: 20 200;
+    stroke-width: 30;
+    stroke-dashoffset: -195;
+  }
+  48%,
+  62% {
+    stroke-dasharray: 0 220;
+    stroke-width: 20;
+    stroke-dashoffset: -220;
+  }
+  70% {
+    stroke-dasharray: 20 200;
+    stroke-width: 30;
+    stroke-dashoffset: -225;
+  }
+  90% {
+    stroke-dasharray: 20 200;
+    stroke-width: 30;
+    stroke-dashoffset: -305;
+  }
+  98%,
+  to {
+    stroke-dasharray: 0 220;
+    stroke-width: 20;
+    stroke-dashoffset: -330;
+  }
+}
+
+@keyframes ringC {
+  from {
+    stroke-dasharray: 0 440;
+    stroke-width: 20;
+    stroke-dashoffset: 0;
+  }
+  8% {
+    stroke-dasharray: 40 400;
+    stroke-width: 30;
+    stroke-dashoffset: -5;
+  }
+  28% {
+    stroke-dasharray: 40 400;
+    stroke-width: 30;
+    stroke-dashoffset: -175;
+  }
+  36%,
+  58% {
+    stroke-dasharray: 0 440;
+    stroke-width: 20;
+    stroke-dashoffset: -220;
+  }
+  66% {
+    stroke-dasharray: 40 400;
+    stroke-width: 30;
+    stroke-dashoffset: -225;
+  }
+  86% {
+    stroke-dasharray: 40 400;
+    stroke-width: 30;
+    stroke-dashoffset: -395;
+  }
+  94%,
+  to {
+    stroke-dasharray: 0 440;
+    stroke-width: 20;
+    stroke-dashoffset: -440;
+  }
+}
+
+@keyframes ringD {
+  from,
+  8% {
+    stroke-dasharray: 0 440;
+    stroke-width: 20;
+    stroke-dashoffset: 0;
+  }
+  16% {
+    stroke-dasharray: 40 400;
+    stroke-width: 30;
+    stroke-dashoffset: -5;
+  }
+  36% {
+    stroke-dasharray: 40 400;
+    stroke-width: 30;
+    stroke-dashoffset: -175;
+  }
+  44%,
+  50% {
+    stroke-dasharray: 0 440;
+    stroke-width: 20;
+    stroke-dashoffset: -220;
+  }
+  58% {
+    stroke-dasharray: 40 400;
+    stroke-width: 30;
+    stroke-dashoffset: -225;
+  }
+  78% {
+    stroke-dasharray: 40 400;
+    stroke-width: 30;
+    stroke-dashoffset: -395;
+  }
+  86%,
+  to {
+    stroke-dasharray: 0 440;
+    stroke-width: 20;
+    stroke-dashoffset: -440;
+  }
+}
+
+/* Reduced motion belt-and-braces ------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  [data-motion='on'] .reveal,
+  [data-motion='on'] .hero-bg,
+  [data-motion='on'] .hero-h1,
+  [data-motion='on'] .hero-h2,
+  [data-motion='on'] .hero-cta,
+  [data-motion='on'] .lightbox-in {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  [data-motion='on'] .reveal.process-rail {
+    transform: scaleX(1) !important;
+  }
+
+  [data-motion='on'] .hero-cue,
+  [data-motion='on'] .img-breathe {
+    animation: none !important;
+  }
+}

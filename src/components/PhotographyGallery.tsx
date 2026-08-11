@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
 
 import type { PhotographyImage } from '@/app/utils/photography';
+import { useReveal } from '@/components/motion/Reveal';
 
 interface Props {
   images: PhotographyImage[];
@@ -33,49 +34,6 @@ function PhotographyLoader() {
       aria-label="Loading image"
       className="h-16 w-16 text-white"
     >
-      <style>{`
-        .pl1123__ring { animation: ringA 2s linear infinite; }
-        .pl1123__ring--a { stroke: currentColor; }
-        .pl1123__ring--b { animation-name: ringB; stroke: currentColor; }
-        .pl1123__ring--c { animation-name: ringC; stroke: currentColor; }
-        .pl1123__ring--d { animation-name: ringD; stroke: currentColor; }
-        @keyframes ringA {
-          from,4%{stroke-dasharray:0 660;stroke-width:20;stroke-dashoffset:-330}
-          12%{stroke-dasharray:60 600;stroke-width:30;stroke-dashoffset:-335}
-          32%{stroke-dasharray:60 600;stroke-width:30;stroke-dashoffset:-595}
-          40%,54%{stroke-dasharray:0 660;stroke-width:20;stroke-dashoffset:-660}
-          62%{stroke-dasharray:60 600;stroke-width:30;stroke-dashoffset:-665}
-          82%{stroke-dasharray:60 600;stroke-width:30;stroke-dashoffset:-925}
-          90%,to{stroke-dasharray:0 660;stroke-width:20;stroke-dashoffset:-990}
-        }
-        @keyframes ringB {
-          from,12%{stroke-dasharray:0 220;stroke-width:20;stroke-dashoffset:-110}
-          20%{stroke-dasharray:20 200;stroke-width:30;stroke-dashoffset:-115}
-          40%{stroke-dasharray:20 200;stroke-width:30;stroke-dashoffset:-195}
-          48%,62%{stroke-dasharray:0 220;stroke-width:20;stroke-dashoffset:-220}
-          70%{stroke-dasharray:20 200;stroke-width:30;stroke-dashoffset:-225}
-          90%{stroke-dasharray:20 200;stroke-width:30;stroke-dashoffset:-305}
-          98%,to{stroke-dasharray:0 220;stroke-width:20;stroke-dashoffset:-330}
-        }
-        @keyframes ringC {
-          from{stroke-dasharray:0 440;stroke-width:20;stroke-dashoffset:0}
-          8%{stroke-dasharray:40 400;stroke-width:30;stroke-dashoffset:-5}
-          28%{stroke-dasharray:40 400;stroke-width:30;stroke-dashoffset:-175}
-          36%,58%{stroke-dasharray:0 440;stroke-width:20;stroke-dashoffset:-220}
-          66%{stroke-dasharray:40 400;stroke-width:30;stroke-dashoffset:-225}
-          86%{stroke-dasharray:40 400;stroke-width:30;stroke-dashoffset:-395}
-          94%,to{stroke-dasharray:0 440;stroke-width:20;stroke-dashoffset:-440}
-        }
-        @keyframes ringD {
-          from,8%{stroke-dasharray:0 440;stroke-width:20;stroke-dashoffset:0}
-          16%{stroke-dasharray:40 400;stroke-width:30;stroke-dashoffset:-5}
-          36%{stroke-dasharray:40 400;stroke-width:30;stroke-dashoffset:-175}
-          44%,50%{stroke-dasharray:0 440;stroke-width:20;stroke-dashoffset:-220}
-          58%{stroke-dasharray:40 400;stroke-width:30;stroke-dashoffset:-225}
-          78%{stroke-dasharray:40 400;stroke-width:30;stroke-dashoffset:-395}
-          86%,to{stroke-dasharray:0 440;stroke-width:20;stroke-dashoffset:-440}
-        }
-      `}</style>
       <circle
         className="pl1123__ring pl1123__ring--a"
         cx="120"
@@ -126,6 +84,39 @@ function PhotographyLoader() {
   );
 }
 
+function GalleryTile({
+  image,
+  cloudName,
+  index,
+  onSelect,
+}: {
+  image: PhotographyImage;
+  cloudName: string;
+  index: number;
+  onSelect: () => void;
+}) {
+  const { ref, className, style } = useReveal<HTMLButtonElement>(index % 6);
+
+  return (
+    <button
+      ref={ref}
+      type="button"
+      onClick={onSelect}
+      style={style}
+      className={`group relative mb-4 block w-full cursor-zoom-in overflow-hidden rounded-lg border border-white/10 bg-gray-900/50 transition hover:border-white/30 ${className}`}
+    >
+      <Image
+        src={buildUrl(cloudName, image.publicId, image.format, 960)}
+        width={image.width}
+        height={image.height}
+        alt={humanizePublicId(image.publicId)}
+        className="h-auto w-full transform object-cover transition duration-500 ease-camera group-hover:scale-[1.08]"
+        sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
+      />
+    </button>
+  );
+}
+
 export default function PhotographyGallery({ images, cloudName }: Props) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -161,25 +152,17 @@ export default function PhotographyGallery({ images, cloudName }: Props) {
   return (
     <>
       <div className="columns-1 gap-4 sm:columns-2 xl:columns-3">
-        {images.map(image => (
-          <button
+        {images.map((image, index) => (
+          <GalleryTile
             key={image.id}
-            type="button"
-            onClick={() => {
+            image={image}
+            cloudName={cloudName}
+            index={index}
+            onSelect={() => {
               setIsLoading(true);
               setSelectedIndex(image.id);
             }}
-            className="group relative mb-4 block w-full cursor-zoom-in overflow-hidden rounded-lg border border-white/10 bg-gray-900/50 transition hover:border-white/30"
-          >
-            <Image
-              src={buildUrl(cloudName, image.publicId, image.format, 960)}
-              width={image.width}
-              height={image.height}
-              alt={humanizePublicId(image.publicId)}
-              className="h-auto w-full transform object-cover transition duration-200 group-hover:scale-[1.30]"
-              sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
-            />
-          </button>
+          />
         ))}
       </div>
 
@@ -280,16 +263,9 @@ export default function PhotographyGallery({ images, cloudName }: Props) {
             </div>
           )}
 
-          <style>{`
-            @keyframes breathe {
-              0%, 100% { transform: scale(1); }
-              50% { transform: scale(1.2); }
-            }
-            .img-breathe { animation: breathe 20s ease-in-out infinite; }
-          `}</style>
-
           <div
-            className="relative max-h-[90vh] max-w-[90vw]"
+            key={selectedIndex}
+            className="lightbox-in relative max-h-[90vh] max-w-[90vw]"
             onClick={e => e.stopPropagation()}
           >
             <Image

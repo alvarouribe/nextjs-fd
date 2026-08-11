@@ -1,5 +1,6 @@
 @import './styles/CTAButton.css';
 @import './styles/MobileMenu.css';
+@import './styles/animations.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

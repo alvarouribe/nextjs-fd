@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import { ArrowDownCircleIcon } from '@heroicons/react/24/outline';
 import ContactUsButton from './ContactUsButton';
+import ScrollCueButton from './ScrollCueButton';
 
 export default function HeroSection() {
   return (
@@ -11,7 +11,7 @@ export default function HeroSection() {
           // src="/images/working.jpg"
           // src="/images/studio-blend-med.jpg"
           src="/images/earth-from-above-low.jpg"
-          className="absolute inset-0 -z-10 size-full object-cover opacity-30"
+          className="hero-bg absolute inset-0 -z-10 size-full object-cover opacity-30"
           width={1280}
           height={840}
           priority
@@ -21,24 +21,24 @@ export default function HeroSection() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="m-x-auto max-w-2xl py-32 sm:py-48 lg:py-56">
             <div className="mb-8">
-              <h1 className=" text-balance text-5xl font-semibold tracking-tight text-white sm:text-7xl">
+              <h1 className="hero-h1 text-balance text-5xl font-semibold tracking-tight text-white sm:text-7xl">
                 We build websites that{' '}
                 <mark className="bg-green-600/20 text-green-300">
                   grow your business
                 </mark>{' '}
                 online.
               </h1>
-              <h2 className="mt-8 text-pretty text-2xl text-green-300 font-medium  sm:text-xl/8">
+              <h2 className="hero-h2 mt-8 text-pretty text-2xl text-green-300 font-medium  sm:text-xl/8">
                 Custom design with SEO optimized content built to convert. We
                 handle the tech so you can focus on the vision.
               </h2>
             </div>
-            <ContactUsButton location="hero" />
+            <div className="hero-cta">
+              <ContactUsButton location="hero" />
+            </div>
           </div>
 
-          <div className="mb-12 flex items-center justify-center opacity-25">
-            <ArrowDownCircleIcon className="size-8 text-white hover:scale-110 transition-transform duration-300" />
-          </div>
+          <ScrollCueButton />
         </div>
         <div
           aria-hidden="true"
