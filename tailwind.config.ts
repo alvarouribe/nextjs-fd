@@ -13,6 +13,10 @@ export default {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
       },
+      transitionTimingFunction: {
+        camera: 'var(--ease-camera)',
+        snap: 'var(--ease-snap)',
+      },
     },
   },
   plugins: [],

@@ -5,6 +5,7 @@ import {
   SparklesIcon,
 } from '@heroicons/react/24/outline';
 import ContactUsButton from '@/components/ContactUsButton';
+import Reveal from '@/components/motion/Reveal';
 
 export const metadata: Metadata = {
   title: 'About FlyingDolly | Web Development & Content Studio, Mt Maunganui',
@@ -37,7 +38,10 @@ export default function AboutPage() {
   return (
     <main data-test="about-page" className="bg-white dark:bg-gray-900">
       {/* Intro */}
-      <section className="mx-auto max-w-3xl px-6 pt-40 pb-24 sm:pb-32 lg:px-8">
+      <Reveal
+        as="section"
+        className="mx-auto max-w-3xl px-6 pt-40 pb-24 sm:pb-32 lg:px-8"
+      >
         <p className="text-base/7 font-semibold text-green-600 dark:text-green-400">
           About us
         </p>
@@ -53,10 +57,13 @@ export default function AboutPage() {
           smarter. We combine web development, automation, and visual content to
           create digital experiences that actually drive results.
         </p>
-      </section>
+      </Reveal>
 
       {/* Approach */}
-      <section className="mx-auto max-w-3xl px-6 pb-24 sm:pb-32 lg:px-8">
+      <Reveal
+        as="section"
+        className="mx-auto max-w-3xl px-6 pb-24 sm:pb-32 lg:px-8"
+      >
         <h2 className="text-2xl font-semibold tracking-tight text-gray-900 sm:text-3xl dark:text-white">
           Our approach
         </h2>
@@ -68,7 +75,7 @@ export default function AboutPage() {
           together: high-performing websites, smart automations that save time,
           and video &amp; photography that captures attention.
         </p>
-      </section>
+      </Reveal>
 
       {/* Beliefs */}
       <section className="mx-auto max-w-5xl px-6 pb-24 sm:pb-32 lg:px-8">
@@ -76,8 +83,8 @@ export default function AboutPage() {
           What we believe
         </h2>
         <dl className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-3">
-          {beliefs.map(belief => (
-            <div key={belief.name} className="relative pl-14">
+          {beliefs.map((belief, index) => (
+            <Reveal key={belief.name} index={index} className="relative pl-14">
               <dt className="text-base/7 font-semibold text-gray-900 dark:text-white">
                 <div className="absolute left-0 top-0 flex size-10 items-center justify-center rounded-lg bg-green-600">
                   <belief.icon
@@ -90,14 +97,14 @@ export default function AboutPage() {
               <dd className="mt-2 text-base/7 text-gray-600 dark:text-gray-400">
                 {belief.description}
               </dd>
-            </div>
+            </Reveal>
           ))}
         </dl>
       </section>
 
       {/* CTA */}
       <section className="mx-auto max-w-3xl px-6 pb-32 lg:px-8">
-        <div className="rounded-2xl bg-gray-50 p-8 sm:p-12 dark:bg-gray-800">
+        <Reveal className="rounded-2xl bg-gray-50 p-8 sm:p-12 dark:bg-gray-800">
           <h2 className="text-2xl font-semibold tracking-tight text-gray-900 sm:text-3xl dark:text-white">
             Let&apos;s build something that works
           </h2>
@@ -109,7 +116,7 @@ export default function AboutPage() {
           <div className="mt-8">
             <ContactUsButton location="about_page" />
           </div>
-        </div>
+        </Reveal>
       </section>
     </main>
   );

@@ -22,11 +22,11 @@
 
 @media (max-width: 767px) {
   .mobile-menu-overlay {
-    animation: mobile-overlay-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: mobile-overlay-in 0.3s var(--ease-camera) both;
   }
 
   .mobile-menu-link {
-    animation: mobile-link-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: mobile-link-in 0.45s var(--ease-camera) both;
     animation-delay: calc(var(--link-index, 0) * 0.08s + 0.1s);
   }
 
