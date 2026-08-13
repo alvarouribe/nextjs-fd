@@ -129,7 +129,7 @@ export default function Header() {
 
   return (
     <header>
-      <nav className="bg-[#0a0a0a] bg-opacity-75 fixed w-full z-20 top-0 start-0 border-b border-default">
+      <nav className="bg-gradient-to-b from-[#0a0a0a] via-[#0a0a0a]/80 to-transparent fixed w-full z-20 top-0 start-0 border-default">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <Link href="/" className="relative z-50 -m-1.5 p-1.5">
             <span className="sr-only">{AppConstants['companyName']}</span>
