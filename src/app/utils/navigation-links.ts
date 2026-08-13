@@ -12,25 +12,25 @@ export interface NavLink {
 
 export const NavigationLinks: NavLink[] = [
   {
-    name: 'Photography',
+    name: 'PHOTOGRAPHY',
     href: '/photography',
     subLinks: [
       {
-        name: 'Favorites',
+        name: 'FAVORITES',
         href: '/photography',
         description: 'Photos that we loved',
       },
       {
-        name: 'Portraits',
+        name: 'PORTRAITS',
         href: '/photography/portraits',
         description: 'Professional portrait sessions',
       },
       {
-        name: 'Go Freek 2026 Tauranga',
+        name: 'GO FREEK 2026 TAURANGA',
         href: '/photography/go-freek-2026-tauranga',
         description: 'Event highlights from Go Freek 2026',
       },
     ],
   },
-  { name: 'About', href: '/about' },
+  { name: 'ABOUT', href: '/about' },
 ];
