@@ -45,7 +45,7 @@ describe('Header', () => {
     const menuContainer = menu.closest('#navbar-default');
     expect(menuContainer).toHaveClass('fixed', 'inset-0', 'items-center', 'justify-center');
     expect(menu).toHaveClass('items-start', 'text-left');
-    expect(screen.getByRole('link', { name: 'Home' }).closest('li')).toHaveClass('text-3xl');
+    expect(screen.getByRole('link', { name: 'ABOUT' }).closest('li')).toHaveClass('text-3xl');
   });
 
   it('shows photography sub-links expanded and indented in the mobile menu', () => {
@@ -53,10 +53,10 @@ describe('Header', () => {
     const button = screen.getByRole('button', { name: /open main menu/i });
     fireEvent.click(button);
 
-    expect(screen.getByText('Photography')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Portraits' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Go Freek 2026 Tauranga' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Portraits' }).closest('ul')).toHaveClass('pl-6');
+    expect(screen.getByText('PHOTOGRAPHY')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'PORTRAITS' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'GO FREEK 2026 TAURANGA' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'PORTRAITS' }).closest('ul')).toHaveClass('pl-6');
   });
 
   it('hides the nav menu again when the button is clicked a second time', () => {
@@ -86,15 +86,15 @@ describe('Header', () => {
       });
 
       fireEvent.mouseEnter(photographyButton.parentElement!);
-      expect(await screen.findByText('Portraits')).toBeInTheDocument();
-      expect(screen.getByText('Go Freek 2026 Tauranga')).toBeInTheDocument();
+      expect(await screen.findByText('PORTRAITS')).toBeInTheDocument();
+      expect(screen.getByText('GO FREEK 2026 TAURANGA')).toBeInTheDocument();
 
       fireEvent.mouseLeave(photographyButton.parentElement!);
       act(() => {
         jest.advanceTimersByTime(500);
       });
 
-      await waitFor(() => expect(screen.queryByText('Portraits')).not.toBeInTheDocument());
+      await waitFor(() => expect(screen.queryByText('PORTRAITS')).not.toBeInTheDocument());
     } finally {
       jest.useRealTimers();
     }
@@ -108,12 +108,12 @@ describe('Header', () => {
     });
 
     fireEvent.mouseEnter(photographyButton.parentElement!);
-    fireEvent.click(await screen.findByRole('link', { name: 'Portraits' }));
+    fireEvent.click(await screen.findByRole('link', { name: 'PORTRAITS' }));
 
     expect(trackSelectContent).toHaveBeenCalledWith({
       source: 'header_nav',
       destination: '/photography/portraits',
-      label: 'Portraits',
+      label: 'PORTRAITS',
     });
   });
 
@@ -136,12 +136,12 @@ describe('Header', () => {
     fireEvent.click(button);
     expect(button).toHaveAttribute('aria-expanded', 'true');
 
-    fireEvent.click(screen.getByRole('link', { name: 'Home' }));
+    fireEvent.click(screen.getByRole('link', { name: 'ABOUT' }));
     expect(button).toHaveAttribute('aria-expanded', 'false');
     expect(trackSelectContent).toHaveBeenCalledWith({
       source: 'header_nav',
-      destination: '/',
-      label: 'Home',
+      destination: '/about',
+      label: 'ABOUT',
     });
   });
 

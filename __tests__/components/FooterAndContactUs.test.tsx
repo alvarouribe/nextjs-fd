@@ -5,9 +5,14 @@ import ContactUsButton from '../../src/components/ContactUsButton';
 import FooterSection from '../../src/components/FooterSection';
 
 const trackGenerateLead = jest.fn();
+const push = jest.fn();
 
 jest.mock('../../src/app/utils/analytics', () => ({
   trackGenerateLead: (...args: unknown[]) => trackGenerateLead(...args),
+}));
+
+jest.mock('next/navigation', () => ({
+  useRouter: () => ({ push }),
 }));
 
 describe('FooterSection', () => {
@@ -57,10 +62,10 @@ describe('ContactUsButton', () => {
     section.remove();
   });
 
-  it('does nothing when the contact section is missing', () => {
+  it('navigates to the homepage contact form when the contact section is missing', () => {
     render(<ContactUsButton />);
-    expect(() =>
-      fireEvent.click(screen.getByRole('button', { name: /book a free call/i }))
-    ).not.toThrow();
+    fireEvent.click(screen.getByRole('button', { name: /book a free call/i }));
+
+    expect(push).toHaveBeenCalledWith('/#contact-form-section');
   });
 });

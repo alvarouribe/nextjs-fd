@@ -10,7 +10,9 @@ jest.mock('next/server', () => ({
 import { POST } from '../../src/app/api/send-email/route';
 
 const sendMail = jest.fn();
-const createTransport = jest.fn(() => ({ sendMail }));
+const createTransport = jest.fn<{ sendMail: typeof sendMail }, unknown[]>(
+  () => ({ sendMail })
+);
 
 jest.mock('nodemailer', () => ({
   __esModule: true,

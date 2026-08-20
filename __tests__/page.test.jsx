@@ -3,6 +3,10 @@ import { render, screen } from '@testing-library/react';
 
 import Page from '../src/app/page';
 
+jest.mock('next/navigation', () => ({
+  useRouter: () => ({ push: jest.fn() }),
+}));
+
 describe('Page', () => {
   it('renders a heading', () => {
     render(<Page />);
