@@ -52,7 +52,7 @@ describe('ContactUsButton', () => {
     document.body.appendChild(section);
 
     render(<ContactUsButton />);
-    fireEvent.click(screen.getByRole('button', { name: /book a free call/i }));
+    fireEvent.click(screen.getByRole('button', { name: /get a free quote/i }));
 
     expect(scrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth' });
     expect(trackGenerateLead).toHaveBeenCalledWith({
@@ -64,7 +64,7 @@ describe('ContactUsButton', () => {
 
   it('navigates to the homepage contact form when the contact section is missing', () => {
     render(<ContactUsButton />);
-    fireEvent.click(screen.getByRole('button', { name: /book a free call/i }));
+    fireEvent.click(screen.getByRole('button', { name: /get a free quote/i }));
 
     expect(push).toHaveBeenCalledWith('/#contact-form-section');
   });

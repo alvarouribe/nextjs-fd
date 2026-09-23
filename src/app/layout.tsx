@@ -1,10 +1,12 @@
-import { GoogleAnalytics } from '@next/third-parties/google';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { Toaster } from 'react-hot-toast';
 import Header from '@/components/nav/Header';
 import FooterSection from '@/components/FooterSection';
+import ConsentAwareAnalytics from '@/components/ConsentAwareAnalytics';
+
+const GA_MEASUREMENT_ID = 'G-SBMJ2GKDC1';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -19,9 +21,9 @@ const geistMono = Geist_Mono({
 const SITE_URL = 'https://www.flyingdolly.co.nz';
 
 const title =
-  'Web Development Agency Mt Maunganui | Custom Websites NZ | FlyingDolly';
+  'Web Design, Automation & Photography in Mt Maunganui | FlyingDolly';
 const description =
-  'Custom website design & development in Mt Maunganui, NZ. FlyingDolly builds fast, responsive websites that drive results. Book your free consultation today.';
+  'FlyingDolly builds websites, automation, and photography/video that grow Bay of Plenty businesses in Mt Maunganui, New Zealand — one team, one system.';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -58,7 +60,7 @@ export const metadata: Metadata = {
   },
 };
 
-const jsonLd = {
+export const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
   '@id': `${SITE_URL}/#business`,
@@ -88,6 +90,8 @@ const jsonLd = {
     'Next.js',
     'SEO',
     'Photography',
+    'Business automation',
+    'Video production',
   ],
 };
 
@@ -112,7 +116,7 @@ export default function RootLayout({
         />
         <Header />
         {children}
-        <GoogleAnalytics gaId="G-SBMJ2GKDC1" />
+        <ConsentAwareAnalytics gaId={GA_MEASUREMENT_ID} />
         <FooterSection />
         <Toaster position="bottom-right" />
       </body>

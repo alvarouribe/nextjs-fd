@@ -2,11 +2,15 @@ import type { Metadata } from 'next';
 import { requiredEnv } from '@/app/utils/cloudinary';
 import { getCloudinaryPhotosByFolder } from '@/app/utils/photography';
 import PhotographyGallery from '@/components/PhotographyGallery';
+import ServicesCrossSell from '@/components/ServicesCrossSell';
 
 export const metadata: Metadata = {
-  title: 'Go Freek 2026 Tauranga | FlyingDolly',
+  title: 'Go Freek 2026 Tauranga Event Photography | FlyingDolly',
   description:
-    'Photography highlights from Go Freek 2026 Tauranga, curated by FlyingDolly.',
+    'Event photography highlights from Go Freek 2026 in Tauranga, captured by FlyingDolly — the Bay of Plenty team behind your website, automation and content.',
+  alternates: {
+    canonical: '/photography/go-freek-2026-tauranga',
+  },
 };
 
 export const dynamic = 'force-dynamic';
@@ -23,7 +27,9 @@ export default async function GoFreek2026TaurangaPage() {
             Go Freek 2026 Tauranga
           </h1>
           <p className="mt-4 text-base text-gray-300 sm:text-lg">
-            A gallery showcasing Go Freek 2026 Tauranga photography.
+            Event photography highlights from Go Freek 2026 in Tauranga — a
+            snapshot of what FlyingDolly&apos;s photography, web and automation
+            team can do for your next event or business.
           </p>
         </div>
 
@@ -41,6 +47,7 @@ export default async function GoFreek2026TaurangaPage() {
           <PhotographyGallery images={images} cloudName={cloudName} />
         )}
       </section>
+      <ServicesCrossSell />
     </main>
   );
 }

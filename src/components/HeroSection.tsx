@@ -19,18 +19,19 @@ export default function HeroSection() {
         />
 
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="m-x-auto max-w-2xl py-32 sm:py-48 lg:py-56">
+          <div className="m-x-auto max-w-2xl py-32 sm:py-48 lg:py-40">
             <div className="mb-8">
               <h1 className="hero-h1 text-balance text-5xl font-semibold tracking-tight text-white sm:text-7xl">
-                We build websites that{' '}
+                We build{' '}
                 <mark className="bg-green-600/20 text-green-300">
-                  grow your business
+                  websites, automation, and content
                 </mark>{' '}
-                online.
+                that grow Bay of Plenty businesses.
               </h1>
               <h2 className="hero-h2 mt-8 text-pretty text-2xl text-green-300 font-medium  sm:text-xl/8">
-                Custom design with SEO optimized content built to convert. We
-                handle the tech so you can focus on the vision.
+                One team handling your web design, back-office automation, and
+                photography/video. Now your online presence and your operations
+                grow together, not in silos.
               </h2>
             </div>
             <div className="hero-cta">

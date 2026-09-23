@@ -1,4 +1,5 @@
 import { SVGProps, JSX } from 'react';
+import Link from 'next/link';
 
 type NavigationItem = {
   name: string;
@@ -48,30 +49,64 @@ const navigation: NavigationItem[] = [
   },
 ];
 
+const footerLinks = [
+  { name: 'Home', href: '/' },
+  { name: 'Photography', href: '/photography' },
+  { name: 'Portraits', href: '/photography/portraits' },
+  {
+    name: 'Go Freek 2026 Tauranga',
+    href: '/photography/go-freek-2026-tauranga',
+  },
+  { name: 'About', href: '/about' },
+  { name: 'Privacy policy', href: '/privacy-policy' },
+];
+
 export default function Footer() {
   const fullYear = new Date().getFullYear();
   const company = 'Flyingdolly.co.nz';
 
   return (
     <footer className="bg-white dark:bg-gray-900">
-      <div className="mx-auto max-w-7xl px-6 py-12 md:flex md:items-center md:justify-between lg:px-8">
-        <div className="flex justify-center gap-x-6 md:order-2">
-          {navigation.map(item => (
-            <a
-              key={item.name}
-              href={item.href}
-              className="text-gray-600 hover:text-rose-700 dark:text-gray-200 dark:hover:text-rose-600 hover:scale-105 transition-transform duration-300"
-              target="_blank"
-              rel="noopener noreferrer"
+      <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8">
+        <nav
+          aria-label="Footer"
+          className="flex flex-wrap justify-center gap-x-6 gap-y-2"
+        >
+          {footerLinks.map(link => (
+            <Link
+              key={link.name}
+              href={link.href}
+              className="text-sm text-gray-600 hover:text-green-600 dark:text-gray-300 dark:hover:text-green-400"
             >
-              <span className="sr-only">{item.name}</span>
-              <item.icon aria-hidden="true" className="size-8" />
-            </a>
+              {link.name}
+            </Link>
           ))}
+        </nav>
+
+        <div className="mt-8 flex flex-col items-center gap-6 md:flex-row md:items-center md:justify-between">
+          <div className="flex justify-center gap-x-6 md:order-2">
+            {navigation.map(item => (
+              <a
+                key={item.name}
+                href={item.href}
+                className="text-gray-600 hover:text-rose-700 dark:text-gray-200 dark:hover:text-rose-600 hover:scale-105 transition-transform duration-300"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="sr-only">{item.name}</span>
+                <item.icon aria-hidden="true" className="size-8" />
+              </a>
+            ))}
+          </div>
+          <div className="text-center md:order-1 md:text-left">
+            <p className="text-sm/6 text-gray-600 dark:text-gray-400">
+              &copy; {fullYear} {company}. All rights reserved.
+            </p>
+            <p className="text-sm/6 text-gray-500 dark:text-gray-500">
+              Mount Maunganui, Bay of Plenty, NZ
+            </p>
+          </div>
         </div>
-        <p className="mt-8 text-center text-sm/6 text-gray-600 md:order-1 md:mt-0 dark:text-gray-400">
-          &copy; {fullYear} {company}. All rights reserved.
-        </p>
       </div>
     </footer>
   );

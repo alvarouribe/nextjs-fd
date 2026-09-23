@@ -1,13 +1,15 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import {
   ArrowPathIcon,
+  CameraIcon,
   PaintBrushIcon,
-  PhoneIcon,
-  BoltIcon,
 } from '@heroicons/react/24/outline';
 import HeroSection from '../components/HeroSection';
 import ContactForm from '@/components/ContactForm';
 import ContactUsButton from '@/components/ContactUsButton';
+import PricingSection from '@/components/PricingSection';
+import Testimonials from '@/components/Testimonials';
 import Reveal from '@/components/motion/Reveal';
 
 const processSteps = [
@@ -15,7 +17,7 @@ const processSteps = [
     step: '01',
     name: 'Discover',
     description:
-      'We start with a free call to understand your business, your goals, and what success looks like for you.',
+      'We start with a free, no-obligation quote — a quick chat to understand your business, your goals, and what success looks like for you.',
   },
   {
     step: '02',
@@ -37,30 +39,36 @@ const processSteps = [
   },
 ];
 
-const features = [
+const services = [
   {
-    name: 'Custom Design',
+    name: 'Websites',
     description:
-      'Your website will be tailored to your brand and goals, ensuring it reflects your unique identity while standing out online.',
+      'Custom design, fast performance, and SEO-ready pages built to convert visitors into customers.',
     icon: PaintBrushIcon,
+    crossSell: {
+      label: 'Already have a website? Add automation →',
+      href: '#contact-form-section',
+    },
   },
   {
-    name: 'Optimized Performance',
+    name: 'Automation',
     description:
-      'We build fast, reliable, and responsive websites that deliver seamless experiences across all devices.',
-    icon: BoltIcon,
-  },
-  {
-    name: 'Data-Driven Insights',
-    description:
-      'With built-in analytics, you’ll gain valuable insights into your visitors’ behavior to make informed business decisions.',
+      'Booking, lead follow-up, invoicing, and admin workflows that save your business hours every week.',
     icon: ArrowPathIcon,
+    crossSell: {
+      label: 'Need a new site too? Let’s talk →',
+      href: '#contact-form-section',
+    },
   },
   {
-    name: 'Ongoing Support',
+    name: 'Photography & Video',
     description:
-      'We’re here beyond launch, offering updates, guidance, and support to keep your website performing at its best.',
-    icon: PhoneIcon,
+      'Product, portrait, and event content that shows your business off at its best.',
+    icon: CameraIcon,
+    crossSell: {
+      label: 'See our photography & video work →',
+      href: '/photography',
+    },
   },
 ];
 
@@ -73,41 +81,54 @@ export default function Home() {
         id="features-section"
         className="bg-white py-24 sm:py-32 dark:bg-gray-900"
       >
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div id="services-section" className="mx-auto max-w-7xl px-6 lg:px-8">
           <Reveal className="mx-auto max-w-2xl lg:text-center">
             <h2 className="text-base/7 font-semibold text-green-600 dark:text-green-400">
-              Deploy faster
+              One team, one system
             </h2>
             <p className="mt-2 text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl lg:text-balance dark:text-white">
               Everything{' '}
               <mark className="bg-green-600/20 text-green-300">
                 your business needs
               </mark>{' '}
-              to show off your work
+              to grow online
             </p>
             <p className="mt-6 text-lg/8 text-gray-700 dark:text-gray-300">
-              After a quick consultation, we will create a custom website that
-              meets your needs and exceeds your expectations. Our team will work
-              with you to ensure that your website is not only visually stunning
-              but also optimized for the best performance and user experience.
+              Websites, automation, and photography/video — built and run by the
+              same team, so nothing falls through the cracks between vendors.
+            </p>
+            <p className="mt-4 text-base/7 text-gray-600 dark:text-gray-400">
+              Most agencies hand you off between three different vendors. One
+              team beats three vendors: no hand-offs, no mixed messages — just
+              one system that keeps your website, automation, and content
+              working together as your business grows.
             </p>
           </Reveal>
           <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
-            <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
-              {features.map((feature, index) => (
-                <Reveal key={feature.name} index={index} className="relative pl-16">
+            <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-3 lg:gap-y-16">
+              {services.map((service, index) => (
+                <Reveal
+                  key={service.name}
+                  index={index}
+                  className="relative pl-16"
+                >
                   <dt className="text-base/7 font-semibold text-gray-900 dark:text-white">
                     <div className="absolute left-0 top-0 flex size-10 items-center justify-center rounded-lg bg-green-600 dark:bg-green-600">
-                      <feature.icon
+                      <service.icon
                         aria-hidden="true"
                         className="size-6 text-white"
                       />
                     </div>
-                    {feature.name}
+                    {service.name}
                   </dt>
                   <dd className="mt-2 text-base/7 text-gray-600 dark:text-gray-400">
-                    {feature.description}
+                    {service.description}
                   </dd>
+                  <p className="mt-3 text-sm font-semibold text-green-600 dark:text-green-400">
+                    <Link href={service.crossSell.href}>
+                      {service.crossSell.label}
+                    </Link>
+                  </p>
                 </Reveal>
               ))}
             </dl>
@@ -120,11 +141,12 @@ export default function Home() {
           <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-12 gap-y-16 lg:mx-0 lg:min-w-full lg:max-w-none lg:flex-none lg:gap-y-8">
             <Reveal className="lg:col-end-1 lg:w-full lg:max-w-lg lg:pb-8">
               <h2 className="text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl dark:text-white">
-                Ready to elevate your online presence?
+                One system for your website, automation, and content
               </h2>
               <p className="mt-6 text-xl/8 text-gray-700 dark:text-gray-300 mb-10">
-                Contact us now to schedule a consultation and let’s build
-                something amazing together.
+                Stop juggling three different vendors. Get a free quote and see
+                how we can grow your online presence and streamline your
+                operations together.
               </p>
 
               <ContactUsButton location="mid_page" />
@@ -199,8 +221,8 @@ export default function Home() {
               A simple process, from idea to launch
             </p>
             <p className="mt-6 text-lg/8 text-gray-700 dark:text-gray-300">
-              No jargon and no surprises — just a clear path to a website that
-              works for your business.
+              No jargon and no surprises — just a clear path to a website,
+              automation, and content that all work for your business.
             </p>
           </Reveal>
           <div className="relative mx-auto mt-16 max-w-2xl sm:mt-20 lg:max-w-none">
@@ -231,6 +253,10 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <PricingSection />
+
+      <Testimonials />
 
       <Reveal
         as="section"
