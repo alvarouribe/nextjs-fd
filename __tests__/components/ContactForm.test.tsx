@@ -143,8 +143,7 @@ describe('ContactForm', () => {
     await waitFor(() =>
       expect(addFlashMessage).toHaveBeenCalledWith({
         type: 'error',
-        message:
-          'There was an error sending your message. Please try again later.',
+        message: 'There was an error sending your message. Please try again later.',
       })
     );
     expect(trackGenerateLead).toHaveBeenNthCalledWith(1, {
@@ -174,8 +173,7 @@ describe('ContactForm', () => {
     await waitFor(() =>
       expect(addFlashMessage).toHaveBeenCalledWith({
         type: 'error',
-        message:
-          'There was an error sending your message. Please try again later.',
+        message: 'There was an error sending your message. Please try again later.',
       })
     );
     expect(trackGenerateLead).toHaveBeenNthCalledWith(1, {
@@ -195,8 +193,27 @@ describe('ContactForm', () => {
     render(<ContactForm />);
 
     expect(screen.getByText('Thank you for your message!')).toBeInTheDocument();
-    expect(
-      screen.queryByRole('button', { name: /let's talk/i })
-    ).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /let's talk/i })).not.toBeInTheDocument();
+  });
+
+  it('uses a single, consistent reply-time promise', () => {
+    render(<ContactForm />);
+
+    expect(screen.getAllByText(/one business day/i).length).toBeGreaterThanOrEqual(1);
+    expect(screen.queryByText(/24 hours/i)).not.toBeInTheDocument();
+  });
+
+  it('mentions websites, automation and photography/video in the subheading', () => {
+    render(<ContactForm />);
+
+    expect(screen.getByText(/website/i)).toBeInTheDocument();
+    expect(screen.getByText(/automation/i)).toBeInTheDocument();
+    expect(screen.getByText(/photography/i)).toBeInTheDocument();
+  });
+
+  it('renders the suburb from ContactDetails next to the form', () => {
+    render(<ContactForm />);
+
+    expect(screen.getByText('Mount Maunganui, Bay of Plenty')).toBeInTheDocument();
   });
 });

@@ -110,8 +110,8 @@ export default function AboutPage() {
           </h2>
           <p className="mt-4 text-lg/8 text-gray-700 dark:text-gray-300">
             If you&apos;re ready to improve your online presence and streamline
-            your business, let&apos;s talk. Book a free call and we&apos;ll map
-            out your next steps.
+            your business, let&apos;s talk. Get a free, no-obligation quote and
+            we&apos;ll map out your next steps.
           </p>
           <div className="mt-8">
             <ContactUsButton location="about_page" />

@@ -5,6 +5,7 @@ import { CheckIcon } from '@heroicons/react/24/outline';
 import SVGBackground from './SvgBackground';
 import Input from './Input';
 import TextArea from './TextArea';
+import ContactDetails from './ContactDetails';
 import useFlashMessages from '@/hooks/useFlashMessages';
 import ContactSubmitButton from './ContactSubmitButton';
 import { trackGenerateLead } from '@/app/utils/analytics';
@@ -113,15 +114,19 @@ export default function ContactForm() {
           Let{"'s"} talk about your project
         </h2>
         <p className="mt-2 text-lg/8 text-gray-600 dark:text-gray-400">
-          We help companies and individuals build their online presence.
+          We help Bay of Plenty businesses grow with websites, automation, and
+          photography/video &mdash; all from one team.
         </p>
+        <div className="mt-4">
+          <ContactDetails />
+        </div>
         <ul className="mt-6 flex flex-col gap-2 text-sm text-gray-600 sm:flex-row sm:flex-wrap sm:gap-x-6 dark:text-gray-400">
           <li className="flex items-center gap-2">
             <CheckIcon
               aria-hidden="true"
               className="size-5 flex-none text-green-600 dark:text-green-400"
             />
-            We reply within 24 hours
+            We reply within one business day
           </li>
           <li className="flex items-center gap-2">
             <CheckIcon

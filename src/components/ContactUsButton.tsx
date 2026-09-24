@@ -27,7 +27,7 @@ export default function ContactUsButton({
 
   return (
     <CTAButton type="button" onClick={handleContactUsClick}>
-      Book a free call
+      Get a free quote
     </CTAButton>
   );
 }

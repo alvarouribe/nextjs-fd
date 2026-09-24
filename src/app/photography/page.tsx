@@ -2,11 +2,15 @@ import type { Metadata } from 'next';
 import { requiredEnv } from '@/app/utils/cloudinary';
 import { getCloudinaryPhotosByFolder } from '@/app/utils/photography';
 import PhotographyGallery from '@/components/PhotographyGallery';
+import ServicesCrossSell from '@/components/ServicesCrossSell';
 
 export const metadata: Metadata = {
-  title: 'Photography | FlyingDolly',
+  title: 'Mount Maunganui & Tauranga Photography | FlyingDolly',
   description:
-    'A curated FlyingDolly photography gallery powered by Cloudinary, featuring recent work and visual storytelling.',
+    "Browse FlyingDolly's Mount Maunganui and Tauranga photography portfolio — portrait, event and brand photography from the Bay of Plenty team behind your website and automation.",
+  alternates: {
+    canonical: '/photography',
+  },
 };
 
 export const dynamic = 'force-dynamic';
@@ -23,7 +27,9 @@ export default async function PhotographyPage() {
             Photography
           </h1>
           <p className="mt-4 text-base text-gray-300 sm:text-lg">
-            A gallery showcasing selected photography work.
+            A gallery of Mount Maunganui and Tauranga photography work, from
+            portraits to events. It&apos;s one part of the FlyingDolly system —
+            the same team also builds your website and automates your follow-up.
           </p>
         </div>
 
@@ -41,6 +47,7 @@ export default async function PhotographyPage() {
           <PhotographyGallery images={images} cloudName={cloudName} />
         )}
       </section>
+      <ServicesCrossSell />
     </main>
   );
 }
