@@ -18,13 +18,13 @@ export default function Testimonials() {
             What our clients say
           </h2>
         </Reveal>
-        <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 lg:max-w-none lg:grid-cols-3">
+        <div className="mx-auto mt-16 flex max-w-2xl flex-col gap-8 lg:max-w-none lg:flex-row lg:flex-wrap lg:justify-center">
           {testimonials.map((testimonial, index) => (
             <Reveal
               key={`${testimonial.name}-${testimonial.business}`}
               as="figure"
               index={index}
-              className="flex flex-col rounded-2xl bg-white p-8 shadow-sm ring-1 ring-gray-200 dark:bg-gray-800 dark:ring-gray-700"
+              className="flex flex-col rounded-2xl bg-white p-8 lg:w-[calc((100%-4rem)/3)] shadow-sm ring-1 ring-gray-200 dark:bg-gray-800 dark:ring-gray-700"
             >
               <blockquote className="flex-auto text-base/7 text-gray-700 dark:text-gray-300">
                 <p>&ldquo;{testimonial.quote}&rdquo;</p>

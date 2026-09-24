@@ -15,7 +15,7 @@ describe('Page', () => {
 
     expect(heading).toBeInTheDocument();
     expect(heading.textContent.replace(/\s+/g, ' ')).toMatch(
-      /we build the websites, automation, and content that grow bay of plenty businesses\./i
+      /we build websites, automation, and content that grow bay of plenty businesses\./i
     );
   });
 

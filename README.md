@@ -39,6 +39,54 @@ For the `/photography` gallery route, also provide:
 - CLOUDINARY_API_SECRET=YOUR_API_SECRET
 - CLOUDINARY_FOLDER=YOUR_FOLDER_NAME
 
+### Site content (testimonials, pricing, contact details)
+
+Business content shown on the marketing pages lives in one file:
+[`src/app/utils/site-content.ts`](src/app/utils/site-content.ts). Edit the data
+there — no component changes needed.
+
+| Export           | Rendered by                                                           | When empty                           |
+| ---------------- | --------------------------------------------------------------------- | ------------------------------------ |
+| `testimonials`   | `Testimonials` — homepage, above the contact form                     | Section is hidden                    |
+| `pricingTiers`   | `PricingSection` — homepage, after "How we work" (`#pricing-section`) | Section is hidden                    |
+| `contactDetails` | `ContactDetails` — next to the contact form                           | Only `suburb` shows (it is required) |
+
+**Testimonials** (`Testimonial`):
+
+```ts
+{
+  quote: 'What the client said…',
+  name: 'Client Name',
+  business: 'Business, Suburb',
+  imageSrc: '/images/client-photo.jpg', // optional
+}
+```
+
+Put avatar photos in `public/images/`. They render at 48×48 px, so a small
+square image (around 250–350 px) is plenty. Only use real quotes, and get the
+client's permission first. Invented reviews are misleading under the NZ Fair
+Trading Act.
+
+**Pricing tiers** (`PricingTier`):
+
+```ts
+{
+  service: 'Websites', // 'Websites' | 'Automation' | 'Photography & Video'
+  startingFrom: 'NZ$1,500', // shown as "From NZ$1,500"
+  description: 'What the starting price includes.',
+  href: '/#contact-form-section', // optional link on the card
+}
+```
+
+The section adds a note that final quotes depend on scope.
+
+**Contact details** (`ContactDetails`): `email` and `phone` are optional, and each
+one becomes a `mailto:` / `tel:` link when it's set. `suburb` is always shown.
+
+Components read this file at build time, so rebuild and redeploy after you
+change it. Tests mock the module (see `__tests__/components/Testimonials.test.tsx`),
+so changing the data won't break them.
+
 ### Vulnerability check
 
 ```bash
