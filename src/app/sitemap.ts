@@ -20,6 +20,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly' as const,
     },
     {
+      path: '/photography/the-crabs-beach-tennis-spring-2026',
+      priority: 0.5,
+      changeFrequency: 'monthly' as const,
+    },
+    {
       path: '/privacy-policy',
       priority: 0.3,
       changeFrequency: 'yearly' as const,

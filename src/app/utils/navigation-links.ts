@@ -30,6 +30,11 @@ export const NavigationLinks: NavLink[] = [
         href: '/photography/go-freek-2026-tauranga',
         description: 'Event highlights from Go Freek 2026',
       },
+      {
+        name: 'THE CRABS BEACH TENNIS CLUB',
+        href: '/photography/the-crabs-beach-tennis-spring-2026',
+        description: 'Spring Tournament 2026',
+      },
     ],
   },
   { name: 'ABOUT', href: '/about' },

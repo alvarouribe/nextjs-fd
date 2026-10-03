@@ -8,6 +8,9 @@ import PhotographyPage, { metadata as photographyMetadata } from '../../src/app/
 import PortraitsPage, {
   metadata as portraitsMetadata,
 } from '../../src/app/photography/portraits/page';
+import CrabsPage, {
+  metadata as crabsMetadata,
+} from '../../src/app/photography/the-crabs-beach-tennis-spring-2026/page';
 
 const requiredEnv = jest.fn();
 const getCloudinaryPhotosByFolder = jest.fn();
@@ -84,6 +87,19 @@ describe('Photography server pages', () => {
     expect(screen.getByText('No photos available yet.')).toBeInTheDocument();
   });
 
+  it('requests the crabs beach tennis album and renders empty state when no images exist', async () => {
+    getCloudinaryPhotosByFolder.mockResolvedValue([]);
+
+    render(await CrabsPage());
+
+    expect(getCloudinaryPhotosByFolder).toHaveBeenCalledWith('2026-10-03-beach-tennis-tay-st');
+    expect(
+      screen.getByRole('heading', { name: 'The Crabs Beach Tennis Club' })
+    ).toBeInTheDocument();
+    expect(screen.getByText('Spring Tournament 2026')).toBeInTheDocument();
+    expect(screen.getByText('No photos available yet.')).toBeInTheDocument();
+  });
+
   it('renders the services cross-sell section on every photography page', async () => {
     getCloudinaryPhotosByFolder.mockResolvedValue([]);
 
@@ -127,5 +143,13 @@ describe('Photography pages metadata', () => {
     });
     expect(goFreekMetadata.title).toMatch(/go freek/i);
     expect(goFreekMetadata.description).toMatch(/tauranga/i);
+  });
+
+  it('gives the crabs beach tennis page its own canonical and copy', () => {
+    expect(crabsMetadata.alternates).toEqual({
+      canonical: '/photography/the-crabs-beach-tennis-spring-2026',
+    });
+    expect(crabsMetadata.title).toMatch(/crabs beach tennis/i);
+    expect(crabsMetadata.description).toMatch(/tauranga|mount maunganui/i);
   });
 });

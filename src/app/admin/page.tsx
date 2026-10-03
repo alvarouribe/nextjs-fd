@@ -28,6 +28,11 @@ const shortcuts = [
     description: 'Event highlights gallery.',
   },
   {
+    name: 'The Crabs Beach Tennis Club',
+    href: '/photography/the-crabs-beach-tennis-spring-2026',
+    description: 'Spring Tournament 2026 gallery.',
+  },
+  {
     name: 'Contact form',
     href: '/#contact',
     description: 'Public enquiry form that emails the studio inbox.',
