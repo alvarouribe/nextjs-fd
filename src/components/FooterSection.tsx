@@ -57,6 +57,7 @@ const footerLinks = [
     name: 'Go Freek 2026 Tauranga',
     href: '/photography/go-freek-2026-tauranga',
   },
+  { name: 'The Crabs Beach Tennis Club', href: '/photography/the-crabs-beach-tennis-spring-2026' },
   { name: 'About', href: '/about' },
   { name: 'Privacy policy', href: '/privacy-policy' },
 ];
