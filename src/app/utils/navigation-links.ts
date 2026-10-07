@@ -1,3 +1,5 @@
+import { VideoPosts } from './videography';
+
 export interface NavSubLink {
   name: string;
   href: string;
@@ -35,6 +37,21 @@ export const NavigationLinks: NavLink[] = [
         href: '/photography/the-crabs-beach-tennis-spring-2026',
         description: 'Spring Tournament 2026',
       },
+    ],
+  },
+  {
+    name: 'VIDEOGRAPHY',
+    href: '/videography',
+    subLinks: [
+      {
+        name: 'FEATURED WORK',
+        href: '/videography',
+        description: 'Our best video work',
+      },
+      ...VideoPosts.map(post => ({
+        name: post.title.toUpperCase(),
+        href: `/videography/${post.slug}`,
+      })),
     ],
   },
   { name: 'ABOUT', href: '/about' },

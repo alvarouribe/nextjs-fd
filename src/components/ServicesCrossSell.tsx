@@ -13,11 +13,15 @@ const cards = [
   },
 ];
 
-export default function ServicesCrossSell() {
+export default function ServicesCrossSell({
+  heading = 'Photos are one part of the system',
+}: {
+  heading?: string;
+}) {
   return (
     <section className="mx-auto max-w-5xl px-6 py-16 lg:px-8">
       <h2 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-        Photos are one part of the system
+        {heading}
       </h2>
       <p className="mt-3 max-w-2xl text-base text-gray-300">
         FlyingDolly is one team for your website, automation, and

@@ -4,4 +4,5 @@ type constantName = {
 
 export const AppConstants: constantName = {
   companyName: 'FlyingDolly',
+  siteUrl: 'https://www.flyingdolly.co.nz',
 };

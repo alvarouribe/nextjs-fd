@@ -17,3 +17,18 @@ describe('sitemap', () => {
     expect(homeRoute?.priority).toBe(1);
   });
 });
+
+describe('sitemap videography', () => {
+  it('includes the videography summary page and one entry per video post', () => {
+    const urls = sitemap().map((route) => route.url);
+    expect(urls).toContain('https://www.flyingdolly.co.nz/videography');
+    expect(urls.filter((url) => url.includes('/videography/')).length).toBeGreaterThan(0);
+  });
+
+  it('uses each video post publish date as its lastModified', () => {
+    const route = sitemap().find((r) =>
+      r.url.endsWith('/videography/guitardeon-latin-american-spring-festival-2026')
+    );
+    expect(route?.lastModified).toEqual(new Date('2026-10-06T10:10:33+00:00'));
+  });
+});
