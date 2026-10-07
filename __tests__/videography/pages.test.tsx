@@ -85,7 +85,16 @@ describe('/videography/[slug]', () => {
     render(await VideoPostPage(params(post.slug)));
 
     expect(screen.getByRole('heading', { level: 1, name: post.title })).toBeInTheDocument();
-    expect(screen.getByText(post.body[0])).toBeInTheDocument();
+    post.body.forEach((section) => {
+      if (section.heading) {
+        expect(
+          screen.getByRole('heading', { level: 2, name: section.heading })
+        ).toBeInTheDocument();
+      }
+      section.paragraphs.forEach((paragraph) =>
+        expect(screen.getByText(paragraph)).toBeInTheDocument()
+      );
+    });
     expect(screen.getByTitle(post.title)).toHaveAttribute(
       'src',
       expect.stringContaining(`youtube-nocookie.com/embed/${post.youtubeId}`)

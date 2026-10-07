@@ -18,6 +18,7 @@ describe('videography data', () => {
       expect(post.youtubeId).toMatch(/^[A-Za-z0-9_-]{11}$/);
       expect(post.excerpt.length).toBeGreaterThan(0);
       expect(post.body.length).toBeGreaterThan(0);
+      post.body.forEach((section) => expect(section.paragraphs.length).toBeGreaterThan(0));
     });
   });
 
@@ -47,5 +48,19 @@ describe('videography data', () => {
     const related = getRelatedVideoPosts(first.slug, 3);
     expect(related).toHaveLength(3);
     expect(related.map((post) => post.slug)).not.toContain(first.slug);
+  });
+
+  it('gives every post enough long-form copy to rank (300+ words)', () => {
+    const wordCount = (post: (typeof VideoPosts)[number]) =>
+      post.body
+        .flatMap((section) => [section.heading ?? '', ...section.paragraphs])
+        .join(' ')
+        .split(/\s+/)
+        .filter(Boolean).length;
+
+    const tooShort = VideoPosts.filter((post) => wordCount(post) < 300).map(
+      (post) => `${post.slug}: ${wordCount(post)} words`
+    );
+    expect(tooShort).toEqual([]);
   });
 });

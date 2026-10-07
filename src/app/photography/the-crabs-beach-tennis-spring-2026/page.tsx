@@ -1,18 +1,17 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/app/utils/page-metadata';
 import { requiredEnv } from '@/app/utils/cloudinary';
 import { getCloudinaryPhotosByFolder } from '@/app/utils/photography';
 import PhotographyGallery from '@/components/PhotographyGallery';
 import ServicesCrossSell from '@/components/ServicesCrossSell';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title:
     'The Crabs Beach Tennis Club Spring Tournament 2026 Photography | FlyingDolly',
   description:
     'Photos from The Crabs Beach Tennis Club Spring Tournament 2026 at Tay St, Mount Maunganui, captured by FlyingDolly — the Bay of Plenty team behind your website, automation and content.',
-  alternates: {
-    canonical: '/photography/the-crabs-beach-tennis-spring-2026',
-  },
-};
+  path: '/photography/the-crabs-beach-tennis-spring-2026',
+});
 
 export const dynamic = 'force-dynamic';
 

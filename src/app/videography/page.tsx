@@ -4,6 +4,7 @@ import Link from 'next/link';
 import ServicesCrossSell from '@/components/ServicesCrossSell';
 import YouTubeEmbed from '@/components/YouTubeEmbed';
 
+import { pageMetadata } from '@/app/utils/page-metadata';
 import {
   getFeaturedVideoPosts,
   videoThumbnailUrl,
@@ -13,29 +14,12 @@ const title = 'Mount Maunganui & Tauranga Videography | FlyingDolly';
 const description =
   "Watch FlyingDolly's videography work — event, artist and brand videos from the Bay of Plenty team that also builds your website and automation.";
 
-// Child metadata replaces (not merges) the layout's openGraph/twitter, so
-// these must be set here or shares fall back to the homepage title and URL.
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title,
   description,
-  alternates: {
-    canonical: '/videography',
-  },
-  openGraph: {
-    type: 'website',
-    locale: 'en_NZ',
-    siteName: 'FlyingDolly',
-    url: '/videography',
-    title,
-    description,
-    images: [videoThumbnailUrl(getFeaturedVideoPosts()[0])],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title,
-    description,
-  },
-};
+  path: '/videography',
+  image: videoThumbnailUrl(getFeaturedVideoPosts()[0]),
+});
 
 export default function VideographyPage() {
   const posts = getFeaturedVideoPosts();

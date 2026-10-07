@@ -7,6 +7,7 @@ import ContactUsButton from '@/components/ContactUsButton';
 import YouTubePlayer from '@/components/YouTubePlayer';
 
 import { AppConstants } from '@/app/utils/app-constants';
+import { pageMetadata } from '@/app/utils/page-metadata';
 import {
   formatIsoDuration,
   getRelatedVideoPosts,
@@ -29,35 +30,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = getVideoPost((await params).slug);
   if (!post) return {};
 
-  const title = `${post.title} | FlyingDolly`;
-  const url = `/videography/${post.slug}`;
-  const image = videoThumbnailUrl(post);
-
-  // Child metadata replaces (not merges) the layout's openGraph/twitter, so
-  // every field shares need is set here.
-  return {
-    title,
+  return pageMetadata({
+    title: `${post.title} | FlyingDolly`,
     description: post.excerpt,
-    alternates: {
-      canonical: url,
-    },
+    path: `/videography/${post.slug}`,
+    image: videoThumbnailUrl(post),
     openGraph: {
       type: 'video.other',
-      locale: 'en_NZ',
-      siteName: 'FlyingDolly',
-      url,
-      title,
-      description: post.excerpt,
-      images: [image],
       videos: [{ url: `https://www.youtube.com/embed/${post.youtubeId}` }],
     },
-    twitter: {
-      card: 'summary_large_image',
-      title,
-      description: post.excerpt,
-      images: [image],
-    },
-  };
+  });
 }
 
 export default async function VideoPostPage({ params }: Props) {
@@ -140,8 +122,17 @@ export default async function VideoPostPage({ params }: Props) {
         </div>
 
         <div className="mt-10 space-y-6 text-lg/8 text-gray-300">
-          {post.body.map(paragraph => (
-            <p key={paragraph}>{paragraph}</p>
+          {post.body.map((section, index) => (
+            <section key={section.heading ?? index} className="space-y-6">
+              {section.heading && (
+                <h2 className="pt-4 text-2xl font-semibold tracking-tight text-white">
+                  {section.heading}
+                </h2>
+              )}
+              {section.paragraphs.map(paragraph => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </section>
           ))}
         </div>
 

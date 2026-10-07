@@ -1,17 +1,16 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/app/utils/page-metadata';
 import { requiredEnv } from '@/app/utils/cloudinary';
 import { getCloudinaryPhotosByFolder } from '@/app/utils/photography';
 import PhotographyGallery from '@/components/PhotographyGallery';
 import ServicesCrossSell from '@/components/ServicesCrossSell';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Portrait Photography in Mount Maunganui | FlyingDolly',
   description:
     'Professional portrait photography sessions in Mount Maunganui and Tauranga, captured by the FlyingDolly team who also build your website and automation.',
-  alternates: {
-    canonical: '/photography/portraits',
-  },
-};
+  path: '/photography/portraits',
+});
 
 export const dynamic = 'force-dynamic';
 
