@@ -11,6 +11,7 @@ describe('FooterSection crawlable links', () => {
       ['Home', '/'],
       ['Photography', '/photography'],
       ['Portraits', '/photography/portraits'],
+      ['Videography', '/videography'],
       ['Go Freek 2026 Tauranga', '/photography/go-freek-2026-tauranga'],
       ['The Crabs Beach Tennis Club', '/photography/the-crabs-beach-tennis-spring-2026'],
       ['About', '/about'],

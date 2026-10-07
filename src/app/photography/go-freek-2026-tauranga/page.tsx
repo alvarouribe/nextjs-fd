@@ -1,17 +1,16 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/app/utils/page-metadata';
 import { requiredEnv } from '@/app/utils/cloudinary';
 import { getCloudinaryPhotosByFolder } from '@/app/utils/photography';
 import PhotographyGallery from '@/components/PhotographyGallery';
 import ServicesCrossSell from '@/components/ServicesCrossSell';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Go Freek 2026 Tauranga Event Photography | FlyingDolly',
   description:
     'Event photography highlights from Go Freek 2026 in Tauranga, captured by FlyingDolly — the Bay of Plenty team behind your website, automation and content.',
-  alternates: {
-    canonical: '/photography/go-freek-2026-tauranga',
-  },
-};
+  path: '/photography/go-freek-2026-tauranga',
+});
 
 export const dynamic = 'force-dynamic';
 

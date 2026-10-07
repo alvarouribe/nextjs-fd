@@ -179,4 +179,18 @@ describe('Header', () => {
       value: originalInnerWidth,
     });
   });
+
+  it('lists the videography summary page and every video post in the mobile menu', () => {
+    render(<Header />);
+    fireEvent.click(screen.getByRole('button', { name: /open main menu/i }));
+
+    expect(screen.getByText('VIDEOGRAPHY')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'FEATURED WORK' })).toHaveAttribute(
+      'href',
+      '/videography'
+    );
+    expect(
+      screen.getByRole('link', { name: 'GUITARDEON LATIN AMERICAN SPRING FESTIVAL 2026' })
+    ).toHaveAttribute('href', '/videography/guitardeon-latin-american-spring-festival-2026');
+  });
 });

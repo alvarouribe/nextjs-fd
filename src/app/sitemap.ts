@@ -1,11 +1,18 @@
 import type { MetadataRoute } from 'next';
 
+import { VideoPosts } from './utils/videography';
+
 const SITE_URL = 'https://www.flyingdolly.co.nz';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
 
-  const routes = [
+  const routes: Array<{
+    path: string;
+    priority: number;
+    changeFrequency: 'weekly' | 'monthly' | 'yearly';
+    lastModified?: Date;
+  }> = [
     { path: '/', priority: 1, changeFrequency: 'monthly' as const },
     { path: '/about', priority: 0.8, changeFrequency: 'monthly' as const },
     { path: '/photography', priority: 0.6, changeFrequency: 'weekly' as const },
@@ -24,6 +31,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.5,
       changeFrequency: 'monthly' as const,
     },
+    { path: '/videography', priority: 0.6, changeFrequency: 'weekly' as const },
+    ...VideoPosts.map(post => ({
+      path: `/videography/${post.slug}`,
+      priority: 0.5,
+      changeFrequency: 'monthly' as const,
+      lastModified: new Date(post.publishedAt),
+    })),
     {
       path: '/privacy-policy',
       priority: 0.3,
@@ -31,10 +45,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  return routes.map(({ path, priority, changeFrequency }) => ({
-    url: `${SITE_URL}${path}`,
-    lastModified,
-    changeFrequency,
-    priority,
+  return routes.map(route => ({
+    url: `${SITE_URL}${route.path}`,
+    lastModified: route.lastModified ?? lastModified,
+    changeFrequency: route.changeFrequency,
+    priority: route.priority,
   }));
 }

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/app/utils/page-metadata';
 import {
   BoltIcon,
   CheckCircleIcon,
@@ -7,14 +8,12 @@ import {
 import ContactUsButton from '@/components/ContactUsButton';
 import Reveal from '@/components/motion/Reveal';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'About FlyingDolly | Web Development & Content Studio, Mt Maunganui',
   description:
     'FlyingDolly builds high-performing websites, smart automations, and standout visual content for growing businesses in Mt Maunganui and across New Zealand.',
-  alternates: {
-    canonical: '/about',
-  },
-};
+  path: '/about',
+});
 
 const beliefs = [
   {

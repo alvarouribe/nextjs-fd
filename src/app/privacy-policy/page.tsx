@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/app/utils/page-metadata';
 import Link from 'next/link';
 import ChangeCookiePreferencesButton from '@/components/ChangeCookiePreferencesButton';
 import Reveal from '@/components/motion/Reveal';
@@ -8,14 +9,12 @@ import Reveal from '@/components/motion/Reveal';
 // GA4 analytics). Please review it — especially the retention period and
 // the Privacy Commissioner contact details — before this branch merges.
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Privacy Policy | FlyingDolly',
   description:
     "How FlyingDolly collects, uses, and protects your personal information, in line with New Zealand's Privacy Act 2020.",
-  alternates: {
-    canonical: '/privacy-policy',
-  },
-};
+  path: '/privacy-policy',
+});
 
 export default function PrivacyPolicyPage() {
   return (
