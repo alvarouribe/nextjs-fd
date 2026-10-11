@@ -197,39 +197,11 @@ export default function Header() {
                     } md:w-auto md:text-base`}
                     style={animationStyle}
                   >
-                    {link.subLinks ? (
-                      isMenuOpen ? (
-                        <div>
-                          <p className="font-semibold text-white">
-                            {link.name}
-                          </p>
-                          <ul className="mt-3 space-y-3 pl-6 text-xl">
-                            {link.subLinks.map(item => (
-                              <li key={item.href}>
-                                <Link
-                                  href={item.href}
-                                  className="mobile-nav-link font-semibold text-white transition-colors hover:text-green-400"
-                                  onClick={() => {
-                                    trackSelectContent({
-                                      source: 'header_nav',
-                                      destination: item.href,
-                                      label: item.name,
-                                    });
-                                    setIsMenuOpen(false);
-                                  }}
-                                >
-                                  {item.name}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ) : (
-                        <NavFlyout
-                          link={link as NavLinkWithSubs}
-                          onItemClick={() => setIsMenuOpen(false)}
-                        />
-                      )
+                    {link.subLinks && !isMenuOpen ? (
+                      <NavFlyout
+                        link={link as NavLinkWithSubs}
+                        onItemClick={() => setIsMenuOpen(false)}
+                      />
                     ) : (
                       <Link
                         href={link.href}

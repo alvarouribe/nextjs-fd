@@ -48,15 +48,26 @@ describe('Header', () => {
     expect(screen.getByRole('link', { name: 'ABOUT' }).closest('li')).toHaveClass('text-3xl');
   });
 
-  it('shows photography sub-links expanded and indented in the mobile menu', () => {
+  it('collapses photography to a single favorites link in the mobile menu', () => {
     render(<Header />);
-    const button = screen.getByRole('button', { name: /open main menu/i });
-    fireEvent.click(button);
+    fireEvent.click(screen.getByRole('button', { name: /open main menu/i }));
 
-    expect(screen.getByText('PHOTOGRAPHY')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'PORTRAITS' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'GO FREEK 2026 TAURANGA' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'PORTRAITS' }).closest('ul')).toHaveClass('pl-6');
+    const photographyLink = screen.getByRole('link', { name: 'PHOTOGRAPHY' });
+    expect(photographyLink).toHaveAttribute('href', '/photography');
+    expect(photographyLink.closest('li')).toHaveClass('text-3xl');
+    expect(screen.queryByRole('link', { name: 'PORTRAITS' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: 'FAVORITES' })).not.toBeInTheDocument();
+
+    fireEvent.click(photographyLink);
+    expect(trackSelectContent).toHaveBeenCalledWith({
+      source: 'header_nav',
+      destination: '/photography',
+      label: 'PHOTOGRAPHY',
+    });
+    expect(screen.getByRole('button', { name: /open main menu/i })).toHaveAttribute(
+      'aria-expanded',
+      'false'
+    );
   });
 
   it('hides the nav menu again when the button is clicked a second time', () => {
@@ -195,17 +206,30 @@ describe('Header', () => {
     });
   });
 
-  it('lists the videography summary page and every video post in the mobile menu', () => {
+  it('collapses videography to a single featured work link in the mobile menu', () => {
     render(<Header />);
     fireEvent.click(screen.getByRole('button', { name: /open main menu/i }));
 
-    expect(screen.getByText('VIDEOGRAPHY')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'FEATURED WORK' })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: 'VIDEOGRAPHY' })).toHaveAttribute(
       'href',
       '/videography'
     );
+    expect(screen.queryByRole('link', { name: 'FEATURED WORK' })).not.toBeInTheDocument();
     expect(
-      screen.getByRole('link', { name: 'GUITARDEON LATIN AMERICAN SPRING FESTIVAL 2026' })
-    ).toHaveAttribute('href', '/videography/guitardeon-latin-american-spring-festival-2026');
+      screen.queryByRole('link', { name: 'GUITARDEON LATIN AMERICAN SPRING FESTIVAL 2026' })
+    ).not.toBeInTheDocument();
+  });
+
+  it('keeps one top-level item per nav entry in the mobile menu', () => {
+    render(<Header />);
+    fireEvent.click(screen.getByRole('button', { name: /open main menu/i }));
+
+    const items = getMenuList().querySelectorAll(':scope > li');
+    expect(Array.from(items).map((item) => item.textContent)).toEqual([
+      'WORK',
+      'PHOTOGRAPHY',
+      'VIDEOGRAPHY',
+      'ABOUT',
+    ]);
   });
 });
