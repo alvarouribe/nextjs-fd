@@ -61,11 +61,25 @@ describe('Page', () => {
 
     const wrapperOf = (alt) => screen.getByAltText(alt).parentElement;
 
-    expect(wrapperOf('Mount Maunganui - Mauao')).toHaveClass('max-sm:hidden');
+    expect(wrapperOf('Cocktail at a garden party')).toHaveClass('max-sm:hidden');
     expect(wrapperOf('Relax beach meeting')).toHaveClass('max-sm:hidden');
     expect(wrapperOf('volleyball game')).toHaveClass('hidden', 'sm:block');
 
     expect(wrapperOf('relax office meeting')).not.toHaveClass('max-sm:hidden');
     expect(screen.getByAltText('relax office meeting')).toHaveClass('max-sm:w-full');
+  });
+
+  it('features the garden party cocktail photo in place of Mauao', () => {
+    render(<Page />);
+
+    expect(screen.getByAltText('Cocktail at a garden party')).toHaveAttribute(
+      'src',
+      expect.stringContaining('cocktail-garden-party.webp')
+    );
+    expect(screen.getByAltText('Cocktail at a garden party')).toHaveAttribute(
+      'src',
+      expect.stringContaining('q=90')
+    );
+    expect(screen.queryByAltText('Mount Maunganui - Mauao')).not.toBeInTheDocument();
   });
 });
