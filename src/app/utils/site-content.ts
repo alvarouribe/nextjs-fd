@@ -71,7 +71,7 @@ export const selectedWork: SelectedWorkProject[] = [
     description:
       'A portfolio and blog for a full-stack developer and visual storyteller — featuring writing on AI and LLMs, interactive UI experiments, and a newsletter signup.',
     tags: ['Portfolio', 'Blog', 'Development'],
-    imageSrc: '/images/work/alvaro-uribe.webp',
+    imageSrc: '/images/work/alvaro-uribe-dark.webp',
   },
 ];
 
