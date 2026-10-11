@@ -9,6 +9,7 @@ describe('FooterSection crawlable links', () => {
 
     const expectedLinks: Array<[string, string]> = [
       ['Home', '/'],
+      ['Work', '/#selected-work-section'],
       ['Photography', '/photography'],
       ['Portraits', '/photography/portraits'],
       ['Videography', '/videography'],
@@ -21,6 +22,16 @@ describe('FooterSection crawlable links', () => {
     for (const [name, href] of expectedLinks) {
       expect(screen.getByRole('link', { name })).toHaveAttribute('href', href);
     }
+  });
+
+  it('lists Work right after Home', () => {
+    render(<FooterSection />);
+
+    const names = screen
+      .getAllByRole('link')
+      .filter((link) => link.closest('nav[aria-label="Footer"]'))
+      .map((link) => link.textContent);
+    expect(names.slice(0, 2)).toEqual(['Home', 'Work']);
   });
 
   it('shows the Mount Maunganui location line', () => {
