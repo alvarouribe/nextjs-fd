@@ -23,6 +23,11 @@ jest.mock('../../src/app/utils/photography', () => ({
   getCloudinaryPhotosByFolder: (...args: unknown[]) => getCloudinaryPhotosByFolder(...args),
 }));
 
+jest.mock('../../src/components/PhotographyAlbumNav', () => ({
+  __esModule: true,
+  default: () => <nav aria-label="Photography albums" />,
+}));
+
 jest.mock('../../src/components/PhotographyGallery', () => ({
   __esModule: true,
   default: ({ images, cloudName }: { images: Array<{ id: number }>; cloudName: string }) => (
@@ -115,6 +120,18 @@ describe('Photography server pages', () => {
       screen.getByRole('link', { name: /automation that follows up your leads/i })
     ).toHaveAttribute('href', '/#services-section');
     expect(screen.getAllByRole('link', { name: /about/i })[0]).toHaveAttribute('href', '/about');
+  });
+  it.each([
+    ['/photography', PhotographyPage],
+    ['/photography/portraits', PortraitsPage],
+    ['/photography/go-freek-2026-tauranga', GoFreek2026TaurangaPage],
+    ['/photography/the-crabs-beach-tennis-spring-2026', CrabsPage],
+  ])('renders the album nav on %s', async (_path, Page) => {
+    getCloudinaryPhotosByFolder.mockResolvedValue([]);
+
+    render(await Page());
+
+    expect(screen.getByRole('navigation', { name: /photography albums/i })).toBeInTheDocument();
   });
 });
 

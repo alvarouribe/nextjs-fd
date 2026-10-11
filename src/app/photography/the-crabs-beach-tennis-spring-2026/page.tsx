@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { pageMetadata } from '@/app/utils/page-metadata';
 import { requiredEnv } from '@/app/utils/cloudinary';
 import { getCloudinaryPhotosByFolder } from '@/app/utils/photography';
+import PhotographyAlbumNav from '@/components/PhotographyAlbumNav';
 import PhotographyGallery from '@/components/PhotographyGallery';
 import ServicesCrossSell from '@/components/ServicesCrossSell';
 
@@ -32,6 +33,8 @@ export default async function CrabsBeachTennisPage() {
             Spring Tournament 2026
           </p>
         </div>
+
+        <PhotographyAlbumNav />
 
         {images.length === 0 ? (
           <div className="rounded-xl border border-gray-700 bg-gray-900/70 p-8">
