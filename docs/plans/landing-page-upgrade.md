@@ -111,8 +111,8 @@ new `__tests__/components/Footer.test.tsx`.
      that save hours each week.
    - **Photography & Video**: product, portrait and event content, with a
      link to `/photography`.
-   Add a short "why one team beats three vendors" line. Each card gets a
-   cross-sell link (e.g. "Already have a website? Add automation →").
+     Add a short "why one team beats three vendors" line. Each card gets a
+     cross-sell link (e.g. "Already have a website? Add automation →").
 3. Update the "How we work" copy so it covers all three services, not just
    "a website".
 4. Mid-page CTA section: rewrite the copy for the systems positioning.

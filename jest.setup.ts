@@ -13,8 +13,7 @@ class IntersectionObserverStub implements IntersectionObserver {
   takeRecords = jest.fn(() => []);
 }
 
-window.IntersectionObserver =
-  IntersectionObserverStub as unknown as typeof IntersectionObserver;
+window.IntersectionObserver = IntersectionObserverStub as unknown as typeof IntersectionObserver;
 
 window.matchMedia = jest.fn().mockImplementation((query: string) => ({
   matches: false,

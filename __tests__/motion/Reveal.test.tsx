@@ -37,8 +37,7 @@ describe('Reveal', () => {
         takeRecords: () => [],
       };
     });
-    window.IntersectionObserver =
-      observerCtor as unknown as typeof IntersectionObserver;
+    window.IntersectionObserver = observerCtor as unknown as typeof IntersectionObserver;
     mockMatchMedia(false);
   });
 

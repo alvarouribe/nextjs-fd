@@ -73,10 +73,11 @@ export default function Reveal({
   children,
   ...rest
 }: RevealProps) {
-  const { ref, className: revealClassName, style } = useReveal<HTMLElement>(
-    index,
-    step
-  );
+  const {
+    ref,
+    className: revealClassName,
+    style,
+  } = useReveal<HTMLElement>(index, step);
   const Component = as as ElementType;
 
   return (

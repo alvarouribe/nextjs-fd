@@ -23,8 +23,6 @@ describe('analytics helper', () => {
   });
 
   it('does not throw when gtag is unavailable', () => {
-    expect(() =>
-      trackGenerateLead({ source: 'contact_form', result: 'attempt' })
-    ).not.toThrow();
+    expect(() => trackGenerateLead({ source: 'contact_form', result: 'attempt' })).not.toThrow();
   });
 });
