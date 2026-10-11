@@ -55,4 +55,17 @@ describe('Page', () => {
     expect(process.compareDocumentPosition(work)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
     expect(work.compareDocumentPosition(testimonials)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
   });
+
+  it('shows only the office meeting photo beside the mid-page CTA on small screens', () => {
+    render(<Page />);
+
+    const wrapperOf = (alt) => screen.getByAltText(alt).parentElement;
+
+    expect(wrapperOf('Mount Maunganui - Mauao')).toHaveClass('max-sm:hidden');
+    expect(wrapperOf('Relax beach meeting')).toHaveClass('max-sm:hidden');
+    expect(wrapperOf('volleyball game')).toHaveClass('hidden', 'sm:block');
+
+    expect(wrapperOf('relax office meeting')).not.toHaveClass('max-sm:hidden');
+    expect(screen.getByAltText('relax office meeting')).toHaveClass('max-sm:w-full');
+  });
 });

@@ -156,7 +156,7 @@ export default function Home() {
             <div className="flex flex-wrap items-start justify-end gap-6 sm:gap-8 lg:contents">
               <Reveal
                 index={0}
-                className="w-0 flex-auto lg:ml-auto lg:w-auto lg:flex-none lg:self-end"
+                className="w-0 flex-auto max-sm:hidden lg:ml-auto lg:w-auto lg:flex-none lg:self-end"
               >
                 <Image
                   alt="Mount Maunganui - Mauao"
@@ -169,7 +169,7 @@ export default function Home() {
               <div className="contents lg:col-span-2 lg:col-end-2 lg:ml-auto lg:flex lg:w-[37rem] lg:items-start lg:justify-end lg:gap-x-8">
                 <Reveal
                   index={1}
-                  className="order-first flex w-64 flex-none justify-end self-end max-sm:w-40 lg:w-auto"
+                  className="order-first flex w-64 flex-none justify-end self-end max-sm:hidden lg:w-auto"
                 >
                   <Image
                     alt="Relax beach meeting"
@@ -181,12 +181,12 @@ export default function Home() {
                 </Reveal>
                 <Reveal
                   index={2}
-                  className="flex w-96 flex-auto justify-end lg:w-auto lg:flex-none"
+                  className="flex w-96 flex-auto justify-end max-sm:w-full lg:w-auto lg:flex-none"
                 >
                   <Image
                     alt="relax office meeting"
                     src="/images/meetup.jpg"
-                    className="aspect-[7/5] w-[37rem] max-w-none flex-none rounded-2xl bg-gray-50 object-cover max-sm:w-[30rem] dark:bg-gray-800"
+                    className="aspect-[7/5] w-[37rem] max-w-none flex-none rounded-2xl bg-gray-50 object-cover max-sm:w-full dark:bg-gray-800"
                     width={600}
                     height={400}
                   />
