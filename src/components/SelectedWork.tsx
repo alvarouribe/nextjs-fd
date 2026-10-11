@@ -17,7 +17,7 @@ export default function SelectedWork() {
   return (
     <section
       id="selected-work-section"
-      className="bg-white py-24 sm:py-32 dark:bg-gray-800"
+      className="scroll-mt-8 bg-white py-24 sm:scroll-mt-0 sm:py-32 dark:bg-gray-800"
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <Reveal className="mx-auto max-w-2xl lg:text-center">

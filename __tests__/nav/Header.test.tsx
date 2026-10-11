@@ -145,6 +145,21 @@ describe('Header', () => {
     });
   });
 
+  it('links WORK first in the nav to the home page selected work section', () => {
+    render(<Header />);
+
+    const workLink = screen.getByRole('link', { name: 'WORK' });
+    expect(workLink).toHaveAttribute('href', '/#selected-work-section');
+    expect(getMenuList().querySelector('li')).toContainElement(workLink);
+
+    fireEvent.click(workLink);
+    expect(trackSelectContent).toHaveBeenCalledWith({
+      source: 'header_nav',
+      destination: '/#selected-work-section',
+      label: 'WORK',
+    });
+  });
+
   it('forces the mobile menu closed when resizing to desktop', () => {
     const originalInnerWidth = window.innerWidth;
 

@@ -13,6 +13,7 @@ export interface NavLink {
 }
 
 export const NavigationLinks: NavLink[] = [
+  { name: 'WORK', href: '/#selected-work-section' },
   {
     name: 'PHOTOGRAPHY',
     href: '/photography',
