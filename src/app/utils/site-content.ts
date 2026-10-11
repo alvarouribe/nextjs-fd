@@ -15,6 +15,15 @@ export interface PricingTier {
   href?: string;
 }
 
+export interface SelectedWorkProject {
+  name: string;
+  url: string;
+  category: string;
+  description: string;
+  tags: string[];
+  imageSrc: string; // homepage screenshot, 1200x750
+}
+
 export interface ContactDetails {
   email?: string;
   phone?: string;
@@ -33,6 +42,36 @@ export const testimonials: Testimonial[] = [
     name: 'Glenn Robert',
     business: 'BOP Gutter CleaNZ, Mount Maunganui',
     imageSrc: '/images/glenn-low.jpeg',
+  },
+];
+
+export const selectedWork: SelectedWorkProject[] = [
+  {
+    name: 'BOP Gutter CleaNZ',
+    url: 'https://www.bopguttercleanz.co.nz/',
+    category: 'Trades & services',
+    description:
+      'A lead-generating website for a Mount Maunganui gutter and roof specialist — click-to-call, free-quote enquiries, and clear service pages for Tauranga, Papamoa, and the Mount.',
+    tags: ['Web design', 'Development', 'Local SEO'],
+    imageSrc: '/images/work/bop-gutter-cleanz.webp',
+  },
+  {
+    name: 'Pacific Share',
+    url: 'https://www.pacificshare.org/',
+    category: 'Nonprofit',
+    description:
+      'A storytelling website for a nonprofit that gives donated fishing and diving gear a second life in Pacific Island communities — with clear paths to donate, deliver, or request gear.',
+    tags: ['Brand', 'Web design', 'Development'],
+    imageSrc: '/images/work/pacific-share.webp',
+  },
+  {
+    name: 'Alvaro Uribe',
+    url: 'https://www.alvarouribe.cl/',
+    category: 'Personal brand',
+    description:
+      'A portfolio and blog for a full-stack developer and visual storyteller — featuring writing on AI and LLMs, interactive UI experiments, and a newsletter signup.',
+    tags: ['Portfolio', 'Blog', 'Development'],
+    imageSrc: '/images/work/alvaro-uribe.webp',
   },
 ];
 

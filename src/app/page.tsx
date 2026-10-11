@@ -9,6 +9,7 @@ import HeroSection from '../components/HeroSection';
 import ContactForm from '@/components/ContactForm';
 import ContactUsButton from '@/components/ContactUsButton';
 import PricingSection from '@/components/PricingSection';
+import SelectedWork from '@/components/SelectedWork';
 import Testimonials from '@/components/Testimonials';
 import Reveal from '@/components/motion/Reveal';
 
@@ -253,6 +254,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <SelectedWork />
 
       <PricingSection />
 

@@ -43,4 +43,16 @@ describe('Page', () => {
     });
     expect(photographyLink).toHaveAttribute('href', '/photography');
   });
+
+  it('showcases selected work between the process and testimonials', () => {
+    render(<Page />);
+
+    const process = document.getElementById('process-section');
+    const work = document.getElementById('selected-work-section');
+    const testimonials = document.getElementById('testimonials-section');
+
+    expect(work).toBeInTheDocument();
+    expect(process.compareDocumentPosition(work)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(work.compareDocumentPosition(testimonials)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+  });
 });
