@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useSyncExternalStore } from 'react';
+import { useCallback, useEffect, useSyncExternalStore } from 'react';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import CookieConsent from './CookieConsent';
 import {
@@ -8,6 +8,7 @@ import {
   type ConsentValue,
   getConsent,
   setConsent,
+  updateConsentMode,
 } from '@/app/utils/consent';
 
 type ConsentAwareAnalyticsProps = {
@@ -27,9 +28,10 @@ const subscribe = (onStoreChange: () => void) => {
 
 const getServerSnapshot = (): ConsentValue | null => null;
 
-// Gates GA4 behind an explicit visitor choice: nothing loads until consent
-// is 'granted' — on first mount (an existing cookie), or the instant the
-// visitor accepts the banner.
+// Google Consent Mode v2: GA4 always loads, but runs cookieless until the
+// visitor accepts. The consent defaults (and the upgrade for a returning
+// visitor who already accepted) are set by CONSENT_MODE_DEFAULTS_SCRIPT in
+// the root layout; this component keeps GA in sync with later changes.
 export default function ConsentAwareAnalytics({
   gaId,
 }: ConsentAwareAnalyticsProps) {
@@ -38,6 +40,12 @@ export default function ConsentAwareAnalytics({
     getConsent,
     getServerSnapshot
   );
+
+  // Syncs an external system (gtag) with the consent store — the one job
+  // an effect is for.
+  useEffect(() => {
+    updateConsentMode(consent);
+  }, [consent]);
 
   const handleAccept = useCallback(() => {
     setConsent('granted');
@@ -49,7 +57,7 @@ export default function ConsentAwareAnalytics({
 
   return (
     <>
-      {consent === 'granted' && <GoogleAnalytics gaId={gaId} />}
+      <GoogleAnalytics gaId={gaId} />
       <CookieConsent
         visible={consent === null}
         onAccept={handleAccept}

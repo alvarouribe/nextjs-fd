@@ -24,8 +24,9 @@ export default function CookieConsent({
       className="fixed inset-x-4 bottom-4 z-50 rounded-xl border border-gray-200 bg-white p-4 shadow-lg sm:inset-x-auto sm:left-4 sm:max-w-sm dark:border-gray-700 dark:bg-gray-800"
     >
       <p className="text-sm text-gray-700 dark:text-gray-300">
-        We use cookies to understand how visitors use this site. We only turn on
-        analytics if you say it&apos;s okay. Read our{' '}
+        We use cookies to understand how visitors use this site. We only set
+        analytics cookies if you say it&apos;s okay — otherwise we just count
+        visits anonymously. Read our{' '}
         <Link
           href="/privacy-policy"
           className="font-medium text-green-600 underline hover:text-green-700 dark:text-green-400 dark:hover:text-green-300"

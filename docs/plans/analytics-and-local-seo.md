@@ -34,9 +34,11 @@ Problems:
 
 ## Decisions needed from the site owner
 
-- [ ] **Consent Mode v2?** Keep the strict opt-in (current), or load GA with
-      Consent Mode defaults set to `denied`. That still respects a decline
-      but sends anonymous, cookieless pings so totals are closer to reality.
+- [x] **Consent Mode v2?** Decided 2026-10-12: **use Consent Mode v2.** GA
+      always loads with every consent type `denied`; Accept grants only
+      `analytics_storage`. Note: GA only shows declined visitors through
+      behavioural modelling, which needs roughly 1,000+ declined events a
+      day, so at current traffic the reports will look much the same.
 - [ ] **Starting prices.** Add real "from" prices to `pricingTiers` in
       `site-content.ts`, or keep pricing hidden.
 - [ ] **Which service page to build first.** Recommended: web design in
@@ -83,7 +85,7 @@ Files: `ContactUsButton.tsx` (use `trackCtaClick`), `ContactForm.tsx`
 Plenty' }`, plus Papamoa, Te Puke, Katikati, Rotorua and Whakatane.
 - Add `priceRange` once the starting prices are decided.
 
-### 1.4 (Only if the owner chooses Consent Mode v2) — `ConsentAwareAnalytics.tsx`
+### 1.4 Consent Mode v2 — `ConsentAwareAnalytics.tsx` (done)
 
 - Always load GA. Before `config`, run `gtag('consent', 'default', {
 analytics_storage: 'denied', ad_storage: 'denied', ad_user_data:
