@@ -11,6 +11,8 @@ describe('FooterSection crawlable links', () => {
       ['Home', '/'],
       ['Work', '/#selected-work-section'],
       ['Web design Tauranga', '/web-design-tauranga'],
+      ['Business automation', '/business-automation-bay-of-plenty'],
+      ['Commercial photography & video', '/commercial-photography-tauranga'],
       ['Photography', '/photography'],
       ['Portraits', '/photography/portraits'],
       ['Videography', '/videography'],

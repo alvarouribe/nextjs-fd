@@ -34,8 +34,12 @@ describe('sitemap videography', () => {
 });
 
 describe('sitemap service pages', () => {
-  it('includes the web design Tauranga page with a high priority', () => {
-    const route = sitemap().find((r) => r.url.endsWith('/web-design-tauranga'));
+  it.each([
+    '/web-design-tauranga',
+    '/business-automation-bay-of-plenty',
+    '/commercial-photography-tauranga',
+  ])('includes %s with a high priority', (path) => {
+    const route = sitemap().find((r) => r.url.endsWith(path));
     expect(route?.priority).toBe(0.9);
     expect(route?.changeFrequency).toBe('monthly');
   });
