@@ -1,3 +1,6 @@
+'use client';
+
+import { trackContactClick } from '@/app/utils/analytics';
 import { contactDetails } from '@/app/utils/site-content';
 
 export default function ContactDetails() {
@@ -10,6 +13,7 @@ export default function ContactDetails() {
         <p className="mt-1">
           <a
             href={`mailto:${email}`}
+            onClick={() => trackContactClick({ method: 'email' })}
             className="font-semibold text-green-600 hover:text-green-500 dark:text-green-400"
           >
             {email}
@@ -20,6 +24,7 @@ export default function ContactDetails() {
         <p className="mt-1">
           <a
             href={`tel:${phone}`}
+            onClick={() => trackContactClick({ method: 'phone' })}
             className="font-semibold text-green-600 hover:text-green-500 dark:text-green-400"
           >
             {phone}

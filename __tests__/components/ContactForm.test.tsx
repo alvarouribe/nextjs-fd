@@ -7,6 +7,7 @@ const addFlashMessage = jest.fn();
 const checkEmailLimitCookie = jest.fn();
 const setEmailLimitCookie = jest.fn();
 const trackGenerateLead = jest.fn();
+const trackContactFormError = jest.fn();
 
 jest.mock('../../src/hooks/useFlashMessages', () => ({
   __esModule: true,
@@ -20,6 +21,8 @@ jest.mock('../../src/app/utils/cookies-functions', () => ({
 
 jest.mock('../../src/app/utils/analytics', () => ({
   trackGenerateLead: (...args: unknown[]) => trackGenerateLead(...args),
+  trackContactFormError: (...args: unknown[]) => trackContactFormError(...args),
+  trackContactClick: jest.fn(),
 }));
 
 describe('ContactForm', () => {
@@ -42,6 +45,7 @@ describe('ContactForm', () => {
     });
     expect(screen.getByLabelText(/email/i)).toHaveFocus();
     expect(fetchMock).not.toHaveBeenCalled();
+    expect(trackGenerateLead).not.toHaveBeenCalled();
   });
 
   it('shows a validation error when message is empty', () => {
@@ -102,14 +106,9 @@ describe('ContactForm', () => {
         message: 'Your message has been sent successfully!',
       })
     );
-    expect(trackGenerateLead).toHaveBeenNthCalledWith(1, {
-      source: 'contact_form',
-      result: 'attempt',
-    });
-    expect(trackGenerateLead).toHaveBeenNthCalledWith(2, {
-      source: 'contact_form',
-      result: 'success',
-    });
+    expect(trackGenerateLead).toHaveBeenCalledTimes(1);
+    expect(trackGenerateLead).toHaveBeenCalledWith({ source: 'contact_form' });
+    expect(trackContactFormError).not.toHaveBeenCalled();
 
     expect(fetchMock).toHaveBeenCalledWith('/api/send-email', {
       method: 'POST',
@@ -146,14 +145,8 @@ describe('ContactForm', () => {
         message: 'There was an error sending your message. Please try again later.',
       })
     );
-    expect(trackGenerateLead).toHaveBeenNthCalledWith(1, {
-      source: 'contact_form',
-      result: 'attempt',
-    });
-    expect(trackGenerateLead).toHaveBeenNthCalledWith(2, {
-      source: 'contact_form',
-      result: 'error',
-    });
+    expect(trackGenerateLead).not.toHaveBeenCalled();
+    expect(trackContactFormError).toHaveBeenCalledWith({ reason: 'api' });
     expect(setEmailLimitCookie).not.toHaveBeenCalled();
   });
 
@@ -176,14 +169,8 @@ describe('ContactForm', () => {
         message: 'There was an error sending your message. Please try again later.',
       })
     );
-    expect(trackGenerateLead).toHaveBeenNthCalledWith(1, {
-      source: 'contact_form',
-      result: 'attempt',
-    });
-    expect(trackGenerateLead).toHaveBeenNthCalledWith(2, {
-      source: 'contact_form',
-      result: 'error',
-    });
+    expect(trackGenerateLead).not.toHaveBeenCalled();
+    expect(trackContactFormError).toHaveBeenCalledWith({ reason: 'network' });
     expect(setEmailLimitCookie).not.toHaveBeenCalled();
   });
 

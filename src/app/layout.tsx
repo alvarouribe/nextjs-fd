@@ -5,6 +5,7 @@ import { Toaster } from 'react-hot-toast';
 import Header from '@/components/nav/Header';
 import FooterSection from '@/components/FooterSection';
 import ConsentAwareAnalytics from '@/components/ConsentAwareAnalytics';
+import { contactDetails } from '@/app/utils/site-content';
 
 const GA_MEASUREMENT_ID = 'G-SBMJ2GKDC1';
 
@@ -68,9 +69,17 @@ export const jsonLd = {
   description,
   url: SITE_URL,
   image: `${SITE_URL}/images/mount-maunganui-toby-hall.jpg`,
+  telephone: contactDetails.phone,
+  email: contactDetails.email,
   areaServed: [
+    { '@type': 'AdministrativeArea', name: 'Bay of Plenty' },
     { '@type': 'City', name: 'Mount Maunganui' },
     { '@type': 'City', name: 'Tauranga' },
+    { '@type': 'City', name: 'Papamoa' },
+    { '@type': 'City', name: 'Te Puke' },
+    { '@type': 'City', name: 'Katikati' },
+    { '@type': 'City', name: 'Rotorua' },
+    { '@type': 'City', name: 'Whakatane' },
     { '@type': 'Country', name: 'New Zealand' },
   ],
   address: {

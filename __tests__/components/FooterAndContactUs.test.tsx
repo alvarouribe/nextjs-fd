@@ -5,10 +5,12 @@ import ContactUsButton from '../../src/components/ContactUsButton';
 import FooterSection from '../../src/components/FooterSection';
 
 const trackGenerateLead = jest.fn();
+const trackCtaClick = jest.fn();
 const push = jest.fn();
 
 jest.mock('../../src/app/utils/analytics', () => ({
   trackGenerateLead: (...args: unknown[]) => trackGenerateLead(...args),
+  trackCtaClick: (...args: unknown[]) => trackCtaClick(...args),
 }));
 
 jest.mock('next/navigation', () => ({
@@ -55,10 +57,9 @@ describe('ContactUsButton', () => {
     fireEvent.click(screen.getByRole('button', { name: /get a free quote/i }));
 
     expect(scrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth' });
-    expect(trackGenerateLead).toHaveBeenCalledWith({
-      source: 'cta_button',
-      location: 'unknown',
-    });
+    // A CTA click only scrolls to the form — it is not a lead.
+    expect(trackCtaClick).toHaveBeenCalledWith({ location: 'unknown' });
+    expect(trackGenerateLead).not.toHaveBeenCalled();
     section.remove();
   });
 
