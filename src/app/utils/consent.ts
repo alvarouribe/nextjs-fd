@@ -63,3 +63,44 @@ export const clearConsent = (): void => {
 
   dispatchConsentChange(null);
 };
+
+// Google Consent Mode v2. GA4 always loads, but every consent type starts
+// as 'denied', so until the visitor accepts it sets no cookies and only
+// sends anonymous, cookieless pings. Only analytics_storage is ever
+// granted — the banner asks about analytics, not advertising.
+//
+// This runs as an inline <script> in the root layout, before GA's own init
+// script, because Google requires the consent default to be set before
+// `gtag('config')`. A returning visitor who already accepted is upgraded
+// straight away from the cookie, so their first page view isn't cookieless.
+export const CONSENT_MODE_DEFAULTS_SCRIPT = `
+window.dataLayer = window.dataLayer || [];
+window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+window.gtag('consent', 'default', {
+  analytics_storage: 'denied',
+  ad_storage: 'denied',
+  ad_user_data: 'denied',
+  ad_personalization: 'denied'
+});
+window.gtag('set', 'ads_data_redaction', true);
+if (/(?:^|;\\s*)${CONSENT_COOKIE_NAME}=granted(?:;|$)/.test(document.cookie)) {
+  window.gtag('consent', 'update', { analytics_storage: 'granted' });
+}
+`;
+
+type WindowWithGtag = Window & {
+  gtag?: (...args: unknown[]) => void;
+};
+
+// Tells GA about a consent change made after page load (banner click, or
+// "Change cookie preferences" clearing the choice).
+export const updateConsentMode = (value: ConsentValue | null): void => {
+  if (typeof window === 'undefined') return;
+
+  const { gtag } = window as WindowWithGtag;
+  if (typeof gtag !== 'function') return;
+
+  gtag('consent', 'update', {
+    analytics_storage: value === 'granted' ? 'granted' : 'denied',
+  });
+};

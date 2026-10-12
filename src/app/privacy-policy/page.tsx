@@ -49,11 +49,14 @@ export default function PrivacyPolicyPage() {
             don&apos;t ask for anything more than we need to get back to you.
           </p>
           <p className="mt-4 text-base/7 text-gray-700 dark:text-gray-300">
-            If you accept our cookie banner, we also collect anonymised usage
-            analytics via Google Analytics 4 (GA4) — pages visited, general
-            location, and device type. GA4 only runs after you give consent; if
-            you decline, or don&apos;t make a choice, no analytics cookies are
-            set and no analytics data is collected.
+            We use Google Analytics 4 (GA4) to understand how the site is used —
+            pages visited, general location, and device type. If you accept our
+            cookie banner, GA4 sets analytics cookies so it can recognise repeat
+            visits. If you decline, or don&apos;t make a choice, we use
+            Google&apos;s Consent Mode: no analytics cookies are set, and GA4
+            only receives anonymous measurements without cookies (such as a page
+            being viewed) that can&apos;t be used to recognise you. We never use
+            analytics for advertising.
           </p>
         </Reveal>
 
@@ -64,8 +67,8 @@ export default function PrivacyPolicyPage() {
           <p className="mt-4 text-base/7 text-gray-700 dark:text-gray-300">
             We use contact form details solely to respond to your enquiry about
             websites, automation, or photography/video services. Analytics data
-            (only ever collected with your consent) helps us understand which
-            pages are useful and where to improve the site.
+            helps us understand which pages are useful and where to improve the
+            site.
           </p>
         </Reveal>
 
@@ -74,13 +77,12 @@ export default function PrivacyPolicyPage() {
             Storage and disclosure
           </h2>
           <p className="mt-4 text-base/7 text-gray-700 dark:text-gray-300">
-            Contact form submissions are sent as email via Zoho Mail. Where
-            you&apos;ve given consent, analytics data is processed by Google
-            Analytics. The site itself is hosted on Vercel, and photography
-            gallery images are served via Cloudinary. Each of these providers
-            processes data on our behalf under their own privacy and security
-            terms. We do not sell your personal information, and we don&apos;t
-            share it with anyone else.
+            Contact form submissions are sent as email via Zoho Mail. Analytics
+            data is processed by Google Analytics. The site itself is hosted on
+            Vercel, and photography gallery images are served via Cloudinary.
+            Each of these providers processes data on our behalf under their own
+            privacy and security terms. We do not sell your personal
+            information, and we don&apos;t share it with anyone else.
           </p>
         </Reveal>
 
