@@ -43,6 +43,11 @@ describe('Privacy policy page content', () => {
     expect(screen.getAllByText(/consent/i).length).toBeGreaterThan(0);
   });
 
+  it('explains that declining still sends anonymous, cookieless measurements', () => {
+    expect(textContent).toMatch(/Consent Mode/);
+    expect(textContent).toMatch(/without cookies|cookieless/i);
+  });
+
   it('mentions the third parties data is disclosed to', () => {
     expect(screen.getByText(/Zoho/i)).toBeInTheDocument();
     expect(screen.getAllByText(/Google Analytics/i).length).toBeGreaterThan(0);

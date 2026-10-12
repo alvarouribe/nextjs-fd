@@ -5,6 +5,7 @@ import { Toaster } from 'react-hot-toast';
 import Header from '@/components/nav/Header';
 import FooterSection from '@/components/FooterSection';
 import ConsentAwareAnalytics from '@/components/ConsentAwareAnalytics';
+import { CONSENT_MODE_DEFAULTS_SCRIPT } from '@/app/utils/consent';
 import { contactDetails } from '@/app/utils/site-content';
 
 const GA_MEASUREMENT_ID = 'G-SBMJ2GKDC1';
@@ -118,6 +119,9 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `if(!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.dataset.motion='on';}`,
           }}
+        />
+        <script
+          dangerouslySetInnerHTML={{ __html: CONSENT_MODE_DEFAULTS_SCRIPT }}
         />
         <script
           type="application/ld+json"

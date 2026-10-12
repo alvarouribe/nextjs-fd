@@ -20,17 +20,38 @@ const clearCookies = () => {
   });
 };
 
+type WindowWithGtag = Window & { gtag?: jest.Mock };
+
+const consentUpdates = (gtag: jest.Mock) =>
+  gtag.mock.calls.filter((call) => call[0] === 'consent' && call[1] === 'update');
+
 describe('ConsentAwareAnalytics', () => {
+  let gtag: jest.Mock;
+
   beforeEach(() => {
     clearCookies();
     GoogleAnalyticsMock.mockClear();
+    gtag = jest.fn();
+    (window as WindowWithGtag).gtag = gtag;
   });
 
-  it('does not load GA and shows the banner when no consent choice has been made', () => {
+  afterEach(() => {
+    delete (window as WindowWithGtag).gtag;
+  });
+
+  // Consent Mode v2: GA always loads, but runs cookieless (consent defaults
+  // set to denied by the inline script in the root layout) until the
+  // visitor accepts.
+  it('loads GA in cookieless mode and shows the banner when no consent choice has been made', () => {
     render(<ConsentAwareAnalytics gaId="G-TEST123" />);
 
-    expect(screen.queryByTestId('ga')).not.toBeInTheDocument();
+    expect(screen.getByTestId('ga')).toHaveAttribute('data-ga-id', 'G-TEST123');
     expect(screen.getByRole('region', { name: /cookie/i })).toBeInTheDocument();
+    expect(consentUpdates(gtag)).not.toContainEqual([
+      'consent',
+      'update',
+      { analytics_storage: 'granted' },
+    ]);
   });
 
   it('loads GA immediately on mount when a granted cookie already exists', () => {
@@ -42,36 +63,47 @@ describe('ConsentAwareAnalytics', () => {
     expect(screen.queryByRole('region', { name: /cookie/i })).not.toBeInTheDocument();
   });
 
-  it('does not load GA when a denied cookie already exists, and hides the banner', () => {
+  it('keeps GA cookieless when a denied cookie already exists, and hides the banner', () => {
     document.cookie = `${CONSENT_COOKIE_NAME}=denied`;
 
     render(<ConsentAwareAnalytics gaId="G-TEST123" />);
 
-    expect(screen.queryByTestId('ga')).not.toBeInTheDocument();
+    expect(screen.getByTestId('ga')).toBeInTheDocument();
     expect(screen.queryByRole('region', { name: /cookie/i })).not.toBeInTheDocument();
+    expect(consentUpdates(gtag)).not.toContainEqual([
+      'consent',
+      'update',
+      { analytics_storage: 'granted' },
+    ]);
   });
 
-  it('loads GA immediately after the visitor clicks Accept', () => {
+  it('grants analytics storage immediately after the visitor clicks Accept', () => {
     render(<ConsentAwareAnalytics gaId="G-TEST123" />);
-
-    expect(screen.queryByTestId('ga')).not.toBeInTheDocument();
 
     act(() => {
       fireEvent.click(screen.getByRole('button', { name: /accept/i }));
     });
 
-    expect(screen.getByTestId('ga')).toHaveAttribute('data-ga-id', 'G-TEST123');
+    expect(consentUpdates(gtag).at(-1)).toEqual([
+      'consent',
+      'update',
+      { analytics_storage: 'granted' },
+    ]);
     expect(document.cookie).toContain(`${CONSENT_COOKIE_NAME}=granted`);
   });
 
-  it('does not load GA after the visitor clicks Decline, and persists the choice', () => {
+  it('keeps analytics storage denied after the visitor clicks Decline, and persists the choice', () => {
     render(<ConsentAwareAnalytics gaId="G-TEST123" />);
 
     act(() => {
       fireEvent.click(screen.getByRole('button', { name: /decline/i }));
     });
 
-    expect(screen.queryByTestId('ga')).not.toBeInTheDocument();
+    expect(consentUpdates(gtag).at(-1)).toEqual([
+      'consent',
+      'update',
+      { analytics_storage: 'denied' },
+    ]);
     expect(screen.queryByRole('region', { name: /cookie/i })).not.toBeInTheDocument();
     expect(document.cookie).toContain(`${CONSENT_COOKIE_NAME}=denied`);
   });
