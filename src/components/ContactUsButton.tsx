@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import CTAButton from './CTAButton';
-import { trackGenerateLead } from '@/app/utils/analytics';
+import { trackCtaClick } from '@/app/utils/analytics';
 
 type ContactUsButtonProps = {
   location?: string;
@@ -14,7 +14,7 @@ export default function ContactUsButton({
   const router = useRouter();
 
   const handleContactUsClick = () => {
-    trackGenerateLead({ source: 'cta_button', location });
+    trackCtaClick({ location });
     const contactForm = document.getElementById('contact-form-section');
     if (contactForm) {
       contactForm.scrollIntoView({ behavior: 'smooth' });

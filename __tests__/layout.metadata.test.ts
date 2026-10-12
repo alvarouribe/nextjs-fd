@@ -1,4 +1,5 @@
 import { jsonLd, metadata } from '../src/app/layout';
+import { contactDetails } from '../src/app/utils/site-content';
 
 describe('Root layout metadata', () => {
   it('has an SEO-optimised title reflecting the systems positioning (websites, automation, photography)', () => {
@@ -32,5 +33,30 @@ describe('Root layout JSON-LD', () => {
     expect(jsonLd.knowsAbout).toEqual(
       expect.arrayContaining(['Business automation', 'Video production'])
     );
+  });
+
+  it('includes the phone and email from site content, so they stay in sync', () => {
+    expect(jsonLd.telephone).toBe(contactDetails.phone);
+    expect(jsonLd.email).toBe(contactDetails.email);
+  });
+
+  it('serves the wider Bay of Plenty, not just Mount Maunganui and Tauranga', () => {
+    const names = jsonLd.areaServed.map((area) => area.name);
+    expect(names).toEqual(
+      expect.arrayContaining([
+        'Bay of Plenty',
+        'Mount Maunganui',
+        'Tauranga',
+        'Papamoa',
+        'Te Puke',
+        'Katikati',
+        'Rotorua',
+        'Whakatane',
+      ])
+    );
+    expect(jsonLd.areaServed).toContainEqual({
+      '@type': 'AdministrativeArea',
+      name: 'Bay of Plenty',
+    });
   });
 });

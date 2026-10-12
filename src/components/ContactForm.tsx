@@ -8,7 +8,10 @@ import TextArea from './TextArea';
 import ContactDetails from './ContactDetails';
 import useFlashMessages from '@/hooks/useFlashMessages';
 import ContactSubmitButton from './ContactSubmitButton';
-import { trackGenerateLead } from '@/app/utils/analytics';
+import {
+  trackContactFormError,
+  trackGenerateLead,
+} from '@/app/utils/analytics';
 import {
   setEmailLimitCookie,
   checkEmailLimitCookie,
@@ -67,7 +70,6 @@ export default function ContactForm() {
       return;
     }
     setIsSending(true);
-    trackGenerateLead({ source: 'contact_form', result: 'attempt' });
 
     try {
       const res = await fetch('/api/send-email', {
@@ -81,7 +83,7 @@ export default function ContactForm() {
           type: 'success',
           message: 'Your message has been sent successfully!',
         });
-        trackGenerateLead({ source: 'contact_form', result: 'success' });
+        trackGenerateLead({ source: 'contact_form' });
         setIsFormSent(true);
         setEmailLimitCookie(60); // Set cookie for 60 minutes
       } else {
@@ -90,7 +92,7 @@ export default function ContactForm() {
           message:
             'There was an error sending your message. Please try again later.',
         });
-        trackGenerateLead({ source: 'contact_form', result: 'error' });
+        trackContactFormError({ reason: 'api' });
         console.error(result.error);
       }
     } catch (error) {
@@ -99,7 +101,7 @@ export default function ContactForm() {
         message:
           'There was an error sending your message. Please try again later.',
       });
-      trackGenerateLead({ source: 'contact_form', result: 'error' });
+      trackContactFormError({ reason: 'network' });
       console.error(error);
     } finally {
       setIsSending(false);

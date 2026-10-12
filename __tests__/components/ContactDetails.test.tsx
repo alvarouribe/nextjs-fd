@@ -1,9 +1,20 @@
 import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import ContactDetails from '../../src/components/ContactDetails';
 
 const mockContactDetails = jest.fn();
+const trackContactClick = jest.fn();
+
+jest.mock('../../src/app/utils/analytics', () => ({
+  trackContactClick: (...args: unknown[]) => trackContactClick(...args),
+}));
+
+// jsdom can't follow mailto:/tel: links; stop it trying (and logging).
+const clickWithoutNavigating = (link: HTMLElement) => {
+  link.addEventListener('click', (event) => event.preventDefault());
+  fireEvent.click(link);
+};
 
 jest.mock('../../src/app/utils/site-content', () => ({
   __esModule: true,
@@ -15,6 +26,7 @@ jest.mock('../../src/app/utils/site-content', () => ({
 describe('ContactDetails', () => {
   beforeEach(() => {
     mockContactDetails.mockReset();
+    trackContactClick.mockReset();
   });
 
   it('always shows the suburb, even with no email or phone', () => {
@@ -64,5 +76,29 @@ describe('ContactDetails', () => {
     render(<ContactDetails />);
 
     expect(screen.getAllByRole('link')).toHaveLength(2);
+  });
+
+  it('tracks a contact_click when the email link is clicked', () => {
+    mockContactDetails.mockReturnValue({
+      suburb: 'Mount Maunganui, Bay of Plenty',
+      email: 'hello@flyingdolly.co.nz',
+    });
+
+    render(<ContactDetails />);
+    clickWithoutNavigating(screen.getByRole('link', { name: 'hello@flyingdolly.co.nz' }));
+
+    expect(trackContactClick).toHaveBeenCalledWith({ method: 'email' });
+  });
+
+  it('tracks a contact_click when the phone link is clicked', () => {
+    mockContactDetails.mockReturnValue({
+      suburb: 'Mount Maunganui, Bay of Plenty',
+      phone: '+64 7 123 4567',
+    });
+
+    render(<ContactDetails />);
+    clickWithoutNavigating(screen.getByRole('link', { name: '+64 7 123 4567' }));
+
+    expect(trackContactClick).toHaveBeenCalledWith({ method: 'phone' });
   });
 });
