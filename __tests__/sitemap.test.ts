@@ -32,3 +32,15 @@ describe('sitemap videography', () => {
     expect(route?.lastModified).toEqual(new Date('2026-10-06T10:10:33+00:00'));
   });
 });
+
+describe('sitemap service pages', () => {
+  it.each([
+    '/web-design-tauranga',
+    '/business-automation-bay-of-plenty',
+    '/commercial-photography-tauranga',
+  ])('includes %s with a high priority', (path) => {
+    const route = sitemap().find((r) => r.url.endsWith(path));
+    expect(route?.priority).toBe(0.9);
+    expect(route?.changeFrequency).toBe('monthly');
+  });
+});

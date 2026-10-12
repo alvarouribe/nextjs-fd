@@ -1,5 +1,6 @@
 import { SVGProps, JSX } from 'react';
 import Link from 'next/link';
+import { servicePageList } from '@/app/utils/service-pages';
 
 type NavigationItem = {
   name: string;
@@ -52,6 +53,7 @@ const navigation: NavigationItem[] = [
 const footerLinks = [
   { name: 'Home', href: '/' },
   { name: 'Work', href: '/#selected-work-section' },
+  ...servicePageList.map(page => ({ name: page.shortName, href: page.path })),
   { name: 'Photography', href: '/photography' },
   { name: 'Portraits', href: '/photography/portraits' },
   {

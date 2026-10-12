@@ -35,6 +35,16 @@ describe('Page', () => {
     expect(document.getElementById('features-section')).toBeInTheDocument();
   });
 
+  it.each([
+    ['Web design Tauranga', '/web-design-tauranga'],
+    ['Business automation', '/business-automation-bay-of-plenty'],
+    ['Commercial photography & video', '/commercial-photography-tauranga'],
+  ])('links a service card to the %s page', (name, href) => {
+    render(<Page />);
+
+    expect(screen.getByRole('link', { name: `${name} →` })).toHaveAttribute('href', href);
+  });
+
   it('links from the services section to the photography page', () => {
     render(<Page />);
 

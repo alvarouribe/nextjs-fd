@@ -1,4 +1,8 @@
+import { PhotographyAlbums } from './photography-albums';
+import { servicePageList } from './service-pages';
 import { VideoPosts } from './videography';
+
+export { PhotographyAlbums };
 
 export interface NavSubLink {
   name: string;
@@ -12,32 +16,20 @@ export interface NavLink {
   subLinks?: NavSubLink[];
 }
 
-// Shared by the header flyout and the album nav on every photography page.
-export const PhotographyAlbums: NavSubLink[] = [
-  {
-    name: 'FAVORITES',
-    href: '/photography',
-    description: 'Photos that we loved',
-  },
-  {
-    name: 'PORTRAITS',
-    href: '/photography/portraits',
-    description: 'Professional portrait sessions',
-  },
-  {
-    name: 'GO FREEK 2026 TAURANGA',
-    href: '/photography/go-freek-2026-tauranga',
-    description: 'Event highlights from Go Freek 2026',
-  },
-  {
-    name: 'THE CRABS BEACH TENNIS CLUB',
-    href: '/photography/the-crabs-beach-tennis-spring-2026',
-    description: 'Spring Tournament 2026',
-  },
-];
-
 export const NavigationLinks: NavLink[] = [
   { name: 'WORK', href: '/#selected-work-section' },
+  {
+    // No /services page: on mobile (where flyouts collapse to their parent
+    // link) this goes to the homepage services section, which links to
+    // every service page.
+    name: 'SERVICES',
+    href: '/#services-section',
+    subLinks: servicePageList.map(page => ({
+      name: page.navName,
+      href: page.path,
+      description: page.navDescription,
+    })),
+  },
   {
     name: 'PHOTOGRAPHY',
     href: '/photography',

@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 
+import { servicePageList } from './utils/service-pages';
 import { VideoPosts } from './utils/videography';
 
 const SITE_URL = 'https://www.flyingdolly.co.nz';
@@ -14,6 +15,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified?: Date;
   }> = [
     { path: '/', priority: 1, changeFrequency: 'monthly' as const },
+    ...servicePageList.map(page => ({
+      path: page.path,
+      priority: 0.9,
+      changeFrequency: 'monthly' as const,
+    })),
     { path: '/about', priority: 0.8, changeFrequency: 'monthly' as const },
     { path: '/photography', priority: 0.6, changeFrequency: 'weekly' as const },
     {

@@ -24,6 +24,12 @@ export interface SelectedWorkProject {
   imageSrc: string; // homepage screenshot, 1200x750
 }
 
+export interface ProcessStep {
+  step: string;
+  name: string;
+  description: string;
+}
+
 export interface ContactDetails {
   email?: string;
   phone?: string;
@@ -91,3 +97,31 @@ export const contactDetails: ContactDetails = {
   phone: '+64 21 525 144',
   suburb: 'Mount Maunganui, Bay of Plenty',
 };
+
+// How every engagement runs — shown on the homepage and the service pages.
+export const processSteps: ProcessStep[] = [
+  {
+    step: '01',
+    name: 'Discover',
+    description:
+      'We start with a free, no-obligation quote — a quick chat to understand your business, your goals, and what success looks like for you.',
+  },
+  {
+    step: '02',
+    name: 'Build',
+    description:
+      'We design and develop your website, automation, or content — keeping you in the loop at every stage.',
+  },
+  {
+    step: '03',
+    name: 'Launch',
+    description:
+      'We go live fast, handle the technical details, and make sure everything works flawlessly across devices.',
+  },
+  {
+    step: '04',
+    name: 'Grow',
+    description:
+      'Beyond launch we optimise, support, and scale — so your site keeps performing as your business grows.',
+  },
+];

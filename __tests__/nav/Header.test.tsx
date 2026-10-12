@@ -227,9 +227,42 @@ describe('Header', () => {
     const items = getMenuList().querySelectorAll(':scope > li');
     expect(Array.from(items).map((item) => item.textContent)).toEqual([
       'WORK',
+      'SERVICES',
       'PHOTOGRAPHY',
       'VIDEOGRAPHY',
       'ABOUT',
     ]);
+  });
+
+  it('collapses services to a link to the homepage services section in the mobile menu', () => {
+    render(<Header />);
+    fireEvent.click(screen.getByRole('button', { name: /open main menu/i }));
+
+    expect(screen.getByRole('link', { name: 'SERVICES' })).toHaveAttribute(
+      'href',
+      '/#services-section'
+    );
+    expect(screen.queryByRole('link', { name: 'WEB DESIGN' })).not.toBeInTheDocument();
+  });
+
+  it('lists every service page in the desktop services flyout', async () => {
+    render(<Header />);
+
+    fireEvent.click(screen.getByRole('button', { name: /services/i }));
+
+    await waitFor(() => {
+      expect(screen.getByRole('link', { name: 'WEB DESIGN' })).toHaveAttribute(
+        'href',
+        '/web-design-tauranga'
+      );
+    });
+    expect(screen.getByRole('link', { name: 'AUTOMATION' })).toHaveAttribute(
+      'href',
+      '/business-automation-bay-of-plenty'
+    );
+    expect(screen.getByRole('link', { name: 'PHOTOGRAPHY & VIDEO' })).toHaveAttribute(
+      'href',
+      '/commercial-photography-tauranga'
+    );
   });
 });
