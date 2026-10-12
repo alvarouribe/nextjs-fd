@@ -35,6 +35,13 @@ describe('Page', () => {
     expect(document.getElementById('features-section')).toBeInTheDocument();
   });
 
+  it('links the Websites service card to the web design Tauranga page', () => {
+    render(<Page />);
+
+    const link = screen.getByRole('link', { name: /web design in tauranga/i });
+    expect(link).toHaveAttribute('href', '/web-design-tauranga');
+  });
+
   it('links from the services section to the photography page', () => {
     render(<Page />);
 

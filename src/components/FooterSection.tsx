@@ -52,6 +52,7 @@ const navigation: NavigationItem[] = [
 const footerLinks = [
   { name: 'Home', href: '/' },
   { name: 'Work', href: '/#selected-work-section' },
+  { name: 'Web design Tauranga', href: '/web-design-tauranga' },
   { name: 'Photography', href: '/photography' },
   { name: 'Portraits', href: '/photography/portraits' },
   {

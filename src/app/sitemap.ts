@@ -14,6 +14,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified?: Date;
   }> = [
     { path: '/', priority: 1, changeFrequency: 'monthly' as const },
+    {
+      path: '/web-design-tauranga',
+      priority: 0.9,
+      changeFrequency: 'monthly' as const,
+    },
     { path: '/about', priority: 0.8, changeFrequency: 'monthly' as const },
     { path: '/photography', priority: 0.6, changeFrequency: 'weekly' as const },
     {

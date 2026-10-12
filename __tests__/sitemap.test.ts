@@ -32,3 +32,11 @@ describe('sitemap videography', () => {
     expect(route?.lastModified).toEqual(new Date('2026-10-06T10:10:33+00:00'));
   });
 });
+
+describe('sitemap service pages', () => {
+  it('includes the web design Tauranga page with a high priority', () => {
+    const route = sitemap().find((r) => r.url.endsWith('/web-design-tauranga'));
+    expect(route?.priority).toBe(0.9);
+    expect(route?.changeFrequency).toBe('monthly');
+  });
+});

@@ -10,6 +10,7 @@ describe('FooterSection crawlable links', () => {
     const expectedLinks: Array<[string, string]> = [
       ['Home', '/'],
       ['Work', '/#selected-work-section'],
+      ['Web design Tauranga', '/web-design-tauranga'],
       ['Photography', '/photography'],
       ['Portraits', '/photography/portraits'],
       ['Videography', '/videography'],

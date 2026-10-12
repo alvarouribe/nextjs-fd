@@ -12,33 +12,7 @@ import PricingSection from '@/components/PricingSection';
 import SelectedWork from '@/components/SelectedWork';
 import Testimonials from '@/components/Testimonials';
 import Reveal from '@/components/motion/Reveal';
-
-const processSteps = [
-  {
-    step: '01',
-    name: 'Discover',
-    description:
-      'We start with a free, no-obligation quote — a quick chat to understand your business, your goals, and what success looks like for you.',
-  },
-  {
-    step: '02',
-    name: 'Build',
-    description:
-      'We design and develop your website, automation, or content — keeping you in the loop at every stage.',
-  },
-  {
-    step: '03',
-    name: 'Launch',
-    description:
-      'We go live fast, handle the technical details, and make sure everything works flawlessly across devices.',
-  },
-  {
-    step: '04',
-    name: 'Grow',
-    description:
-      'Beyond launch we optimise, support, and scale — so your site keeps performing as your business grows.',
-  },
-];
+import { processSteps } from '@/app/utils/site-content';
 
 const services = [
   {
@@ -46,6 +20,10 @@ const services = [
     description:
       'Custom design, fast performance, and SEO-ready pages built to convert visitors into customers.',
     icon: PaintBrushIcon,
+    page: {
+      label: 'Web design in Tauranga →',
+      href: '/web-design-tauranga',
+    },
     crossSell: {
       label: 'Already have a website? Add automation →',
       href: '#contact-form-section',
@@ -125,6 +103,11 @@ export default function Home() {
                   <dd className="mt-2 text-base/7 text-gray-600 dark:text-gray-400">
                     {service.description}
                   </dd>
+                  {'page' in service && service.page && (
+                    <p className="mt-3 text-sm font-semibold text-green-600 dark:text-green-400">
+                      <Link href={service.page.href}>{service.page.label}</Link>
+                    </p>
+                  )}
                   <p className="mt-3 text-sm font-semibold text-green-600 dark:text-green-400">
                     <Link href={service.crossSell.href}>
                       {service.crossSell.label}
