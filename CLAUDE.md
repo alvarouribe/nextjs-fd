@@ -57,6 +57,12 @@ Required in `.env.local` (not committed):
 - Tests live in `__tests__/`, mirroring `src/` structure, using Jest + `@testing-library/react` + jsdom (config in `jest.config.ts`, `jest.setup.ts`).
 - Server-only modules (Cloudinary, email) are exercised via mocks at the route/module boundary — check existing tests in `__tests__/api/` and `__tests__/photography/` for the established mocking pattern before adding new ones.
 
+## Plans (`docs/plans/`)
+
+- Implementation plans and playbooks for site and growth work, one Markdown file per initiative (e.g. `landing-page-upgrade.md`, `analytics-and-local-seo.md`, `phase-4-outreach-and-ads.md`). Each opens with its source audit, branch name and goal, and later plans reference the earlier ones they follow on from.
+- Read the relevant plan before working on that initiative. Decisions recorded there were made by the site owner, so follow them rather than revisiting them (e.g. never add placeholder testimonials, prices or contact details).
+- Growth work happens on `growth/<topic>` branches, and the plan is usually committed on that same branch.
+
 <!-- BEGIN:nextjs-agent-rules -->
 
 # This is NOT the Next.js you know
